@@ -1,0 +1,4 @@
+<http://example.org/vocab#test> <http://example.org/vocab#A> _:52338472eaf744e3130572642ed234a5bf10595f .
+<http://example.org/vocab#test> <http://example.org/vocab#B> _:0cf50ba2926c2f3ebfb460966bcae14be7b27f11 .
+_:0cf50ba2926c2f3ebfb460966bcae14be7b27f11 <http://example.org/vocab#next> _:12342544cfd79e4559235d0d9f853b2dad2dfd1b .
+_:52338472eaf744e3130572642ed234a5bf10595f <http://example.org/vocab#next> _:12342544cfd79e4559235d0d9f853b2dad2dfd1b .

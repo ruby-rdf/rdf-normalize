@@ -1,0 +1,3 @@
+<http://example.org/test#example> <http://example.org/vocab#embed> _:9acff72a160103d611beba919380cebf03fdc395 .
+<http://example.org/test#example> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.org/vocab#Foo> .
+_:9acff72a160103d611beba919380cebf03fdc395 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.org/vocab#Bar> .
