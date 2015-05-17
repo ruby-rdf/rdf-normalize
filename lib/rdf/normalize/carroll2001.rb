@@ -2,6 +2,7 @@ module RDF::Normalize
   class Carroll2001
     include RDF::Enumerable
     include Base
+    include Utils
 
     ##
     # Create an enumerable with grounded nodes

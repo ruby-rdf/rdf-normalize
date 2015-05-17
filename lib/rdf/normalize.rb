@@ -28,6 +28,7 @@ module RDF
   # @author [Gregg Kellogg](http://greggkellogg.net/)
   module Normalize
     require  'rdf/normalize/format'
+    require  'rdf/normalize/utils'
     autoload :Base,       'rdf/normalize/base'
     autoload :Carroll2001, 'rdf/normalize/carroll2001'
     autoload :URDNA2015,  'rdf/normalize/urdna2015'

@@ -25,6 +25,7 @@ module RDF::Normalize
     # @yieldparam [RDF::Writer] writer
     def initialize(output = $stdout, options = {}, &block)
       super do
+        @options[:depth] ||= 0
         @repo = RDF::Repository.new
         if block_given?
           case block.arity

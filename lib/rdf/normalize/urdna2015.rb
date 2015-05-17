@@ -2,6 +2,7 @@ module RDF::Normalize
   class URDNA2015
     include RDF::Enumerable
     include Base
+    include Utils
 
     ##
     # Create an enumerable with grounded nodes
@@ -9,11 +10,11 @@ module RDF::Normalize
     # @param [RDF::Enumerable] enumerable
     # @return [RDF::Enumerable]
     def initialize(enumerable, options)
-      @dataset = enumerable
+      @dataset, @options = enumerable, options
     end
 
     def each(&block)
-      ns = NormalizationState.new
+      ns = NormalizationState.new(@options)
 
       # Map BNodes to the statements they are used by
       dataset.each_statement do |statement|
@@ -30,7 +31,8 @@ module RDF::Normalize
 
         # Calculate hashes for first degree nodes
         non_normalized_identifiers.each do |node|
-          hash = ns.hash_first_degree_quads(node)
+          hash = depth {ns.hash_first_degree_quads(node)}
+          debug("1deg") {"hash: #{hash}"}
           ns.add_bnode_hash(node, hash)
         end
 
@@ -39,7 +41,8 @@ module RDF::Normalize
           identifier_list = ns.hash_to_bnodes[hash]
           next if identifier_list.length > 1
           node = identifier_list.first
-          ns.canonical_issuer.issue_identifier(node)
+          id = ns.canonical_issuer.issue_identifier(node)
+          debug("single node") {"node: #{node.to_ntriples}, hash: #{hash}, id: _:#{id}"}
           non_normalized_identifiers -= identifier_list
           ns.hash_to_bnodes.delete(hash)
           simple = true
@@ -49,6 +52,7 @@ module RDF::Normalize
       # Iterate over hashs having more than one node
       ns.hash_to_bnodes.keys.sort.each do |hash|
         identifier_list = ns.hash_to_bnodes[hash]
+        debug("multiple nodes") {"node: #{identifier_list.map(&:to_ntriples).join(",")}, hash: #{hash}"}
         hash_path_list = []
 
         # Create a hash_path_list for all bnodes using a temporary identifier used to create canonical replacements
@@ -56,13 +60,15 @@ module RDF::Normalize
           next if ns.canonical_issuer.issued.include?(identifier)
           temporary_issuer = IdentifierIssuer.new("b")
           temporary_issuer.issue_identifier(identifier)
-          hash_path_list << ns.hash_n_degree_quads(identifier, temporary_issuer)
+          hash_path_list << depth {ns.hash_n_degree_quads(identifier, temporary_issuer)}
         end
+        debug("->") {"hash_path_list: #{hash_path_list.map(&:first).inspect}"}
 
         # Create canonical replacements for nodes
         hash_path_list.sort_by(&:first).map(&:last).each do |issuer|
           issuer.issued.each do |node|
-            ns.canonical_issuer.issue_identifier(node)
+            id = ns.canonical_issuer.issue_identifier(node)
+            debug("-->") {"node: #{node.to_ntriples}, id: _:#{id}"}
           end
         end
       end
@@ -82,25 +88,30 @@ module RDF::Normalize
 
   private
 
-    class NormalizationState 
+    class NormalizationState
+      include Utils
+
       attr_accessor :bnode_to_statements
       attr_accessor :hash_to_bnodes
       attr_accessor :canonical_issuer
 
-      def initialize
+      def initialize(options)
+        @options = options
         @bnode_to_statements, @hash_to_bnodes, @canonical_issuer = {}, {}, IdentifierIssuer.new("c14n")
       end
 
       def add_statement(node, statement)
-        (bnode_to_statements[node] ||= []) << statement
+        bnode_to_statements[node] ||= []
+        bnode_to_statements[node] << statement unless bnode_to_statements[node].include?(statement)
       end
 
       def add_bnode_hash(node, hash)
-        (hash_to_bnodes[hash] ||= []) << node
+        hash_to_bnodes[hash] ||= []
+        hash_to_bnodes[hash] << node unless hash_to_bnodes[hash].include?(node)
       end
 
       # @param [RDF::Node] node
-      # @return [String] the SHA256 hexdigest hash of statements using this node, with replacements
+      # @return [String] the SHA1 hexdigest hash of statements using this node, with replacements
       def hash_first_degree_quads(node)
         quads = bnode_to_statements.
           fetch(node, []).
@@ -115,15 +126,17 @@ module RDF::Normalize
             RDF::NQuads::Writer.serialize(RDF::Statement.from(quad))
           end
 
-        Digest::SHA256.hexdigest(quads.sort.join)
+        debug("1deg") {"node: #{node}, quads: #{quads}"}
+        hexdigest(quads.sort.join)
       end
 
-      # @param [RDF::Node] target SPEC CONFUSION: not used in algorithm
+      # SPEC CONFUSION: `target` not used in algorithm, seeming to generate useless results
+      # @param [RDF::Node] target
       # @param [RDF::Node] related
       # @param [RDF::Statement] statement
       # @param [IdentifierIssuer] issuer
       # @param [String] position one of :s, :o, or :g
-      # @return [String] the SHA256 hexdigest hash
+      # @return [String] the SHA1 hexdigest hash
       def hash_related_node(target, related, statement, issuer, position)
         identifier = canonical_issuer.identifier(related) ||
                      issuer.identifier(related) ||
@@ -131,13 +144,14 @@ module RDF::Normalize
         input = position.to_s
         input << statement.predicate.to_ntriples unless position == :g
         input << identifier
-        Digest::SHA256.hexdigest(input)
+        hexdigest(input)
       end
 
       # @param [RDF::Node] node
       # @param [IdentifierIssuer] issuer
       # @return [Array<String,IdentifierIssuer>] the Hash and issuer
       def hash_n_degree_quads(node, issuer)
+        debug("ndeg") {"node: #{node.to_ntriples}"}
         map = {}
         bnode_to_statements.fetch(node, []).each do |statement|
           statement.to_hash.each do |position, term|
@@ -151,13 +165,14 @@ module RDF::Normalize
             end
 
             hash = hash_related_node(node, term, statement, issuer, pos)
-            (map[hash] ||= []) << node
-
+            map[hash] ||= []
+            map[hash] << node unless map[hash].include?(node)
           end
         end
 
         # Iterate over related nodes
         # SPEC CONFUSION: This terminates after the first entry
+        # SPEC CONFUSION: Also run this when there is just a single entry for a hash?
         map.keys.sort.each do |hash|
           list = map.fetch(hash, [])
           chosen_path, chosen_issuer = "", nil
@@ -175,9 +190,10 @@ module RDF::Normalize
                 break
               end
             end
+            debug("ndeg") {"hash: #{hash}, path: #{path.inspect}"}
 
             recursion_list.each do |related|
-              result = hash_n_degree_quads(related, issuer_copy)
+              result = depth {hash_n_degree_quads(related, issuer_copy)}
               path << issuer_copy.issue_identifier(related)
               path << "<#{result.first}>"
               issuer_copy = result.last
@@ -191,8 +207,15 @@ module RDF::Normalize
 
           # Seems like this should be out one more level
           # SPEC CONFUSION: nomenclature is very confusing
-          return [Digest::SHA256.hexdigest((map.keys + [chosen_path]).join("")), chosen_issuer]
+          return [hexdigest((map.keys + [chosen_path]).join("")), chosen_issuer]
         end
+      end
+
+      private
+
+      # FIXME: should be SHA-256.
+      def hexdigest(val)
+        Digest::SHA1.hexdigest(val)
       end
     end
 
