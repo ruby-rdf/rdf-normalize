@@ -50,6 +50,7 @@ module RDF::Normalize
       end
 
       # Iterate over hashs having more than one node
+      # SPEC CONFUSION: this includes those nodes we've found to be simple
       ns.hash_to_bnodes.keys.sort.each do |hash|
         identifier_list = ns.hash_to_bnodes[hash]
         debug("multiple nodes") {"node: #{identifier_list.map(&:to_ntriples).join(",")}, hash: #{hash}"}
@@ -113,8 +114,7 @@ module RDF::Normalize
       # @param [RDF::Node] node
       # @return [String] the SHA1 hexdigest hash of statements using this node, with replacements
       def hash_first_degree_quads(node)
-        quads = bnode_to_statements.
-          fetch(node, []).
+        quads = bnode_to_statements[node].
           map do |statement|
             quad = statement.to_quad.map do |t|
               case t
@@ -147,68 +147,74 @@ module RDF::Normalize
         hexdigest(input)
       end
 
-      # @param [RDF::Node] node
+      # @param [RDF::Node] identifier
       # @param [IdentifierIssuer] issuer
       # @return [Array<String,IdentifierIssuer>] the Hash and issuer
-      def hash_n_degree_quads(node, issuer)
-        debug("ndeg") {"node: #{node.to_ntriples}"}
+      def hash_n_degree_quads(identifier, issuer)
+        debug("ndeg") {"identifier: #{identifier.to_ntriples}"}
+
+        # hash to related blank nodes map
         map = {}
-        bnode_to_statements.fetch(node, []).each do |statement|
-          statement.to_hash.each do |position, term|
-            next unless term.is_a?(RDF::Node)
 
-            pos = case position
-            when :subject   then :s
-            when :predicate then :p # for good measure
-            when :object    then :o
-            when :context   then :g
-            end
+        bnode_to_statements[identifier].each do |statement|
+          statement.to_hash(:s, :p, :o, :g).each do |pos, term|
+            next if !term.is_a?(RDF::Node) || term == identifier
 
-            hash = hash_related_node(node, term, statement, issuer, pos)
+            hash = depth {hash_related_node(identifier, term, statement, issuer, pos)}
             map[hash] ||= []
-            map[hash] << node unless map[hash].include?(node)
+            map[hash] << term unless map[hash].include?(term)
           end
         end
 
         # Iterate over related nodes
         # SPEC CONFUSION: This terminates after the first entry
         # SPEC CONFUSION: Also run this when there is just a single entry for a hash?
-        map.keys.sort.each do |hash|
-          list = map.fetch(hash, [])
-          chosen_path, chosen_issuer = "", nil
 
-          list.permutation do |permutation|
-            issuer_copy, path, recursion_list = issuer, "", []
+        # SPEC CONFUSION: in the algorithm, these are set inside the loop, but the loop may not be called if map is empty, which can happen if statements contain bnodes which reference themselves, and that bnode is issuer.
+        chosen_path, chosen_issuer = "", nil
 
-            permutation.each do |related|
-              if canon = canonical_issuer.identifier(related)
-                path << canon
-              elsif !issuer_copy.identifier(related)
-                recursion_list << related
+        debug("ndeg") {"map: #{map.map {|h,l| "#{h}: #{l.map(&:to_ntriples)}"}.join('; ')}"}
+        depth do
+          map.keys.sort.each do |hash|
+            list = map[hash]
+
+            list.permutation do |permutation|
+              debug("ndeg") {"perm: #{permutation.map(&:to_ntriples).join(",")}"}
+              issuer_copy, path, recursion_list = issuer, "", []
+
+              permutation.each do |related|
+                if canon = canonical_issuer.identifier(related)
+                  path << canon
+                elsif !issuer_copy.identifier(related)
+                  recursion_list << related
+                  path << issuer_copy.issue_identifier(related)
+                elsif !chosen_path.empty? && path.length >= chosen_path.length
+                  break
+                end
+              end
+              debug("ndeg") {"hash: #{hash}, path: #{path.inspect}, recursion: #{recursion_list.map(&:to_ntriples)}"}
+
+              recursion_list.each do |related|
+                result = depth {hash_n_degree_quads(related, issuer_copy)}
                 path << issuer_copy.issue_identifier(related)
-              elsif !chosen_path.empty? && path.length >= chosen_path.length
-                break
+                path << "<#{result.first}>"
+                issuer_copy = result.last
+                break if !chosen_path.empty? && path.length >= chosen_path.length && path > chosen_path
+              end
+
+              if chosen_path.empty? || path < chosen_path
+                chosen_path, chosen_issuer = path, issuer_copy
               end
             end
-            debug("ndeg") {"hash: #{hash}, path: #{path.inspect}"}
-
-            recursion_list.each do |related|
-              result = depth {hash_n_degree_quads(related, issuer_copy)}
-              path << issuer_copy.issue_identifier(related)
-              path << "<#{result.first}>"
-              issuer_copy = result.last
-              break if !chosen_path.empty? && path.length >= chosen_path.length && path > chosen_path
-            end
-
-            if chosen_path.empty? || path < chosen_path
-              chosen_path, chosen_issuer = path, issuer_copy
-            end
           end
-
-          # Seems like this should be out one more level
-          # SPEC CONFUSION: nomenclature is very confusing
-          return [hexdigest((map.keys + [chosen_path]).join("")), chosen_issuer]
         end
+
+        # FIXME: Moved outside the loop, also chosen_issuer may not be set, default to `issuer`
+        chosen_issuer ||= issuer
+
+        # Seems like this should be out one more level
+        # SPEC CONFUSION: nomenclature is very confusing
+        return [hexdigest((map.keys + [chosen_path]).join("")), chosen_issuer]
       end
 
       private
