@@ -130,14 +130,12 @@ module RDF::Normalize
         hexdigest(quads.sort.join)
       end
 
-      # SPEC CONFUSION: `target` not used in algorithm, seeming to generate useless results
-      # @param [RDF::Node] target
       # @param [RDF::Node] related
       # @param [RDF::Statement] statement
       # @param [IdentifierIssuer] issuer
       # @param [String] position one of :s, :o, or :g
       # @return [String] the SHA1 hexdigest hash
-      def hash_related_node(target, related, statement, issuer, position)
+      def hash_related_node(related, statement, issuer, position)
         identifier = canonical_issuer.identifier(related) ||
                      issuer.identifier(related) ||
                      hash_first_degree_quads(related)
@@ -160,23 +158,20 @@ module RDF::Normalize
           statement.to_hash(:s, :p, :o, :g).each do |pos, term|
             next if !term.is_a?(RDF::Node) || term == identifier
 
-            hash = depth {hash_related_node(identifier, term, statement, issuer, pos)}
+            hash = depth {hash_related_node(term, statement, issuer, pos)}
             map[hash] ||= []
             map[hash] << term unless map[hash].include?(term)
           end
         end
 
-        # Iterate over related nodes
-        # SPEC CONFUSION: This terminates after the first entry
-        # SPEC CONFUSION: Also run this when there is just a single entry for a hash?
-
-        # SPEC CONFUSION: in the algorithm, these are set inside the loop, but the loop may not be called if map is empty, which can happen if statements contain bnodes which reference themselves, and that bnode is issuer.
-        chosen_path, chosen_issuer = "", nil
+        data_to_hash = ""
 
         debug("ndeg") {"map: #{map.map {|h,l| "#{h}: #{l.map(&:to_ntriples)}"}.join('; ')}"}
         depth do
           map.keys.sort.each do |hash|
             list = map[hash]
+            # Iterate over related nodes
+            chosen_path, chosen_issuer = "", nil
 
             list.permutation do |permutation|
               debug("ndeg") {"perm: #{permutation.map(&:to_ntriples).join(",")}"}
@@ -189,7 +184,7 @@ module RDF::Normalize
                   recursion_list << related
                   path << issuer_copy.issue_identifier(related)
                 elsif !chosen_path.empty? && path.length >= chosen_path.length
-                  break
+                  break # skip to next permutation
                 end
               end
               debug("ndeg") {"hash: #{hash}, path: #{path.inspect}, recursion: #{recursion_list.map(&:to_ntriples)}"}
@@ -206,15 +201,13 @@ module RDF::Normalize
                 chosen_path, chosen_issuer = path, issuer_copy
               end
             end
+
+            data_to_hash += chosen_path
+            issuer = chosen_issuer
           end
         end
 
-        # FIXME: Moved outside the loop, also chosen_issuer may not be set, default to `issuer`
-        chosen_issuer ||= issuer
-
-        # Seems like this should be out one more level
-        # SPEC CONFUSION: nomenclature is very confusing
-        return [hexdigest((map.keys + [chosen_path]).join("")), chosen_issuer]
+        return [hexdigest(data_to_hash), issuer]
       end
 
       private
