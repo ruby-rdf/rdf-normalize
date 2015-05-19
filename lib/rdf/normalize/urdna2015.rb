@@ -176,7 +176,6 @@ module RDF::Normalize
             list.permutation do |permutation|
               debug("ndeg") {"perm: #{permutation.map(&:to_ntriples).join(",")}"}
               issuer_copy, path, recursion_list = issuer.dup, "", []
-              require 'byebug'; byebug
 
               permutation.each do |related|
                 if canon = canonical_issuer.identifier(related)
