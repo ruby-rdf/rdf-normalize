@@ -155,13 +155,7 @@ module RDF::Normalize
         map = {}
 
         bnode_to_statements[identifier].each do |statement|
-          statement.to_hash(:s, :p, :o, :g).each do |pos, term|
-            next if !term.is_a?(RDF::Node) || term == identifier
-
-            hash = hash_position(term, statement, issuer, pos)
-            map[hash] ||= []
-            map[hash] << term unless map[hash].include?(term)
-          end
+          hash_statement(identifier, statement, issuer, map)
         end
 
         data_to_hash = ""
@@ -217,10 +211,15 @@ module RDF::Normalize
         Digest::SHA1.hexdigest(val)
       end
 
-      # Hash a given position. Extracted for subclass variations
-      def hash_position(term, statement, issuer, pos)
-        pos = {s: :p, p: :P, o: :r, g: :g}[pos]
-        depth {hash_related_node(term, statement, issuer, pos)}
+      # Group adjacent bnodes by hash
+      def hash_statement(identifier, statement, issuer, map)
+        statement.to_hash(:s, :p, :o, :g).each do |pos, term|
+          next if !term.is_a?(RDF::Node) || term == identifier
+
+          hash = depth {hash_related_node(term, statement, issuer, pos)}
+          map[hash] ||= []
+          map[hash] << term unless map[hash].include?(term)
+        end
       end
     end
 
