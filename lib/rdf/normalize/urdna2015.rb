@@ -50,9 +50,9 @@ module RDF::Normalize
       end
 
       # Iterate over hashs having more than one node
-      # SPEC CONFUSION: this includes those nodes we've found to be simple
       ns.hash_to_bnodes.keys.sort.each do |hash|
         identifier_list = ns.hash_to_bnodes[hash]
+
         debug("multiple nodes") {"node: #{identifier_list.map(&:to_ntriples).join(",")}, hash: #{hash}"}
         hash_path_list = []
 
@@ -158,7 +158,7 @@ module RDF::Normalize
           statement.to_hash(:s, :p, :o, :g).each do |pos, term|
             next if !term.is_a?(RDF::Node) || term == identifier
 
-            hash = depth {hash_related_node(term, statement, issuer, pos)}
+            hash = hash_position(term, statement, issuer, pos)
             map[hash] ||= []
             map[hash] << term unless map[hash].include?(term)
           end
@@ -175,7 +175,8 @@ module RDF::Normalize
 
             list.permutation do |permutation|
               debug("ndeg") {"perm: #{permutation.map(&:to_ntriples).join(",")}"}
-              issuer_copy, path, recursion_list = issuer, "", []
+              issuer_copy, path, recursion_list = issuer.dup, "", []
+              require 'byebug'; byebug
 
               permutation.each do |related|
                 if canon = canonical_issuer.identifier(related)
@@ -210,11 +211,17 @@ module RDF::Normalize
         return [hexdigest(data_to_hash), issuer]
       end
 
-      private
+      protected
 
       # FIXME: should be SHA-256.
       def hexdigest(val)
         Digest::SHA1.hexdigest(val)
+      end
+
+      # Hash a given position. Extracted for subclass variations
+      def hash_position(term, statement, issuer, pos)
+        pos = {s: :p, p: :P, o: :r, g: :g}[pos]
+        depth {hash_related_node(term, statement, issuer, pos)}
       end
     end
 
