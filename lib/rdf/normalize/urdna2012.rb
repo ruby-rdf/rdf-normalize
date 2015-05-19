@@ -25,7 +25,7 @@ module RDF::Normalize
                      hash_first_degree_quads(related)
         input = position.to_s
         input << statement.predicate.to_s
-        input << "_:#{identifier}"
+        input << identifier
         debug("hrel") {"input: #{input.inspect}, hash: #{hexdigest(input)}"}
         hexdigest(input)
       end

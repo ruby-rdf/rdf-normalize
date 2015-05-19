@@ -46,7 +46,7 @@ module RDF::Normalize
           next if identifier_list.length > 1
           node = identifier_list.first
           id = ns.canonical_issuer.issue_identifier(node)
-          debug("single node") {"node: #{node.to_ntriples}, hash: #{hash}, id: _:#{id}"}
+          debug("single node") {"node: #{node.to_ntriples}, hash: #{hash}, id: #{id}"}
           non_normalized_identifiers -= identifier_list
           ns.hash_to_bnodes.delete(hash)
           simple = true
@@ -63,7 +63,7 @@ module RDF::Normalize
         # Create a hash_path_list for all bnodes using a temporary identifier used to create canonical replacements
         identifier_list.each do |identifier|
           next if ns.canonical_issuer.issued.include?(identifier)
-          temporary_issuer = IdentifierIssuer.new("b")
+          temporary_issuer = IdentifierIssuer.new("_:b")
           temporary_issuer.issue_identifier(identifier)
           hash_path_list << depth {ns.hash_n_degree_quads(identifier, temporary_issuer)}
         end
@@ -73,7 +73,7 @@ module RDF::Normalize
         hash_path_list.sort_by(&:first).map(&:last).each do |issuer|
           issuer.issued.each do |node|
             id = ns.canonical_issuer.issue_identifier(node)
-            debug("-->") {"node: #{node.to_ntriples}, id: _:#{id}"}
+            debug("-->") {"node: #{node.to_ntriples}, id: #{id}"}
           end
         end
       end
@@ -82,7 +82,7 @@ module RDF::Normalize
       dataset.each_statement do |statement|
         if statement.has_blank_nodes?
           quad = statement.to_quad.compact.map do |term|
-            term.node? ? RDF::Node.intern(ns.canonical_issuer.identifier(term)) : term
+            term.node? ? RDF::Node.intern(ns.canonical_issuer.identifier(term)[2..-1]) : term
           end
           block.call RDF::Statement.from(quad)
         else
@@ -102,7 +102,7 @@ module RDF::Normalize
 
       def initialize(options)
         @options = options
-        @bnode_to_statements, @hash_to_bnodes, @canonical_issuer = {}, {}, IdentifierIssuer.new("c14n")
+        @bnode_to_statements, @hash_to_bnodes, @canonical_issuer = {}, {}, IdentifierIssuer.new("_:c14n")
       end
 
       def add_statement(node, statement)
@@ -145,7 +145,7 @@ module RDF::Normalize
                      hash_first_degree_quads(related)
         input = position.to_s
         input << statement.predicate.to_ntriples unless position == :g
-        input << "_:#{identifier}"
+        input << identifier
         debug("hrel") {"input: #{input.inspect}, hash: #{hexdigest(input)}"}
         hexdigest(input)
       end
@@ -177,8 +177,8 @@ module RDF::Normalize
               issuer_copy, path, recursion_list = issuer.dup, "", []
 
               permutation.each do |related|
-                if canon = canonical_issuer.identifier(related)
-                  path << canon
+                if canonical_issuer.identifier(related)
+                  path << canonical_issuer.issue_identifier(related)
                 elsif !issuer_copy.identifier(related)
                   recursion_list << related
                   path << issuer_copy.issue_identifier(related)
@@ -186,7 +186,7 @@ module RDF::Normalize
                   break # skip to next permutation
                 end
               end
-              debug("ndeg") {"hash: #{hash}, path: #{path.inspect}, recursion: #{recursion_list.map(&:to_ntriples)}"}
+              debug("ndeg") {"hash: #{hash}, path: #{path}, recursion: #{recursion_list.map(&:to_ntriples)}"}
 
               recursion_list.each do |related|
                 result = depth {hash_n_degree_quads(related, issuer_copy)}
@@ -206,6 +206,7 @@ module RDF::Normalize
           end
         end
 
+        debug("ndeg") {"datatohash: #{data_to_hash.inspect}, hash: #{hexdigest(data_to_hash)}"}
         return [hexdigest(data_to_hash), issuer]
       end
 
@@ -229,7 +230,7 @@ module RDF::Normalize
     end
 
     class IdentifierIssuer 
-      def initialize(prefix = "c14n")
+      def initialize(prefix = "_:c14n")
         @prefix, @counter, @issued = prefix, 0, {}
       end
 
