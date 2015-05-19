@@ -155,7 +155,7 @@ module RDF::Normalize
         map = {}
 
         bnode_to_statements[identifier].each do |statement|
-          hash_statement(identifier, statement, issuer, map)
+          hash_related_statement(identifier, statement, issuer, map)
         end
 
         data_to_hash = ""
@@ -212,7 +212,7 @@ module RDF::Normalize
       end
 
       # Group adjacent bnodes by hash
-      def hash_statement(identifier, statement, issuer, map)
+      def hash_related_statement(identifier, statement, issuer, map)
         statement.to_hash(:s, :p, :o, :g).each do |pos, term|
           next if !term.is_a?(RDF::Node) || term == identifier
 

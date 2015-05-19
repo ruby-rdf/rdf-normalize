@@ -9,7 +9,7 @@ module RDF::Normalize
       end
 
       # In URGNA2012, the position parameter passed to the Hash Related Blank Node algorithm was instead modeled as a direction parameter, where it could have the value p, for property, when the related blank node was a `subject` and the value r, for reverse or reference, when the related blank node was an `object`. Since URGNA2012 only normalized graphs, not datasets, there was no use of the `graph` position.
-      def hash_statement(identifier, statement, issuer, map)
+      def hash_related_statement(identifier, statement, issuer, map)
         if statement.subject.node? && statement.subject != identifier
           hash = depth {hash_related_node(statement.subject, statement, issuer, :p)}
           map[hash] ||= []
