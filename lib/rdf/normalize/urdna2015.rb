@@ -15,7 +15,11 @@ module RDF::Normalize
 
     def each(&block)
       ns = NormalizationState.new(@options)
+      normalize_statements(ns, &block)
+    end
 
+    protected
+    def normalize_statements(ns, &block)
       # Map BNodes to the statements they are used by
       dataset.each_statement do |statement|
         statement.to_quad.compact.select(&:node?).each do |node|
@@ -141,7 +145,8 @@ module RDF::Normalize
                      hash_first_degree_quads(related)
         input = position.to_s
         input << statement.predicate.to_ntriples unless position == :g
-        input << identifier
+        input << "_:#{identifier}"
+        debug("hrel") {"input: #{input.inspect}, hash: #{hexdigest(input)}"}
         hexdigest(input)
       end
 
