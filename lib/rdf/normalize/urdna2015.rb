@@ -180,12 +180,13 @@ module RDF::Normalize
               permutation.each do |related|
                 if canonical_issuer.identifier(related)
                   path << canonical_issuer.issue_identifier(related)
-                elsif !issuer_copy.identifier(related)
-                  recursion_list << related
+                else
+                  recursion_list << related if !issuer_copy.identifier(related)
                   path << issuer_copy.issue_identifier(related)
-                elsif !chosen_path.empty? && path.length >= chosen_path.length
-                  break # skip to next permutation
                 end
+
+                # Skip to the next permutation if chosen path isn't empty and the path is greater than the chosen path
+                break if !chosen_path.empty? && path.length >= chosen_path.length
               end
               debug("ndeg") {"hash: #{hash}, path: #{path}, recursion: #{recursion_list.map(&:to_ntriples)}"}
 
