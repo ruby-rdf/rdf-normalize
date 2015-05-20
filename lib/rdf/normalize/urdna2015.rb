@@ -171,6 +171,7 @@ module RDF::Normalize
             list = map[hash]
             # Iterate over related nodes
             chosen_path, chosen_issuer = "", nil
+            data_to_hash += hash
 
             list.permutation do |permutation|
               debug("ndeg") {"perm: #{permutation.map(&:to_ntriples).join(",")}"}
