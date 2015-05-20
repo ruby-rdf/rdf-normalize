@@ -30,8 +30,8 @@ module RDF
     require  'rdf/normalize/format'
     require  'rdf/normalize/utils'
     autoload :Base,       'rdf/normalize/base'
-    autoload :Carroll2001, 'rdf/normalize/carroll2001'
-    autoload :URDNA2012,  'rdf/normalize/urdna2012'
+    autoload :Carroll2001,'rdf/normalize/carroll2001'
+    autoload :URGNA2012,  'rdf/normalize/urgna2012'
     autoload :URDNA2015,  'rdf/normalize/urdna2015'
     autoload :VERSION,    'rdf/normalize/version'
     autoload :Writer,     'rdf/normalize/writer'
@@ -42,8 +42,8 @@ module RDF
 
     ALGORITHMS = {
       carroll2001: :Carroll2001,
-      urdna2012:  :URDNA2012,
-      urdna2015:  :URDNA2015
+      urgna2012:   :URGNA2012,
+      urdna2015:   :URDNA2015
     }.freeze
 
     ##
@@ -51,11 +51,11 @@ module RDF
     # @param [RDF::Enumerable] enumerable
     # @param [Hash{Symbol => Object}] options
     # @option options [Base] :algorithm (:urdna2015)
-    #   One of `:carroll2001`, `hogan2015`, or `urdna2015`
+    #   One of `:carroll2001`, `:urgna2012`, or `:urdna2015`
     # @return [RDF::Normalize::Base]
     # @raise [ArgumentError] selected algorithm not defined
     def new(enumerable, options = {})
-      algorithm = options.fetch(:algorithm, :carroll2001)
+      algorithm = options.fetch(:algorithm, :urdna2015)
       raise ArgumentError, "No algoritm defined for #{algorithm.to_sym}" unless ALGORITHMS.has_key?(algorithm)
       algorithm_class = const_get(ALGORITHMS[algorithm])
       algorithm_class.new(enumerable, options)

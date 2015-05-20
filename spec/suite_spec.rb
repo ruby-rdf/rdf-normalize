@@ -9,7 +9,7 @@ describe RDF::Normalize::Writer do
   before(:all) {WebMock.allow_net_connect!(net_http_connect_on_start: true)}
   after(:all) {WebMock.allow_net_connect!(net_http_connect_on_start: false)}
 
-  %w(urdna2012 urdna2015).each do |variant|
+  %w(urgna2012 urdna2015).each do |variant|
     describe "w3c csvw #{variant.upcase} tests" do
       manifest = Fixtures::SuiteTest::BASE + "manifest-#{variant}.jsonld"
 

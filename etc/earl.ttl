@@ -29,7 +29,7 @@
   dc:creator         <http://greggkellogg.net/foaf#me> .
 
 <> foaf:primaryTopic <http://rubygems.org/gems/rdf-normalize> ;
-  dc:issued "2015-05-20T11:40:22-07:00"^^xsd:dateTime ;
+  dc:issued "2015-05-20T12:08:28-07:00"^^xsd:dateTime ;
   foaf:maker <http://greggkellogg.net/foaf#me> .
 
 <http://greggkellogg.net/foaf#me> a foaf:Person, earl:Assertor;
@@ -40,561 +40,561 @@
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test001>;
+  earl:test <manifest-urgna2012#test001>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test002>;
+  earl:test <manifest-urgna2012#test002>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test003>;
+  earl:test <manifest-urgna2012#test003>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test004>;
+  earl:test <manifest-urgna2012#test004>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test005>;
+  earl:test <manifest-urgna2012#test005>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test006>;
+  earl:test <manifest-urgna2012#test006>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test007>;
+  earl:test <manifest-urgna2012#test007>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test008>;
+  earl:test <manifest-urgna2012#test008>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test009>;
+  earl:test <manifest-urgna2012#test009>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test010>;
+  earl:test <manifest-urgna2012#test010>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test011>;
+  earl:test <manifest-urgna2012#test011>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test012>;
+  earl:test <manifest-urgna2012#test012>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test013>;
+  earl:test <manifest-urgna2012#test013>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test014>;
+  earl:test <manifest-urgna2012#test014>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test015>;
+  earl:test <manifest-urgna2012#test015>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test016>;
+  earl:test <manifest-urgna2012#test016>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test017>;
+  earl:test <manifest-urgna2012#test017>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test018>;
+  earl:test <manifest-urgna2012#test018>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test019>;
+  earl:test <manifest-urgna2012#test019>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test020>;
+  earl:test <manifest-urgna2012#test020>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test021>;
+  earl:test <manifest-urgna2012#test021>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test022>;
+  earl:test <manifest-urgna2012#test022>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test023>;
+  earl:test <manifest-urgna2012#test023>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test024>;
+  earl:test <manifest-urgna2012#test024>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test025>;
+  earl:test <manifest-urgna2012#test025>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test026>;
+  earl:test <manifest-urgna2012#test026>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test027>;
+  earl:test <manifest-urgna2012#test027>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test028>;
+  earl:test <manifest-urgna2012#test028>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test029>;
+  earl:test <manifest-urgna2012#test029>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test030>;
+  earl:test <manifest-urgna2012#test030>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test031>;
+  earl:test <manifest-urgna2012#test031>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test032>;
+  earl:test <manifest-urgna2012#test032>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test033>;
+  earl:test <manifest-urgna2012#test033>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test034>;
+  earl:test <manifest-urgna2012#test034>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test035>;
+  earl:test <manifest-urgna2012#test035>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test036>;
+  earl:test <manifest-urgna2012#test036>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test037>;
+  earl:test <manifest-urgna2012#test037>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test038>;
+  earl:test <manifest-urgna2012#test038>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test039>;
+  earl:test <manifest-urgna2012#test039>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test040>;
+  earl:test <manifest-urgna2012#test040>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test041>;
+  earl:test <manifest-urgna2012#test041>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test042>;
+  earl:test <manifest-urgna2012#test042>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test043>;
+  earl:test <manifest-urgna2012#test043>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test044>;
+  earl:test <manifest-urgna2012#test044>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test045>;
+  earl:test <manifest-urgna2012#test045>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test046>;
+  earl:test <manifest-urgna2012#test046>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test047>;
+  earl:test <manifest-urgna2012#test047>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test048>;
+  earl:test <manifest-urgna2012#test048>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test049>;
+  earl:test <manifest-urgna2012#test049>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test050>;
+  earl:test <manifest-urgna2012#test050>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test051>;
+  earl:test <manifest-urgna2012#test051>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test052>;
+  earl:test <manifest-urgna2012#test052>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test053>;
+  earl:test <manifest-urgna2012#test053>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test054>;
+  earl:test <manifest-urgna2012#test054>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test055>;
+  earl:test <manifest-urgna2012#test055>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
   earl:assertedBy <http://greggkellogg.net/foaf#me>;
   earl:subject <http://rubygems.org/gems/rdf-normalize>;
-  earl:test <manifest-urdna2012#test056>;
+  earl:test <manifest-urgna2012#test056>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -604,7 +604,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -614,7 +614,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -624,7 +624,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -634,7 +634,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -644,7 +644,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -654,7 +654,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -664,7 +664,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -674,7 +674,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -684,7 +684,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -694,7 +694,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -704,7 +704,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -714,7 +714,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -724,7 +724,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -734,7 +734,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -744,7 +744,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -754,7 +754,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -764,7 +764,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -774,7 +774,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -784,7 +784,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -794,7 +794,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -804,7 +804,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -814,7 +814,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -824,7 +824,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -834,7 +834,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -844,7 +844,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -854,7 +854,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -864,7 +864,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -874,7 +874,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -884,7 +884,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -894,7 +894,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -904,7 +904,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -914,7 +914,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -924,7 +924,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -934,7 +934,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -944,7 +944,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -954,7 +954,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -964,7 +964,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -974,7 +974,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -984,7 +984,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -994,7 +994,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -1004,7 +1004,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -1014,7 +1014,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -1024,7 +1024,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -1034,7 +1034,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -1044,7 +1044,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -1054,7 +1054,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -1064,7 +1064,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -1074,7 +1074,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -1084,7 +1084,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -1094,7 +1094,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -1104,7 +1104,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -1114,7 +1114,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -1124,7 +1124,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -1134,7 +1134,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -1144,7 +1144,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -1154,7 +1154,7 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .
 
 [ a earl:Assertion;
@@ -1164,5 +1164,5 @@
   earl:result [
     a earl:TestResult;
     earl:outcome earl:passed;
-    dc:date "2015-05-20T11:40:22-07:00"^^xsd:dateTime];
+    dc:date "2015-05-20T12:08:28-07:00"^^xsd:dateTime];
   earl:mode earl:automatic ] .

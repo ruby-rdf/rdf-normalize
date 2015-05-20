@@ -1,6 +1,9 @@
 # RDF::Normalize
 RDF Graph normalizer for [RDF.rb][RDF.rb].
 
+[![Gem Version](https://badge.fury.io/rb/rdf-normalize.png)](http://badge.fury.io/rb/rdf-normalize)
+[![Build Status](https://secure.travis-ci.org/ruby-rdf/rdf-normalize.png?branch=master)](http://travis-ci.org/ruby-rdf/rdf-normalize)
+
 ## Description
 This is a [Ruby][] implementation of a [RDF Normalize][] for [RDF.rb][].
 
@@ -8,6 +11,11 @@ This is a [Ruby][] implementation of a [RDF Normalize][] for [RDF.rb][].
 RDF::Normalize generates normalized [N-Quads][] output for an RDF Dataset using the algorithm
 defined in [RDF Normalize][]. It also implements an RDF Writer interface, which can be used
 to serialize normalized statements.
+
+Algorithms implemented:
+
+* [URGNA2012](http://json-ld.github.io/normalization/spec/index.html#dfn-urgna2012)
+* [URDNA2014](http://json-ld.github.io/normalization/spec/index.html#dfn-urdna2015)
 
 Install with `gem install rdf-normalize`
 
@@ -24,6 +32,8 @@ Full documentation available on [Rubydoc.info][Normalize doc]
   * {RDF::Normalize::Base}
   * {RDF::Normalize::Format}
   * {RDF::Normalize::Writer}
+  * {RDF::Normalize::URGNA2012}
+  * {RDF::Normalize::URDNA2015}
 
 
 ## Dependencies
@@ -66,7 +76,7 @@ see <http://unlicense.org/> or the accompanying {file:LICENSE} file.
 [YARD]:         http://yardoc.org/
 [YARD-GS]:      http://rubydoc.info/docs/yard/file/docs/GettingStarted.md
 [PDD]:          http://lists.w3.org/Archives/Public/public-rdf-ruby/2010May/0013.html
-[RDF.rb]:       http://rubydoc.info/github/gkellogg/rdf/master/frames
+[RDF.rb]:       http://rubydoc.info/github/ruby-rdf/rdf-normalize
 [N-Triples]:    http://www.w3.org/TR/rdf-testcases/#ntriples
-[RDF Normalize]:http://json-ld.org/spec/latest/rdf-graph-normalization//
-[Normalize doc]:http://rubydoc.info/github/gkellogg/rdf-normalize/master/file/README.markdown
+[RDF Normalize]:http://json-ld.github.io/normalization/spec/
+[Normalize doc]:http://rubydoc.info/github/ruby-rdf/rdf-normalize/master/file/README.markdown

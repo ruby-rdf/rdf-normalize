@@ -11,7 +11,4 @@ rvm:
   - jruby
   - rbx-2
 cache: bundler
-matrix:
-  allow_failures:
-    - rvm: jruby
 

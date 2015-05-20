@@ -115,7 +115,7 @@ earl_preamble(options) if options[:earl]
 
 WebMock.allow_net_connect!(net_http_connect_on_start: true)
 
-%w(urdna2012 urdna2015).each do |variant|
+%w(urgna2012 urdna2015).each do |variant|
   manifest = Fixtures::SuiteTest::BASE + "manifest-#{variant}.jsonld"
   
   Fixtures::SuiteTest::Manifest.open(manifest, manifest[0..-8]) do |m|

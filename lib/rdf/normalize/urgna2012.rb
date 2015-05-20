@@ -1,5 +1,5 @@
 module RDF::Normalize
-  class URDNA2012 < URDNA2015
+  class URGNA2012 < URDNA2015
 
     def each(&block)
       ns = NormalizationState.new(@options)

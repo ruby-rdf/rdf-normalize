@@ -19,7 +19,7 @@ describe RDF::Normalize::Writer do
   end
 
   # FIXME: :carroll2001, 
-  [:urdna2012, :urdna2015].each do |algorithm|
+  [:urgna2012, :urdna2015].each do |algorithm|
     describe algorithm do
       describe "w3c normalization tests" do
         Dir.glob(File.expand_path("../data/*-in.nq", __FILE__)).each do |input|
