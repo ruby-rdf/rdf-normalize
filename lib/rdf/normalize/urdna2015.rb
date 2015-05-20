@@ -251,6 +251,14 @@ module RDF::Normalize
       def identifier(node)
         @issued[node]
       end
+
+      # Duplicate this issuer, ensuring that the issued identifiers remain distinct
+      # @return [IdentifierIssuer]
+      def dup
+        other = super
+        other.instance_variable_set(:@issued, @issued.dup)
+        other
+      end
     end
   end
 end
