@@ -7,6 +7,9 @@ group :debug do
   gem "byebug", platforms: :mri_21
 end
 
+group :development, :test do
+  gem 'psych', :platforms => [:mri, :rbx]
+end
 
 platforms :rbx do
   gem 'rubysl', '~> 2.0'

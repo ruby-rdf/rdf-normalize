@@ -13,12 +13,12 @@ describe RDF::Normalize::Format do
       :normalize,
     ].each do |arg|
       it "discovers with #{arg.inspect}" do
-        RDF::Format.for(arg).should == described_class
+        expect(RDF::Format.for(arg)).to eql described_class
       end
     end
   end
 
   describe "#to_sym" do
-    specify {described_class.to_sym.should == :normalize}
+    specify {expect(described_class.to_sym).to eql :normalize}
   end
 end

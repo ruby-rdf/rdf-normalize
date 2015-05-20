@@ -8,7 +8,7 @@ require 'json/ld'
 require 'rdf/spec'
 require 'rdf/normalize'
 require 'rdf/nquads'
-require 'rdf/trig'
+require 'webmock/rspec'
 require 'open-uri/cached'
 
 # Create and maintain a cache of downloaded URIs
