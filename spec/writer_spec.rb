@@ -19,16 +19,17 @@ describe RDF::Normalize::Writer do
   end
 
   # FIXME: :carroll2001, 
-  [:urdna2012].each do |algorithm|
+  [:urdna2012, :urdna2015].each do |algorithm|
     describe algorithm do
-      describe "json-ld normalization tests" do
-        Dir.glob(File.expand_path("../data/normalize*-in.jsonld", __FILE__)).each do |input|
+      describe "w3c normalization tests" do
+        Dir.glob(File.expand_path("../data/*-in.nq", __FILE__)).each do |input|
+          next unless File.exist?(input.sub("-in", "-#{algorithm}"))
           it "produces expected output for #{input.split('/').last}" do
-            expected = File.read(input.sub("-in.jsonld", "-#{algorithm == :urdna2012 ? 'out' : algorithm.to_s[0..-5]}.nq"))
+            expected = File.read(input.sub("-in", "-#{algorithm}"))
             input_data = File.read(input)
             repo = RDF::Repository.load(input)
             result = repo.dump(:normalize, algorithm: algorithm, debug: @debug)
-            expect(result).to produce(expected, about: input, input: input_data, quads: repo.dump(:nquads), trace: @debug)
+            expect(result).to produce(expected, about: input, quads: repo.dump(:nquads), trace: @debug)
           end
         end
       end
