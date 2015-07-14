@@ -40,7 +40,7 @@ def run_tc(tc, options)
     puts "open #{tc.action}" if options[:verbose]
     options = {base_uri:  tc.base}.merge(options)
 
-    dataset = RDF::Repository.load(tc.action)
+    dataset = RDF::Repository.load(tc.action, format: :nquads)
     output = dataset.dump(:normalize, tc.writer_options)
     result = output == tc.expected ? "passed" : "failed"
   rescue Exception => e
