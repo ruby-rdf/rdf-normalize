@@ -116,7 +116,7 @@ module RDF::Normalize
       end
 
       # @param [RDF::Node] node
-      # @return [String] the SHA1 hexdigest hash of statements using this node, with replacements
+      # @return [String] the SHA256 hexdigest hash of statements using this node, with replacements
       def hash_first_degree_quads(node)
         quads = bnode_to_statements[node].
           map do |statement|
@@ -138,7 +138,7 @@ module RDF::Normalize
       # @param [RDF::Statement] statement
       # @param [IdentifierIssuer] issuer
       # @param [String] position one of :s, :o, or :g
-      # @return [String] the SHA1 hexdigest hash
+      # @return [String] the SHA256 hexdigest hash
       def hash_related_node(related, statement, issuer, position)
         identifier = canonical_issuer.identifier(related) ||
                      issuer.identifier(related) ||
@@ -214,9 +214,8 @@ module RDF::Normalize
 
       protected
 
-      # FIXME: should be SHA-256.
       def hexdigest(val)
-        Digest::SHA1.hexdigest(val)
+        Digest::SHA256.hexdigest(val)
       end
 
       # Group adjacent bnodes by hash
