@@ -15,7 +15,7 @@ to serialize normalized statements.
 Algorithms implemented:
 
 * [URGNA2012](http://json-ld.github.io/normalization/spec/index.html#dfn-urgna2012)
-* [URDNA2014](http://json-ld.github.io/normalization/spec/index.html#dfn-urdna2015)
+* [URDNA2015](http://json-ld.github.io/normalization/spec/index.html#dfn-urdna2015)
 
 Install with `gem install rdf-normalize`
 
