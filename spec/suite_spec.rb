@@ -17,9 +17,9 @@ describe RDF::Normalize::Writer do
         describe m.comment do
           m.entries.each do |t|
             specify "#{t.id.split("/").last}: #{t.name} - #{t.comment}" do
-              t.debug = []
+              t.logger = RDF::Spec.logger
               dataset = RDF::Repository.load(t.action, format: :nquads)
-              result = dataset.dump(:normalize, t.writer_options.merge(debug: t.debug))
+              result = dataset.dump(:normalize, t.writer_options.merge(logger: t.logger))
               expect(result).to produce(t.expected, t)
             end
           end

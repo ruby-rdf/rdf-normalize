@@ -92,8 +92,7 @@ module Fixtures
     end
  
     class Entry < JSON::LD::Resource
-      attr_accessor :debug
-      attr_accessor :warnings
+      attr_accessor :logger
       attr_accessor :metadata
 
       def id

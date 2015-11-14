@@ -1,8 +1,8 @@
 module RDF::Normalize
   class URDNA2015
     include RDF::Enumerable
+    include RDF::Util::Logger
     include Base
-    include Utils
 
     ##
     # Create an enumerable with grounded nodes
@@ -35,8 +35,8 @@ module RDF::Normalize
 
         # Calculate hashes for first degree nodes
         non_normalized_identifiers.each do |node|
-          hash = depth {ns.hash_first_degree_quads(node)}
-          debug("1deg") {"hash: #{hash}"}
+          hash = log_depth {ns.hash_first_degree_quads(node)}
+          log_debug("1deg") {"hash: #{hash}"}
           ns.add_bnode_hash(node, hash)
         end
 
@@ -46,7 +46,7 @@ module RDF::Normalize
           next if identifier_list.length > 1
           node = identifier_list.first
           id = ns.canonical_issuer.issue_identifier(node)
-          debug("single node") {"node: #{node.to_ntriples}, hash: #{hash}, id: #{id}"}
+          log_debug("single node") {"node: #{node.to_ntriples}, hash: #{hash}, id: #{id}"}
           non_normalized_identifiers -= identifier_list
           ns.hash_to_bnodes.delete(hash)
           simple = true
@@ -57,7 +57,7 @@ module RDF::Normalize
       ns.hash_to_bnodes.keys.sort.each do |hash|
         identifier_list = ns.hash_to_bnodes[hash]
 
-        debug("multiple nodes") {"node: #{identifier_list.map(&:to_ntriples).join(",")}, hash: #{hash}"}
+        log_debug("multiple nodes") {"node: #{identifier_list.map(&:to_ntriples).join(",")}, hash: #{hash}"}
         hash_path_list = []
 
         # Create a hash_path_list for all bnodes using a temporary identifier used to create canonical replacements
@@ -65,15 +65,15 @@ module RDF::Normalize
           next if ns.canonical_issuer.issued.include?(identifier)
           temporary_issuer = IdentifierIssuer.new("_:b")
           temporary_issuer.issue_identifier(identifier)
-          hash_path_list << depth {ns.hash_n_degree_quads(identifier, temporary_issuer)}
+          hash_path_list << log_depth {ns.hash_n_degree_quads(identifier, temporary_issuer)}
         end
-        debug("->") {"hash_path_list: #{hash_path_list.map(&:first).inspect}"}
+        log_debug("->") {"hash_path_list: #{hash_path_list.map(&:first).inspect}"}
 
         # Create canonical replacements for nodes
         hash_path_list.sort_by(&:first).map(&:last).each do |issuer|
           issuer.issued.each do |node|
             id = ns.canonical_issuer.issue_identifier(node)
-            debug("-->") {"node: #{node.to_ntriples}, id: #{id}"}
+            log_debug("-->") {"node: #{node.to_ntriples}, id: #{id}"}
           end
         end
       end
@@ -94,7 +94,7 @@ module RDF::Normalize
   private
 
     class NormalizationState
-      include Utils
+      include RDF::Util::Logger
 
       attr_accessor :bnode_to_statements
       attr_accessor :hash_to_bnodes
@@ -130,7 +130,7 @@ module RDF::Normalize
             RDF::NQuads::Writer.serialize(RDF::Statement.from(quad))
           end
 
-        debug("1deg") {"node: #{node}, quads: #{quads}"}
+        log_debug("1deg") {"node: #{node}, quads: #{quads}"}
         hexdigest(quads.sort.join)
       end
 
@@ -146,7 +146,7 @@ module RDF::Normalize
         input = position.to_s
         input << statement.predicate.to_ntriples unless position == :g
         input << identifier
-        debug("hrel") {"input: #{input.inspect}, hash: #{hexdigest(input)}"}
+        log_debug("hrel") {"input: #{input.inspect}, hash: #{hexdigest(input)}"}
         hexdigest(input)
       end
 
@@ -154,7 +154,7 @@ module RDF::Normalize
       # @param [IdentifierIssuer] issuer
       # @return [Array<String,IdentifierIssuer>] the Hash and issuer
       def hash_n_degree_quads(identifier, issuer)
-        debug("ndeg") {"identifier: #{identifier.to_ntriples}"}
+        log_debug("ndeg") {"identifier: #{identifier.to_ntriples}"}
 
         # hash to related blank nodes map
         map = {}
@@ -165,8 +165,8 @@ module RDF::Normalize
 
         data_to_hash = ""
 
-        debug("ndeg") {"map: #{map.map {|h,l| "#{h}: #{l.map(&:to_ntriples)}"}.join('; ')}"}
-        depth do
+        log_debug("ndeg") {"map: #{map.map {|h,l| "#{h}: #{l.map(&:to_ntriples)}"}.join('; ')}"}
+        log_depth do
           map.keys.sort.each do |hash|
             list = map[hash]
             # Iterate over related nodes
@@ -174,7 +174,7 @@ module RDF::Normalize
             data_to_hash += hash
 
             list.permutation do |permutation|
-              debug("ndeg") {"perm: #{permutation.map(&:to_ntriples).join(",")}"}
+              log_debug("ndeg") {"perm: #{permutation.map(&:to_ntriples).join(",")}"}
               issuer_copy, path, recursion_list = issuer.dup, "", []
 
               permutation.each do |related|
@@ -188,10 +188,10 @@ module RDF::Normalize
                 # Skip to the next permutation if chosen path isn't empty and the path is greater than the chosen path
                 break if !chosen_path.empty? && path.length >= chosen_path.length
               end
-              debug("ndeg") {"hash: #{hash}, path: #{path}, recursion: #{recursion_list.map(&:to_ntriples)}"}
+              log_debug("ndeg") {"hash: #{hash}, path: #{path}, recursion: #{recursion_list.map(&:to_ntriples)}"}
 
               recursion_list.each do |related|
-                result = depth {hash_n_degree_quads(related, issuer_copy)}
+                result = log_depth {hash_n_degree_quads(related, issuer_copy)}
                 path << issuer_copy.issue_identifier(related)
                 path << "<#{result.first}>"
                 issuer_copy = result.last
@@ -208,7 +208,7 @@ module RDF::Normalize
           end
         end
 
-        debug("ndeg") {"datatohash: #{data_to_hash.inspect}, hash: #{hexdigest(data_to_hash)}"}
+        log_debug("ndeg") {"datatohash: #{data_to_hash.inspect}, hash: #{hexdigest(data_to_hash)}"}
         return [hexdigest(data_to_hash), issuer]
       end
 
@@ -224,7 +224,7 @@ module RDF::Normalize
         statement.to_hash(:s, :p, :o, :g).each do |pos, term|
           next if !term.is_a?(RDF::Node) || term == identifier
 
-          hash = depth {hash_related_node(term, statement, issuer, pos)}
+          hash = log_depth {hash_related_node(term, statement, issuer, pos)}
           map[hash] ||= []
           map[hash] << term unless map[hash].include?(term)
         end

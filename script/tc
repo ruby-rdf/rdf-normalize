@@ -2,7 +2,7 @@
 require 'rubygems'
 $:.unshift(File.expand_path(File.join(File.dirname(__FILE__), "..", 'lib')))
 require "bundler/setup"
-require 'byebug'
+require 'logger'
 require 'rdf/normalize'
 require File.expand_path(File.join(File.dirname(__FILE__), "..", 'spec', 'spec_helper'))
 require File.expand_path(File.join(File.dirname(__FILE__), "..", 'spec', 'suite_helper'))
@@ -41,7 +41,7 @@ def run_tc(tc, options)
     options = {base_uri:  tc.base}.merge(options)
 
     dataset = RDF::Repository.load(tc.action, format: :nquads)
-    output = dataset.dump(:normalize, tc.writer_options)
+    output = dataset.dump(:normalize, tc.writer_options.merge(logger: options[:logger]))
     result = output == tc.expected ? "passed" : "failed"
   rescue Exception => e
     STDERR.puts "#{"exception:" unless options[:quiet]}: #{e}"
@@ -68,11 +68,19 @@ def run_tc(tc, options)
 }
   end
 
+  options[:result_count][result] ||= 0
+  options[:result_count][result] += 1
+
   puts "#{"test result:" unless options[:quiet]} #{result}"
 end
 
+logger = Logger.new(STDERR)
+logger.level = Logger::WARN
+logger.formatter = lambda {|severity, datetime, progname, msg| "#{severity}: #{msg}\n"}
+
 options = {
   output:  STDOUT,
+  logger: logger
 }
 
 opts = GetoptLong.new(
@@ -88,7 +96,7 @@ opts = GetoptLong.new(
 def help(options)
   puts "Usage: #{$0} [options] [test-number ...]"
   puts "Options:"
-  puts "      --debug:              Display detailed debug output"
+  puts "      --dbg:                Display detailed debug output"
   puts "      --earl:               Generate EARL report"
   puts "      --quiet:              Minimal output"
   puts "      --output:             Output to specified file"
@@ -98,14 +106,17 @@ def help(options)
   exit(0)
 end
 
-
 opts.each do |opt, arg|
   case opt
   when '--help'             then help(options)
-  when '--dbg'              then ::RDF::Turtle::debug = true
-  when '--earl'             then options[:quiet] = options[:earl] = true
+  when '--dbg'              then logger.level = Logger::DEBUG
+  when '--earl'
+    options[:quiet] = options[:earl] = true
+    logger.level = Logger::FATAL
   when '--output'           then options[:output] = File.open(arg, "w")
-  when '--quiet'            then options[:quiet] = true
+  when '--quiet'
+    options[:quiet] = true
+    logger.level = Logger::FATAL
   when '--validate'         then options[:validate] = true
   when '--verbose'          then options[:verbose] = true
   end
@@ -115,13 +126,19 @@ earl_preamble(options) if options[:earl]
 
 WebMock.allow_net_connect!(net_http_connect_on_start: true)
 
+result_count = {}
+
 %w(urgna2012 urdna2015).each do |variant|
   manifest = Fixtures::SuiteTest::BASE + "manifest-#{variant}.jsonld"
   
   Fixtures::SuiteTest::Manifest.open(manifest, manifest[0..-8]) do |m|
     m.entries.each do |tc|
       next unless ARGV.empty? || ARGV.any? {|n| tc.id.match(/#{n}/)}
-      run_tc(tc, options)
+      run_tc(tc, options.merge(result_count: result_count))
     end
   end
+end
+
+result_count.each do |result, count|
+  puts "#{result}: #{count}"
 end
