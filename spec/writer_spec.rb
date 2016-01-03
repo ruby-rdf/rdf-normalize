@@ -4,6 +4,7 @@ require 'rdf/spec/writer'
 
 describe RDF::Normalize::Writer do
   let(:logger) {RDF::Spec.logger}
+  after(:each) {|example| puts logger.to_s if example.exception}
 
   # @see lib/rdf/spec/writer.rb in rdf-spec
   it_behaves_like 'an RDF::Writer' do
@@ -27,7 +28,7 @@ describe RDF::Normalize::Writer do
             input_data = File.read(input)
             repo = RDF::Repository.load(input)
             result = repo.dump(:normalize, algorithm: algorithm, logger: logger)
-            expect(result).to produce(expected, id: input, result: repo.dump(:nquads), logger: logger)
+            expect(result).to produce(expected, id: input, result: repo.dump(:nquads, validate: false), logger: logger)
           end
         end
       end

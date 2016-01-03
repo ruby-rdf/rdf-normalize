@@ -54,6 +54,7 @@ module RDF::Normalize
         each do |line|
           puts line
         end
+      super
     end
 
     protected
@@ -64,6 +65,8 @@ module RDF::Normalize
     # @return [void]
     def insert_statement(statement)
       @repo.insert(statement)
+    rescue ArgumentError => e
+      log_error e.message
     end
 
     ##
