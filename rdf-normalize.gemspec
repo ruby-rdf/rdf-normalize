@@ -24,7 +24,7 @@ Gem::Specification.new do |gem|
   gem.test_files            = %w()
   gem.has_rdoc              = false
 
-  gem.required_ruby_version = '>= 1.9.2'
+  gem.required_ruby_version = '>= 2.0.0'
   gem.add_dependency             'rdf',             '~> 1.99'
   gem.add_development_dependency 'rdf-spec',        '~> 1.99'
   gem.add_development_dependency 'open-uri-cached', '~> 0.0', '>= 0.0.5'

@@ -6,7 +6,7 @@ gem "rdf", git: "git://github.com/ruby-rdf/rdf.git", branch: "develop"
 
 group :debug do
   gem "wirble"
-  gem "byebug", platforms: :mri_21
+  gem "byebug", platforms: :mri
 end
 
 group :development, :test do
