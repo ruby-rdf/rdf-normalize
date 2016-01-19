@@ -35,10 +35,17 @@ module RDF::Normalize
       end
     end
 
+
     ##
-    # Defer writing to epilogue
-    def write_statement(statement)
-      self
+    # Adds statements to the repository to be serialized in epilogue.
+    #
+    # @param  [RDF::Resource] subject
+    # @param  [RDF::URI]      predicate
+    # @param  [RDF::Value]    object
+    # @param  [RDF::Resource] graph_name
+    # @return [void]
+    def write_quad(subject, predicate, object, graph_name)
+      @repo.insert(RDF::Statement(subject, predicate, object, graph_name: graph_name))
     end
 
     ##
@@ -58,16 +65,6 @@ module RDF::Normalize
     end
 
     protected
-
-    ##
-    # Adds a statement to be serialized
-    # @param  [RDF::Statement] statement
-    # @return [void]
-    def insert_statement(statement)
-      @repo.insert(statement)
-    rescue ArgumentError => e
-      log_error e.message
-    end
 
     ##
     # Insert an Enumerable
