@@ -16,6 +16,7 @@ describe RDF::Normalize::Writer do
       Fixtures::SuiteTest::Manifest.open(manifest, manifest[0..-8]) do |m|
         describe m.comment do
           m.entries.each do |t|
+            after(:each) {|example| puts t.logger.to_s if example.exception}
             specify "#{t.id.split("/").last}: #{t.name} - #{t.comment}" do
               t.logger = RDF::Spec.logger
               dataset = RDF::Repository.load(t.action, format: :nquads)
