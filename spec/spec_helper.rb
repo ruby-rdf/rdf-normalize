@@ -3,7 +3,6 @@ $:.unshift File.dirname(__FILE__)
 
 require "bundler/setup"
 require 'rspec'
-require 'matchers'
 require 'json/ld'
 require 'rdf/spec'
 require 'rdf/normalize'

@@ -10,13 +10,12 @@ describe RDF::Normalize::Writer do
   after(:all) {WebMock.allow_net_connect!(net_http_connect_on_start: false)}
 
   %w(urgna2012 urdna2015).each do |variant|
-    describe "w3c csvw #{variant.upcase} tests" do
+    describe "w3c Normalization #{variant.upcase} tests" do
       manifest = Fixtures::SuiteTest::BASE + "manifest-#{variant}.jsonld"
 
       Fixtures::SuiteTest::Manifest.open(manifest, manifest[0..-8]) do |m|
         describe m.comment do
           m.entries.each do |t|
-            after(:each) {|example| puts t.logger.to_s if example.exception}
             specify "#{t.id.split("/").last}: #{t.name} - #{t.comment}" do
               t.logger = RDF::Spec.logger
               dataset = RDF::Repository.load(t.action, format: :nquads)
