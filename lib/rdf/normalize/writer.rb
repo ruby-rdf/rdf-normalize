@@ -25,7 +25,6 @@ module RDF::Normalize
     # @yieldparam [RDF::Writer] writer
     def initialize(output = $stdout, options = {}, &block)
       super do
-        @options[:depth] ||= 0
         @repo = RDF::Repository.new
         if block_given?
           case block.arity
@@ -36,10 +35,17 @@ module RDF::Normalize
       end
     end
 
+
     ##
-    # Defer writing to epilogue
-    def write_statement(statement)
-      self
+    # Adds statements to the repository to be serialized in epilogue.
+    #
+    # @param  [RDF::Resource] subject
+    # @param  [RDF::URI]      predicate
+    # @param  [RDF::Value]    object
+    # @param  [RDF::Resource] graph_name
+    # @return [void]
+    def write_quad(subject, predicate, object, graph_name)
+      @repo.insert(RDF::Statement(subject, predicate, object, graph_name: graph_name))
     end
 
     ##
@@ -55,17 +61,10 @@ module RDF::Normalize
         each do |line|
           puts line
         end
+      super
     end
 
     protected
-
-    ##
-    # Adds a statement to be serialized
-    # @param  [RDF::Statement] statement
-    # @return [void]
-    def insert_statement(statement)
-      @repo.insert(statement)
-    end
 
     ##
     # Insert an Enumerable

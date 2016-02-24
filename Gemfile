@@ -2,9 +2,15 @@ source "https://rubygems.org"
 
 gemspec
 
+gem "rdf", git: "git://github.com/ruby-rdf/rdf.git", branch: "develop"
+
 group :debug do
   gem "wirble"
-  gem "byebug", platforms: :mri_21
+  gem "byebug", platforms: :mri
+end
+
+group :development, :test do
+  gem 'rdf-spec', git: "git://github.com/ruby-rdf/rdf-spec.git", branch: "develop"
 end
 
 group :development, :test do

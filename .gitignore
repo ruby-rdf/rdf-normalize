@@ -5,6 +5,7 @@
 /InstalledFiles
 /pkg/
 /spec/reports/
+/spec/w3c-normalization
 /test/tmp/
 /test/version_tmp/
 /tmp/
@@ -34,3 +35,4 @@ build/
 # unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
 .rvmrc
 /Gemfile.lock
+/.byebug_history
