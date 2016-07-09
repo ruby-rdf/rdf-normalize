@@ -20,7 +20,7 @@ Algorithms implemented:
 Install with `gem install rdf-normalize`
 
 * 100% free and unencumbered [public domain](http://unlicense.org/) software.
-* Compatible with  Ruby >= 2.0.
+* Compatible with  Ruby >= 2.2.2.
 
 ## Usage
 
