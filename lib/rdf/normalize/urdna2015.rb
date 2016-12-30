@@ -220,7 +220,7 @@ module RDF::Normalize
 
       # Group adjacent bnodes by hash
       def hash_related_statement(identifier, statement, issuer, map)
-        statement.to_hash(:s, :p, :o, :g).each do |pos, term|
+        statement.to_h(:s, :p, :o, :g).each do |pos, term|
           next if !term.is_a?(RDF::Node) || term == identifier
 
           hash = log_depth {hash_related_node(term, statement, issuer, pos)}

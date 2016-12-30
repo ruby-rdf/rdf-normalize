@@ -36,7 +36,7 @@ module RDF::Util
             Kernel.open(filename_or_url.to_s, "r:utf-8", 'Accept' => "application/n-quads, application/n-triples")
           end
           document_options = {
-            base_uri:     RDF::URI(filename_or_url),
+            base_uri:     RDF::URI(filename_or_url, {}),
             charset:      Encoding::UTF_8,
             code:         200,
             headers:      {}
