@@ -5,7 +5,6 @@ gemspec
 gem "rdf", github: "ruby-rdf/rdf", branch: "develop"
 
 group :debug do
-  gem "wirble"
   gem "byebug", platforms: :mri
 end
 
