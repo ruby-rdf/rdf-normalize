@@ -79,4 +79,4 @@ see <http://unlicense.org/> or the accompanying {file:LICENSE} file.
 [RDF.rb]:       http://rubydoc.info/github/ruby-rdf/rdf-normalize
 [N-Triples]:    http://www.w3.org/TR/rdf-testcases/#ntriples
 [RDF Normalize]:http://json-ld.github.io/normalization/spec/
-[Normalize doc]:http://rubydoc.info/github/ruby-rdf/rdf-normalize/master/file/README.markdown
+[Normalize doc]:http://rubydoc.info/github/ruby-rdf/rdf-normalize/master
