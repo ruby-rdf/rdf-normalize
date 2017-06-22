@@ -1,4 +1,4 @@
-@base         <http://rubygems.org/gems/rdf-turtle> .
+@base         <http://rubygems.org/gems/rdf-normalize> .
 @prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dc:   <http://purl.org/dc/terms/> .
@@ -11,8 +11,8 @@
   doap:name          "RDF::Normalize" ;
   doap:homepage      <http://github.com/ruby-rdf/rdf-normalize> ;
   doap:license       <http://creativecommons.org/licenses/publicdomain/> ;
-  doap:shortdesc     "Turtle reader/writer for Ruby."@en ;
-  doap:description   "RDF::Normalize is a Graph normalizer for the RDF.rb library suite."@en ;
+  doap:shortdesc     "RDF Dataset Normalization for Ruby."@en ;
+  doap:description   "RDF::Normalize is a Dataset normalizer for the RDF.rb library suite."@en ;
   doap:created       "2015-05-20"^^xsd:date;
   doap:programming-language "Ruby" ;
   doap:implements    <http://json-ld.github.io/normalization/spec/> ;
