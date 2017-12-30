@@ -38,8 +38,8 @@ Full documentation available on [Rubydoc.info][Normalize doc]
 
 ## Dependencies
 
-* [Ruby](http://ruby-lang.org/) (>= 2.0)
-* [RDF.rb](http://rubygems.org/gems/rdf) (~> 2.0)
+* [Ruby](http://ruby-lang.org/) (>= 2.2)
+* [RDF.rb](http://rubygems.org/gems/rdf) (~> 3.0)
 
 ## Installation
 
