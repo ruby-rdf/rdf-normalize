@@ -2,8 +2,7 @@ source "https://rubygems.org"
 
 gemspec
 
-#gem "rdf", github: "ruby-rdf/rdf", branch: "develop"
-gem "rdf", path: '../rdf'
+gem "rdf", github: "ruby-rdf/rdf", branch: "develop"
 
 group :debug do
   gem "byebug", platforms: :mri
