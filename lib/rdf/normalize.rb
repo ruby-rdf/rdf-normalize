@@ -53,11 +53,11 @@ module RDF
     #   One of `:carroll2001`, `:urgna2012`, or `:urdna2015`
     # @return [RDF::Normalize::Base]
     # @raise [ArgumentError] selected algorithm not defined
-    def new(enumerable, options = {})
+    def new(enumerable, **options)
       algorithm = options.fetch(:algorithm, :urdna2015)
       raise ArgumentError, "No algoritm defined for #{algorithm.to_sym}" unless ALGORITHMS.has_key?(algorithm)
       algorithm_class = const_get(ALGORITHMS[algorithm])
-      algorithm_class.new(enumerable, options)
+      algorithm_class.new(enumerable, **options)
     end
     module_function :new
 

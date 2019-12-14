@@ -9,7 +9,7 @@ module RDF::Normalize
     #
     # @param [RDF::Enumerable] enumerable
     # @return [RDF::Enumerable]
-    def initialize(enumerable, options)
+    def initialize(enumerable, **options)
       @dataset, @options = enumerable, options
     end
 
