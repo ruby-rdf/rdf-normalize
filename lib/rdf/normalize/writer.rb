@@ -23,7 +23,7 @@ module RDF::Normalize
     # @yieldreturn [void]
     # @yield  [writer]
     # @yieldparam [RDF::Writer] writer
-    def initialize(output = $stdout, options = {}, &block)
+    def initialize(output = $stdout, **options, &block)
       super do
         @repo = RDF::Repository.new
         if block_given?
@@ -53,7 +53,7 @@ module RDF::Normalize
     #
     # @return [void]
     def write_epilogue
-      statements = RDF::Normalize.new(@repo, @options).
+      statements = RDF::Normalize.new(@repo, **@options).
         statements.
         reject(&:variable?).
         map {|s| format_statement(s)}.

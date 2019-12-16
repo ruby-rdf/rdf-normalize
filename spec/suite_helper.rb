@@ -21,7 +21,7 @@ module RDF::Util
     #   HTTP Request headers.
     # @return [IO] File stream
     # @yield [IO] File stream
-    def self.open_file(filename_or_url, options = {}, &block)
+    def self.open_file(filename_or_url, **options, &block)
       case
       when filename_or_url.to_s =~ /^file:/
         path = filename_or_url.to_s[5..-1]
@@ -59,7 +59,7 @@ module RDF::Util
           # For overriding Link header from test data
           document_options[:headers][:link] = options[:httpLink] if options[:httpLink]
 
-          remote_document = RDF::Util::File::RemoteDocument.new(response.read, document_options)
+          remote_document = RDF::Util::File::RemoteDocument.new(response.read, **document_options)
           if block_given?
             yield remote_document
           else
@@ -67,7 +67,7 @@ module RDF::Util
           end
         end
       else
-        original_open_file(filename_or_url, options, &block)
+        original_open_file(filename_or_url, **options, &block)
       end
     end
   end
