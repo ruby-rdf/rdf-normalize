@@ -4,11 +4,11 @@ module RDF::Normalize
   #
   # Normalizes the enumerated statements into normal form in the form of N-Quads.
   #
-  # @author [Gregg Kellogg](http://kellogg-assoc.com/)
+  # @author [Gregg Kellogg](http://greggkellogg.net/)
   class Writer < RDF::NQuads::Writer
     format RDF::Normalize::Format
 
-    # @attr_accessor [RDF::Repository] Repository of statements to serialized
+    # @return [RDF::Repository] Repository of statements to serialized
     attr_accessor :repo
 
     ##
@@ -69,7 +69,7 @@ module RDF::Normalize
     ##
     # Insert an Enumerable
     #
-    # @param  [RDF::Enumerable] graph
+    # @param  [RDF::Enumerable] enumerable
     # @return [void]
     def insert_statements(enumerable)
       @repo = enumerable

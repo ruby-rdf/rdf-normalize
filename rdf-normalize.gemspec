@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
   gem.date                  = File.mtime('VERSION').strftime('%Y-%m-%d')
 
   gem.name                  = "rdf-normalize"
-  gem.homepage              = "http://github.com/gkellogg/rdf-normalize"
+  gem.homepage              = "https://github.com/ruby-rdf/rdf-normalize"
   gem.license               = 'Unlicense'
   gem.summary               = "RDF Graph normalizer for Ruby."
   gem.description           = %q{RDF::Normalize is a Graph normalizer for the RDF.rb library suite.}

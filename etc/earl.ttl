@@ -9,8 +9,8 @@
 
 <> a doap:Project ;
   doap:name          "RDF::Normalize" ;
-  doap:homepage      <http://github.com/ruby-rdf/rdf-normalize> ;
-  doap:license       <http://creativecommons.org/licenses/publicdomain/> ;
+  doap:homepage      <https://github.com/ruby-rdf/rdf-normalize> ;
+  doap:license       <http://creativecommons.org/publicdomain/zero/1.0/> ;
   doap:shortdesc     "Turtle reader/writer for Ruby."@en ;
   doap:description   "RDF::Normalize is a Graph normalizer for the RDF.rb library suite."@en ;
   doap:created       "2015-05-20"^^xsd:date;
@@ -20,7 +20,7 @@
                      <http://dbpedia.org/resource/Ruby_(programming_language)> ;
   doap:download-page <http://rubygems.org/gems/rdf-normalize> ;
   doap:mailing-list  <http://lists.w3.org/Archives/Public/public-rdf-ruby/> ;
-  doap:bug-database  <http://github.com/ruby-rdf/rdf-normalize/issues> ;
+  doap:bug-database  <https://github.com/ruby-rdf/rdf-normalize/issues> ;
   doap:blog          <http://greggkellogg.net/> ;
   doap:developer     <http://greggkellogg.net/foaf#me> ;
   doap:maintainer    <http://greggkellogg.net/foaf#me> ;
