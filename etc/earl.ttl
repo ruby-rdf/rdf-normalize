@@ -10,7 +10,7 @@
 <> a doap:Project ;
   doap:name          "RDF::Normalize" ;
   doap:homepage      <https://github.com/ruby-rdf/rdf-normalize> ;
-  doap:license       <http://creativecommons.org/publicdomain/zero/1.0/> ;
+  doap:license       <https://unlicense.org/> ;
   doap:shortdesc     "Turtle reader/writer for Ruby."@en ;
   doap:description   "RDF::Normalize is a Graph normalizer for the RDF.rb library suite."@en ;
   doap:created       "2015-05-20"^^xsd:date;
