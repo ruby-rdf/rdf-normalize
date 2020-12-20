@@ -8,12 +8,21 @@ require 'rdf/spec'
 require 'rdf/normalize'
 require 'rdf/nquads'
 require 'webmock/rspec'
-require 'open-uri/cached'
 
-# Create and maintain a cache of downloaded URIs
-URI_CACHE = File.expand_path(File.join(File.dirname(__FILE__), "uri-cache"))
-Dir.mkdir(URI_CACHE) unless File.directory?(URI_CACHE)
-OpenURI::Cache.class_eval { @cache_path = URI_CACHE }
+begin
+  require 'simplecov'
+  require 'coveralls'
+  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
+    SimpleCov::Formatter::HTMLFormatter,
+    Coveralls::SimpleCov::Formatter
+  ])
+  SimpleCov.start do
+    add_filter "/spec/"
+  end
+  Coveralls.wear!
+rescue LoadError => e
+  STDERR.puts "Coverage Skipped: #{e.message}"
+end
 
 ::RSpec.configure do |c|
   c.filter_run :focus => true

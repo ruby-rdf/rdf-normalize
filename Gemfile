@@ -17,3 +17,8 @@ end
 group :development, :test do
   gem 'psych', :platforms => [:mri, :rbx]
 end
+
+group :test do
+  gem 'simplecov',  platforms: :mri
+  gem 'coveralls',  '~> 0.8', platforms: :mri
+end
