@@ -22,7 +22,7 @@ Algorithms implemented:
 Install with `gem install rdf-normalize`
 
 * 100% free and unencumbered [public domain](https://unlicense.org/) software.
-* Compatible with  Ruby >= 2.4.
+* Compatible with  Ruby >= 2.6.
 
 ## Usage
 
@@ -40,8 +40,8 @@ Full documentation available on [Rubydoc.info][Normalize doc]
 
 ## Dependencies
 
-* [Ruby](https://ruby-lang.org/) (>= 2.4)
-* [RDF.rb](https://rubygems.org/gems/rdf) (~> 3.1)
+* [Ruby](https://ruby-lang.org/) (>= 2.6)
+* [RDF.rb](https://rubygems.org/gems/rdf) (~> 3.2)
 
 ## Installation
 

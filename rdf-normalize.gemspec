@@ -18,9 +18,9 @@ Gem::Specification.new do |gem|
   gem.files                 = %w(AUTHORS README.md LICENSE VERSION) + Dir.glob('lib/**/*.rb')
   gem.require_paths         = %w(lib)
 
-  gem.required_ruby_version = '>= 2.4'
-  gem.add_dependency             'rdf',             '~> 3.1', '>= 3.1.12'
-  gem.add_development_dependency 'rdf-spec',        '~> 3.1'
+  gem.required_ruby_version = '>= 2.6'
+  gem.add_dependency             'rdf',             '~> 3.2'
+  gem.add_development_dependency 'rdf-spec',        '~> 3.2'
   gem.add_development_dependency 'rspec',           '~> 3.10'
   gem.add_development_dependency 'webmock',         '~> 3.11'
   gem.add_development_dependency 'json-ld',         '~> 3.1'
