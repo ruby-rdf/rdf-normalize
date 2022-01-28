@@ -80,7 +80,7 @@ see <https://unlicense.org/> or the accompanying {file:LICENSE} file.
 [YARD]:         https://yardoc.org/
 [YARD-GS]:      https://rubydoc.info/docs/yard/file/docs/GettingStarted.md
 [PDD]:              https://unlicense.org/#unlicensing-contributions
-[RDF.rb]:       https://rubydoc.info/github/ruby-rdf/rdf-normalize
+[RDF.rb]:       https://ruby-rdf.github.io/rdf-normalize
 [N-Triples]:    https://www.w3.org/TR/rdf-testcases/#ntriples
 [RDF Normalize]:https://json-ld.github.io/normalization/spec/
-[Normalize doc]:https://rubydoc.info/github/ruby-rdf/rdf-normalize/master
+[Normalize doc]:https://ruby-rdf.github.io/rdf-normalize/master
