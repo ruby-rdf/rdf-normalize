@@ -6,7 +6,6 @@ require 'rspec'
 require 'json/ld'
 require 'rdf/spec'
 require 'rdf/nquads'
-require 'webmock/rspec'
 
 begin
   require 'simplecov'

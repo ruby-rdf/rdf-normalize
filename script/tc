@@ -1,32 +1,37 @@
 #!/usr/bin/env ruby
 require 'rubygems'
-$:.unshift(File.expand_path(File.join(File.dirname(__FILE__), "..", 'lib')))
+$:.unshift(File.expand_path("../../lib", __FILE__))
 require "bundler/setup"
 require 'logger'
 require 'rdf/normalize'
-require File.expand_path(File.join(File.dirname(__FILE__), "..", 'spec', 'spec_helper'))
-require File.expand_path(File.join(File.dirname(__FILE__), "..", 'spec', 'suite_helper'))
+require_relative "../spec/spec_helper"
+require_relative "../spec/suite_helper"
 require 'getoptlong'
 
-ASSERTOR = "http://greggkellogg.net/foaf#me"
+ASSERTOR = "https://greggkellogg.net/foaf#me"
 RUN_TIME = Time.now
 
 def earl_preamble(options)
   options[:output].write File.read(File.expand_path("../../etc/doap.ttl", __FILE__))
   options[:output].puts %(
-<> foaf:primaryTopic <http://rubygems.org/gems/rdf-normalize> ;
+<https://rubygems.org/gems/rdf-normalize> doap:release [
+  doap:name "rdf-normalize-#{RDF::Normalize::VERSION}";
+  doap:revision "#{RDF::Normalize::VERSION}";
+  doap:created "#{File.mtime(File.expand_path('../../VERSION', __FILE__)).strftime('%Y-%m-%d')}"^^xsd:date;
+] .
+<> foaf:primaryTopic <https://rubygems.org/gems/rdf-normalize> ;
   dc:issued "#{RUN_TIME.xmlschema}"^^xsd:dateTime ;
   foaf:maker <#{ASSERTOR}> .
 
 <#{ASSERTOR}> a foaf:Person, earl:Assertor;
   foaf:name "Gregg Kellogg";
   foaf:title "Implementor";
-  foaf:homepage <http://greggkellogg.net/> .
+  foaf:homepage <https://greggkellogg.net/> .
 )
 end
 
 def run_tc(tc, **options)
-  STDERR.write "run #{tc.id}"
+  $stderr.write "run #{tc.id}"
 
   if options[:verbose]
     puts "\nTestCase: #{tc.inspect}"
@@ -41,24 +46,31 @@ def run_tc(tc, **options)
     options = {base_uri:  tc.base}.merge(options)
 
     dataset = RDF::Repository.load(tc.action, format: :nquads)
-    output = dataset.dump(:normalize, tc.writer_options.merge(logger: options[:logger]))
+    output = dataset.dump(:normalize, **tc.writer_options.merge(logger: options[:logger]))
+
     result = output == tc.expected ? "passed" : "failed"
-  rescue Exception => e
-    STDERR.puts "#{"exception:" unless options[:quiet]}: #{e}"
+    options[:results][result] ||= 0
+    options[:results][result] += 1
+  rescue Interrupt
+    $stderr.puts "(interrupt)"
+    exit 1
+  rescue StandardError => e
+    $stderr.puts "#{"exception:" unless options[:quiet]}: #{e}"
     if options[:quiet]
-      return
+      options[:results]['failed'] ||= 0
+      options[:results]['failed'] += 1
     else
       raise
     end
   end
 
-  options[:output].puts("\nOutput:\n" + output) unless options[:quiet]
+  options[:output].puts("\nOutput:\n" + output) if options[:verbose]
 
   if options[:earl]
     options[:output].puts %{
 [ a earl:Assertion;
   earl:assertedBy <#{ASSERTOR}>;
-  earl:subject <http://rubygems.org/gems/rdf-normalize>;
+  earl:subject <https://rubygems.org/gems/rdf-normalize>;
   earl:test <#{tc.id}>;
   earl:result [
     a earl:TestResult;
@@ -68,10 +80,7 @@ def run_tc(tc, **options)
 }
   end
 
-  options[:result_count][result] ||= 0
-  options[:result_count][result] += 1
-
-  puts "#{"test result:" unless options[:quiet]} #{result}"
+  puts "#{" test result:" unless options[:quiet]} #{result}"
 end
 
 logger = Logger.new(STDERR)
@@ -80,12 +89,13 @@ logger.formatter = lambda {|severity, datetime, progname, msg| "#{severity}: #{m
 
 options = {
   output:  STDOUT,
+  results: {},
   logger: logger
 }
 
 opts = GetoptLong.new(
   ["--help", "-?", GetoptLong::NO_ARGUMENT],
-  ["--dbg", GetoptLong::NO_ARGUMENT],
+  ["--debug", GetoptLong::NO_ARGUMENT],
   ["--earl", GetoptLong::NO_ARGUMENT],
   ["--quiet", "-q", GetoptLong::NO_ARGUMENT],
   ["--output", "-o", GetoptLong::REQUIRED_ARGUMENT],
@@ -96,7 +106,7 @@ opts = GetoptLong.new(
 def help(options)
   puts "Usage: #{$0} [options] [test-number ...]"
   puts "Options:"
-  puts "      --dbg:                Display detailed debug output"
+  puts "      --debug:              Display detailed debug output"
   puts "      --earl:               Generate EARL report"
   puts "      --quiet:              Minimal output"
   puts "      --output:             Output to specified file"
@@ -109,7 +119,7 @@ end
 opts.each do |opt, arg|
   case opt
   when '--help'             then help(options)
-  when '--dbg'              then logger.level = Logger::DEBUG
+  when '--debug'            then logger.level = Logger::DEBUG
   when '--earl'
     options[:quiet] = options[:earl] = true
     logger.level = Logger::FATAL
@@ -124,21 +134,15 @@ end
 
 earl_preamble(options) if options[:earl]
 
-WebMock.allow_net_connect!(net_http_connect_on_start: true)
-
-result_count = {}
-
 %w(urgna2012 urdna2015).each do |variant|
   manifest = Fixtures::SuiteTest::BASE + "manifest-#{variant}.jsonld"
   
   Fixtures::SuiteTest::Manifest.open(manifest, manifest[0..-8]) do |m|
     m.entries.each do |tc|
       next unless ARGV.empty? || ARGV.any? {|n| tc.id.match(/#{n}/)}
-      run_tc(tc, options.merge(result_count: result_count))
+      run_tc(tc, **options)
     end
   end
 end
 
-result_count.each do |result, count|
-  puts "#{result}: #{count}"
-end
+options[:results].each {|k, v| puts "#{k}: #{v}"}

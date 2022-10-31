@@ -5,8 +5,8 @@ require 'json/ld'
 # For now, override RDF::Utils::File.open_file to look for the file locally before attempting to retrieve it
 module RDF::Util
   module File
-    REMOTE_PATH = "http://json-ld.github.io/normalization/"
-    LOCAL_PATH = ::File.expand_path("../w3c-normalization", __FILE__) + '/'
+    REMOTE_PATH = "https://w3c.github.io/rch-rdc/"
+    LOCAL_PATH = ::File.expand_path("../../../rch-rdc", __FILE__) + '/'
 
     class << self
       alias_method :original_open_file, :open_file
@@ -75,7 +75,7 @@ end
 
 module Fixtures
   module SuiteTest
-    BASE = "http://json-ld.github.io/normalization/tests/"
+    BASE = "https://w3c.github.io/rch-rdc/tests/"
     class Manifest < JSON::LD::Resource
       def self.open(file, base)
         #puts "open: #{file}"
