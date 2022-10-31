@@ -4,7 +4,7 @@ module RDF::Normalize
   #
   # Normalizes the enumerated statements into normal form in the form of N-Quads.
   #
-  # @author [Gregg Kellogg](http://greggkellogg.net/)
+  # @author [Gregg Kellogg](https://greggkellogg.net/)
   class Writer < RDF::NQuads::Writer
     format RDF::Normalize::Format
 

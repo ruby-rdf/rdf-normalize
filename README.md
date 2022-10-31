@@ -7,7 +7,7 @@ RDF Graph normalizer for [RDF.rb][RDF.rb].
 [![Gitter chat](https://badges.gitter.im/ruby-rdf/rdf.png)](https://gitter.im/ruby-rdf/rdf)
 
 ## Description
-This is a [Ruby][] implementation of a [RDF Normalize][] for [RDF.rb][].
+This is a [Ruby][] implementation of a [RDF Dataset Canonicalization][] for [RDF.rb][].
 
 ## Features
 RDF::Normalize generates normalized [N-Quads][] output for an RDF Dataset using the algorithm
@@ -16,8 +16,8 @@ to serialize normalized statements.
 
 Algorithms implemented:
 
-* [URGNA2012](https://json-ld.github.io/normalization/spec/index.html#dfn-urgna2012)
-* [URDNA2015](https://json-ld.github.io/normalization/spec/index.html#dfn-urdna2015)
+* [URGNA2012](https://w3c.github.io/rch-rdc/spec/index.html#dfn-urgna2012)
+* [URDNA2015](https://w3c.github.io/rch-rdc/spec/index.html#dfn-urdna2015)
 
 Install with `gem install rdf-normalize`
 
@@ -82,5 +82,5 @@ see <https://unlicense.org/> or the accompanying {file:LICENSE} file.
 [PDD]:              https://unlicense.org/#unlicensing-contributions
 [RDF.rb]:       https://ruby-rdf.github.io/rdf-normalize
 [N-Triples]:    https://www.w3.org/TR/rdf-testcases/#ntriples
-[RDF Normalize]:https://json-ld.github.io/normalization/spec/
+[RDF Dataset Canonicalization]:https://w3c.github.io/rch-rdc/spec/
 [Normalize doc]:https://ruby-rdf.github.io/rdf-normalize/master

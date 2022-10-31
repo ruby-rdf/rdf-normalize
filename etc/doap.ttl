@@ -1,4 +1,3 @@
-@base         <https://rubygems.org/gems/rdf-normalize> .
 @prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dc:   <http://purl.org/dc/terms/> .
@@ -7,7 +6,7 @@
 @prefix ex:   <http://example.org/> .
 @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
 
-<> a doap:Project ;
+<https://rubygems.org/gems/rdf-normalize> a doap:Project ;
   doap:name          "RDF::Normalize" ;
   doap:homepage      <https://github.com/ruby-rdf/rdf-normalize> ;
   doap:license       <https://unlicense.org/1.0/> ;
@@ -15,10 +14,10 @@
   doap:description   "RDF::Normalize is a Dataset normalizer for the RDF.rb library suite."@en ;
   doap:created       "2015-05-20"^^xsd:date;
   doap:programming-language "Ruby" ;
-  doap:implements    <https://json-ld.github.io/normalization/spec/> ;
+  doap:implements    <https://w3c.github.io/rch-rdc/spec/> ;
   doap:category      <http://dbpedia.org/resource/Resource_Description_Framework>,
                      <http://dbpedia.org/resource/Ruby_(programming_language)> ;
-  doap:download-page <> ;
+  doap:download-page <https://rubygems.org/gems/rdf-normalize> ;
   doap:mailing-list  <https://lists.w3.org/Archives/Public/public-rdf-ruby/> ;
   doap:bug-database  <https://github.com/ruby-rdf/rdf-normalize/issues> ;
   doap:blog          <https://greggkellogg.net/> ;
