@@ -4,7 +4,7 @@ require_relative 'spec_helper'
 describe RDF::Normalize::Writer do
   require_relative 'suite_helper'
 
-  %w(urgna2012 urdna2015).each do |variant|
+  %w(urdna2015).each do |variant|
     describe "w3c Normalization #{variant.upcase} tests" do
       manifest = Fixtures::SuiteTest::BASE + "manifest-#{variant}.jsonld"
 
