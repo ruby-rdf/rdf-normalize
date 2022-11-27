@@ -100,12 +100,13 @@ module RDF::Normalize
 
       def add_statement(node, statement)
         bnode_to_statements[node] ||= []
-        bnode_to_statements[node] << statement unless bnode_to_statements[node].include?(statement)
+        bnode_to_statements[node] << statement unless bnode_to_statements[node].any? {|st| st.eql?(statement)}
       end
 
       def add_bnode_hash(node, hash)
         hash_to_bnodes[hash] ||= []
-        hash_to_bnodes[hash] << node unless hash_to_bnodes[hash].include?(node)
+        # Match on object IDs of nodes, rather than simple node equality
+        hash_to_bnodes[hash] << node unless hash_to_bnodes[hash].any? {|n| n.eql?(node)}
       end
 
       # @param [RDF::Node] node
@@ -218,7 +219,7 @@ module RDF::Normalize
 
           hash = log_depth {hash_related_node(term, statement, issuer, pos)}
           map[hash] ||= []
-          map[hash] << term unless map[hash].include?(term)
+          map[hash] << term unless map[hash].any? {|n| n.eql?(term)}
         end
       end
     end
