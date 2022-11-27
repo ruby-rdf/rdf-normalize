@@ -1,15 +1,10 @@
-$:.unshift "."
-require 'spec_helper'
 require 'fileutils'
+require_relative 'spec_helper'
 
-WebMock.allow_net_connect!(net_http_connect_on_start: true)
 describe RDF::Normalize::Writer do
-  require 'suite_helper'
+  require_relative 'suite_helper'
 
-  before(:all) {WebMock.allow_net_connect!(net_http_connect_on_start: true)}
-  after(:all) {WebMock.allow_net_connect!(net_http_connect_on_start: false)}
-
-  %w(urgna2012 urdna2015).each do |variant|
+  %w(urdna2015).each do |variant|
     describe "w3c Normalization #{variant.upcase} tests" do
       manifest = Fixtures::SuiteTest::BASE + "manifest-#{variant}.jsonld"
 

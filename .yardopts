@@ -1,0 +1,11 @@
+--title "RDF:Normalize: RDF Dataset Normalization"
+--output-dir doc/yard
+--protected
+--no-private
+--hide-void-return
+--markup markdown
+--readme README.md
+-
+AUTHORS
+LICENSE
+VERSION

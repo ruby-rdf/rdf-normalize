@@ -23,9 +23,7 @@ module RDF::Normalize
         identifier = canonical_issuer.identifier(related) ||
                      issuer.identifier(related) ||
                      hash_first_degree_quads(related)
-        input = position.to_s
-        input << statement.predicate.to_s
-        input << identifier
+        input = "#{position}#{statement.predicate}#{identifier}"
         log_debug("hrel") {"input: #{input.inspect}, hash: #{hexdigest(input)}"}
         hexdigest(input)
       end
@@ -35,11 +33,11 @@ module RDF::Normalize
         if statement.subject.node? && statement.subject != identifier
           hash = log_depth {hash_related_node(statement.subject, statement, issuer, :p)}
           map[hash] ||= []
-          map[hash] << statement.subject unless map[hash].include?(statement.subject)
+          map[hash] << statement.subject unless map[hash].any? {|n| n.eql?(statement.subject)}
         elsif statement.object.node? && statement.object != identifier
           hash = log_depth {hash_related_node(statement.object, statement, issuer, :r)}
           map[hash] ||= []
-          map[hash] << statement.object unless map[hash].include?(statement.object)
+          map[hash] << statement.object unless map[hash].any? {|n| n.eql?(statement.object)}
         end
       end
     end

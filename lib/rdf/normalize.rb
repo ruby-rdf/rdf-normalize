@@ -25,7 +25,7 @@ module RDF
   #     writer << RDF::Repository.load("etc/doap.ttl")
   #   end
   #
-  # @author [Gregg Kellogg](http://greggkellogg.net/)
+  # @author [Gregg Kellogg](https://greggkellogg.net/)
   module Normalize
     require  'rdf/normalize/format'
     autoload :Base,       'rdf/normalize/base'

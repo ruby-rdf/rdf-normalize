@@ -7,7 +7,7 @@ RDF Graph normalizer for [RDF.rb][RDF.rb].
 [![Gitter chat](https://badges.gitter.im/ruby-rdf/rdf.png)](https://gitter.im/ruby-rdf/rdf)
 
 ## Description
-This is a [Ruby][] implementation of a [RDF Normalize][] for [RDF.rb][].
+This is a [Ruby][] implementation of a [RDF Dataset Canonicalization][] for [RDF.rb][].
 
 ## Features
 RDF::Normalize generates normalized [N-Quads][] output for an RDF Dataset using the algorithm
@@ -16,8 +16,8 @@ to serialize normalized statements.
 
 Algorithms implemented:
 
-* [URGNA2012](https://json-ld.github.io/normalization/spec/index.html#dfn-urgna2012)
-* [URDNA2015](https://json-ld.github.io/normalization/spec/index.html#dfn-urdna2015)
+* [URGNA2012](https://www.w3.org/TR/rdf-canon/#dfn-urgna2012)
+* [URDNA2015](https://www.w3.org/TR/rdf-canon/#dfn-urdna2015)
 
 Install with `gem install rdf-normalize`
 
@@ -27,7 +27,17 @@ Install with `gem install rdf-normalize`
 ## Usage
 
 ## Documentation
-Full documentation available on [Rubydoc.info][Normalize doc]
+
+Full documentation available on [GitHub][Normalize doc]
+
+## Examples
+
+### Returning normalized N-Quads
+
+    require 'rdf/normalize'
+    require 'rdf/turtle'
+    g = RDF::Graph.load("etc/doap.ttl")
+    puts g.dump(:normalize)
 
 ### Principle Classes
 * {RDF::Normalize}
@@ -36,7 +46,6 @@ Full documentation available on [Rubydoc.info][Normalize doc]
   * {RDF::Normalize::Writer}
   * {RDF::Normalize::URGNA2012}
   * {RDF::Normalize::URDNA2015}
-
 
 ## Dependencies
 
@@ -80,7 +89,7 @@ see <https://unlicense.org/> or the accompanying {file:LICENSE} file.
 [YARD]:         https://yardoc.org/
 [YARD-GS]:      https://rubydoc.info/docs/yard/file/docs/GettingStarted.md
 [PDD]:              https://unlicense.org/#unlicensing-contributions
-[RDF.rb]:       https://rubydoc.info/github/ruby-rdf/rdf-normalize
+[RDF.rb]:       https://ruby-rdf.github.io/rdf-normalize
 [N-Triples]:    https://www.w3.org/TR/rdf-testcases/#ntriples
-[RDF Normalize]:https://json-ld.github.io/normalization/spec/
-[Normalize doc]:https://rubydoc.info/github/ruby-rdf/rdf-normalize/master
+[RDF Dataset Canonicalization]: https://www.w3.org/TR/rdf-canon/
+[Normalize doc]: https://ruby-rdf.github.io/rdf-normalize/
