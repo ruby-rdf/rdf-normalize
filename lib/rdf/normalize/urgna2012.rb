@@ -23,9 +23,7 @@ module RDF::Normalize
         identifier = canonical_issuer.identifier(related) ||
                      issuer.identifier(related) ||
                      hash_first_degree_quads(related)
-        input = position.to_s
-        input << statement.predicate.to_s
-        input << identifier
+        input = "#{position}#{statement.predicate}#{identifier}"
         log_debug("hrel") {"input: #{input.inspect}, hash: #{hexdigest(input)}"}
         hexdigest(input)
       end

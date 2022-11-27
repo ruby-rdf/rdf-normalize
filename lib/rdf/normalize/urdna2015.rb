@@ -137,7 +137,7 @@ module RDF::Normalize
         identifier = canonical_issuer.identifier(related) ||
                      issuer.identifier(related) ||
                      hash_first_degree_quads(related)
-        input = position.to_s
+        input = "#{position}"
         input << statement.predicate.to_ntriples unless position == :g
         input << identifier
         log_debug("hrel") {"input: #{input.inspect}, hash: #{hexdigest(input)}"}
