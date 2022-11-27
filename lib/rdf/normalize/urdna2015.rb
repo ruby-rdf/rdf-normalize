@@ -27,30 +27,23 @@ module RDF::Normalize
         end
       end
 
-      non_normalized_identifiers, simple = ns.bnode_to_statements.keys, true
+      ns.hash_to_bnodes = {}
 
-      while simple
-        simple = false
-        ns.hash_to_bnodes = {}
+      # Calculate hashes for first degree nodes
+      ns.bnode_to_statements.each_key do |node|
+        hash = log_depth {ns.hash_first_degree_quads(node)}
+        log_debug("1deg") {"hash: #{hash}"}
+        ns.add_bnode_hash(node, hash)
+      end
 
-        # Calculate hashes for first degree nodes
-        non_normalized_identifiers.each do |node|
-          hash = log_depth {ns.hash_first_degree_quads(node)}
-          log_debug("1deg") {"hash: #{hash}"}
-          ns.add_bnode_hash(node, hash)
-        end
-
-        # Create canonical replacements for hashes mapping to a single node
-        ns.hash_to_bnodes.keys.sort.each do |hash|
-          identifier_list = ns.hash_to_bnodes[hash]
-          next if identifier_list.length > 1
-          node = identifier_list.first
-          id = ns.canonical_issuer.issue_identifier(node)
-          log_debug("single node") {"node: #{node.to_ntriples}, hash: #{hash}, id: #{id}"}
-          non_normalized_identifiers -= identifier_list
-          ns.hash_to_bnodes.delete(hash)
-          simple = true
-        end
+      # Create canonical replacements for hashes mapping to a single node
+      ns.hash_to_bnodes.keys.sort.each do |hash|
+        identifier_list = ns.hash_to_bnodes[hash]
+        next if identifier_list.length > 1
+        node = identifier_list.first
+        id = ns.canonical_issuer.issue_identifier(node)
+        log_debug("single node") {"node: #{node.to_ntriples}, hash: #{hash}, id: #{id}"}
+        ns.hash_to_bnodes.delete(hash)
       end
 
       # Iterate over hashs having more than one node
