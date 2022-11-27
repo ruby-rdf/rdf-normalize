@@ -11,10 +11,10 @@
   doap:homepage      <https://github.com/ruby-rdf/rdf-normalize> ;
   doap:license       <https://unlicense.org/1.0/> ;
   doap:shortdesc     "RDF Dataset Normalization for RDF.rb."@en ;
-  doap:description   "RDF::Normalize is a Dataset normalizer for the RDF.rb library suite."@en ;
+  doap:description   "RDF::Normalize performs Dataset Canonicalization for RDF.rb."@en ;
   doap:created       "2015-05-20"^^xsd:date;
   doap:programming-language "Ruby" ;
-  doap:implements    <https://w3c.github.io/rch-rdc/spec/> ;
+  doap:implements    <https://www.w3.org/TR/rdf-canon/> ;
   doap:category      <http://dbpedia.org/resource/Resource_Description_Framework>,
                      <http://dbpedia.org/resource/Ruby_(programming_language)> ;
   doap:download-page <https://rubygems.org/gems/rdf-normalize> ;
