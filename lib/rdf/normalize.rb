@@ -1,4 +1,5 @@
 require 'rdf'
+require 'digest'
 
 module RDF
   ##

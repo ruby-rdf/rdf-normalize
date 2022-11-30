@@ -31,8 +31,8 @@ module RDF::Normalize
 
       # Calculate hashes for first degree nodes
       ns.bnode_to_statements.each_key do |node|
+        log_debug("ca") {"1deg: #{node}"}
         hash = log_depth {ns.hash_first_degree_quads(node)}
-        log_debug("1deg") {"hash: #{hash}"}
         ns.add_bnode_hash(node, hash)
       end
 
@@ -42,7 +42,7 @@ module RDF::Normalize
         next if identifier_list.length > 1
         node = identifier_list.first
         id = ns.canonical_issuer.issue_identifier(node)
-        log_debug("single node") {"node: #{node.to_ntriples}, hash: #{hash}, id: #{id}"}
+        log_debug("ca", "single node") {"node: #{node.to_ntriples}, hash: #{hash}, id: #{id}"}
         ns.hash_to_bnodes.delete(hash)
       end
 
@@ -50,7 +50,7 @@ module RDF::Normalize
       ns.hash_to_bnodes.keys.sort.each do |hash|
         identifier_list = ns.hash_to_bnodes[hash]
 
-        log_debug("multiple nodes") {"node: #{identifier_list.map(&:to_ntriples).join(",")}, hash: #{hash}"}
+        log_debug("ca", "multiple nodes") {"node: #{identifier_list.map(&:to_nquads).map(&:strip).join(",")}, hash: #{hash}"}
         hash_path_list = []
 
         # Create a hash_path_list for all bnodes using a temporary identifier used to create canonical replacements
@@ -60,7 +60,7 @@ module RDF::Normalize
           temporary_issuer.issue_identifier(identifier)
           hash_path_list << log_depth {ns.hash_n_degree_quads(identifier, temporary_issuer)}
         end
-        log_debug("->") {"hash_path_list: #{hash_path_list.map(&:first).inspect}"}
+        log_debug("ca") {"hash_path_list: #{hash_path_list.inspect}"}
 
         # Create canonical replacements for nodes
         hash_path_list.sort_by(&:first).map(&:last).each do |issuer|
@@ -109,10 +109,13 @@ module RDF::Normalize
         hash_to_bnodes[hash] << node unless hash_to_bnodes[hash].any? {|n| n.eql?(node)}
       end
 
-      # @param [RDF::Node] node
+      # This algorithm calculates a hash for a given blank node across the quads in a dataset in which that blank node is a component. If the hash uniquely identifies that blank node, no further examination is necessary. Otherwise, a hash will be created for the blank node using the algorithm in [4.9 Hash N-Degree Quads](https://w3c.github.io/rdf-canon/spec/#hash-nd-quads) invoked via [4.5 Canonicalization Algorithm](https://w3c.github.io/rdf-canon/spec/#canon-algorithm).
+      #
+      # @param [RDF::Node] node The reference blank node identifier
       # @return [String] the SHA256 hexdigest hash of statements using this node, with replacements
       def hash_first_degree_quads(node)
-        quads = bnode_to_statements[node].
+        log_debug("1deg") {"input: #{bnode_to_statements[node].map(&:to_nquads).map(&:strip).join(' ')}"}
+        nquads = bnode_to_statements[node].
           map do |statement|
             quad = statement.to_quad.map do |t|
               case t
@@ -124,8 +127,10 @@ module RDF::Normalize
             RDF::NQuads::Writer.serialize(RDF::Statement.from(quad))
           end
 
-        log_debug("1deg") {"node: #{node}, quads: #{quads}"}
-        hexdigest(quads.sort.join)
+        log_debug("1deg") {"nquads: #{nquads.map(&:strip).join(' ')}"}
+        result = hexdigest(nquads.sort.join)
+        log_debug("1deg") {"hash: #{result}"}
+        result
       end
 
       # @param [RDF::Node] related
@@ -134,6 +139,8 @@ module RDF::Normalize
       # @param [String] position one of :s, :o, or :g
       # @return [String] the SHA256 hexdigest hash
       def hash_related_node(related, statement, issuer, position)
+        log_debug("hrel") {"related: #{related.to_nquads}, position: #{position}"}
+        log_debug("hrel") {"predicate: #{statement.predicate.to_nquads}, position: #{position}"}
         identifier = canonical_issuer.identifier(related) ||
                      issuer.identifier(related) ||
                      hash_first_degree_quads(related)
@@ -148,27 +155,31 @@ module RDF::Normalize
       # @param [IdentifierIssuer] issuer
       # @return [Array<String,IdentifierIssuer>] the Hash and issuer
       def hash_n_degree_quads(identifier, issuer)
+        log_debug("ndeg") {"canon issuer: #{canonical_issuer.inspect}"}
         log_debug("ndeg") {"identifier: #{identifier.to_ntriples}"}
+        log_debug("ndeg") {"issuer: #{issuer.inspect}"}
 
         # hash to related blank nodes map
-        map = {}
+        hn = {}
+
+        log_debug("ndeg") {"quads: #{bnode_to_statements[identifier].map(&:to_nquads).map(&:strip).join(' ')}"}
 
         bnode_to_statements[identifier].each do |statement|
-          hash_related_statement(identifier, statement, issuer, map)
+          log_depth {hash_related_statement(identifier, statement, issuer, hn)}
         end
+        log_debug("ndeg") {"hn: #{hn.map {|h,l| "#{h}: #{l.map(&:to_ntriples)}"}.join('; ')}"}
 
         data_to_hash = ""
 
-        log_debug("ndeg") {"map: #{map.map {|h,l| "#{h}: #{l.map(&:to_ntriples)}"}.join('; ')}"}
         log_depth do
-          map.keys.sort.each do |hash|
-            list = map[hash]
+          hn.keys.sort.each do |hash|
+            list = hn[hash]
             # Iterate over related nodes
             chosen_path, chosen_issuer = "", nil
             data_to_hash += hash
 
             list.permutation do |permutation|
-              log_debug("ndeg") {"perm: #{permutation.map(&:to_ntriples).join(",")}"}
+              log_debug("ndeg") {"perm: #{permutation.map(&:to_ntriples).join(", ")}"}
               issuer_copy, path, recursion_list = issuer.dup, "", []
 
               permutation.each do |related|
@@ -251,6 +262,10 @@ module RDF::Normalize
         other = super
         other.instance_variable_set(:@issued, @issued.dup)
         other
+      end
+
+      def inspect
+        "Issuer: #{@issued.map {|k,v| "#{k}: #{v}"}.join(', ')}"
       end
     end
   end

@@ -1,0 +1,91 @@
+#!/usr/bin/env ruby
+require 'rubygems'
+$:.unshift(File.expand_path('../../lib', __FILE__))
+require "bundler/setup"
+require 'logger'
+require 'rdf/normalize'
+begin
+  require 'linkeddata'
+rescue LoadError
+  require 'rdf/nquads'
+  require 'rdf/trig'
+end
+require 'getoptlong'
+require 'amazing_print'
+
+def run(input, focus: nil, shape: nil, **options)
+  if options[:verbose]
+    STDERR.puts "input:\n#{input.read}\n"
+    input.rewind
+  end
+
+  reader_class = RDF::Reader.for(options[:input_format].to_sym)
+  raise "Reader not found for #{options[:input_format]}" unless reader_class
+
+  dataset = RDF::Repository.new {|r| r << reader_class.new(input)}
+  output = dataset.dump(:normalize, **options)
+
+  options[:output].write output
+rescue
+  STDERR.puts $!
+  STDERR.puts $!.backtrace
+end
+
+OPT_ARGS = [
+  ["--base", GetoptLong::REQUIRED_ARGUMENT,           "Base URI of target graph, if different from graph location"],
+  ["--debug", GetoptLong::NO_ARGUMENT,                "Debug shape matching"],
+  ["--execute", "-e", GetoptLong::REQUIRED_ARGUMENT,  "Use option argument as the patch input"],
+  ["--input-format", GetoptLong::REQUIRED_ARGUMENT,   "Format of the input file, defaults to ttl"],
+  ["--output", "-o", GetoptLong::REQUIRED_ARGUMENT,   "Save output to file"],
+  ["--progress", GetoptLong::NO_ARGUMENT,             "Display parse tree"],
+  ["--verbose", GetoptLong::NO_ARGUMENT,              "Display details of processing"],
+  ["--help", "-?", GetoptLong::NO_ARGUMENT,           "This message"]
+]
+def usage
+  STDERR.puts %{Usage: #{$0} [options] file ...}
+  width = OPT_ARGS.map do |o|
+    l = o.first.length
+    l += o[1].length + 2 if o[1].is_a?(String)
+    l
+  end.max
+  OPT_ARGS.each do |o|
+    s = "  %-*s  " % [width, (o[1].is_a?(String) ? "#{o[0,2].join(', ')}" : o[0])]
+    s += o.last
+    STDERR.puts s
+  end
+  exit(1)
+end
+
+opts = GetoptLong.new(*OPT_ARGS.map {|o| o[0..-2]})
+
+logger = Logger.new(STDERR)
+logger.level = Logger::WARN
+logger.formatter = lambda {|severity, datetime, progname, msg| "%5s %s\n" % [severity, msg]}
+
+options = {
+  input_format:  :ttl,
+  logger:       logger,
+  output:       STDOUT,
+}
+input = nil
+
+opts.each do |opt, arg|
+  case opt
+  when '--base'         then options[:base_uri] = arg
+  when '--debug'        then logger.level = Logger::DEBUG
+  when '--execute'      then input = arg
+  when '--input-format' then options[:input_format] = arg.to_sym
+  when '--progress'     then logger.level = Logger::INFO
+  when "--help"         then usage
+  end
+end
+
+if ARGV.empty?
+  s = input ? input : $stdin.read
+  run(StringIO.new(s), **options)
+else
+  ARGV.each do |test_file|
+    run(Kernel.open(test_file), base_uri: RDF::URI(test_file), **options)
+  end
+end
+puts
