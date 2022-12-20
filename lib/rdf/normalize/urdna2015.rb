@@ -1,4 +1,9 @@
 require 'rdf/nquads'
+begin
+  require 'json'
+rescue LoadError
+  # Used for debug output
+end
 
 module RDF::Normalize
   class URDNA2015
@@ -44,7 +49,7 @@ module RDF::Normalize
         next if identifier_list.length > 1
         node = identifier_list.first
         id = ns.canonical_issuer.issue_identifier(node)
-        log_debug("ca", "step 4.2") {"identifier: #{node.id}, hash: #{hash}, cid: #{id[2..-1]}"}
+        log_debug("ca", "step 4.2") {"identifier: #{node.id}, hash: #{hash}, cid: #{id}"}
         ns.hash_to_bnodes.delete(hash)
       end
 
@@ -52,13 +57,13 @@ module RDF::Normalize
       ns.hash_to_bnodes.keys.sort.each do |hash|
         identifier_list = ns.hash_to_bnodes[hash]
 
-        log_debug("ca", "step 5.1") {"identifier_list: #{identifier_list.map(&:to_nquads).map(&:strip).join(",")}, hash: #{hash}"}
+        log_debug("ca", "step 5.1") {"identifier_list: #{identifier_list.map(&:id)}, hash: #{hash}"}
         hash_path_list = []
 
         # Create a hash_path_list for all bnodes using a temporary identifier used to create canonical replacements
         identifier_list.each do |identifier|
           next if ns.canonical_issuer.issued.include?(identifier)
-          temporary_issuer = IdentifierIssuer.new("_:b")
+          temporary_issuer = IdentifierIssuer.new("b")
           temporary_issuer.issue_identifier(identifier)
           hash_path_list << log_depth {ns.hash_n_degree_quads(identifier, temporary_issuer)}
         end
@@ -77,7 +82,7 @@ module RDF::Normalize
       dataset.each_statement do |statement|
         if statement.has_blank_nodes?
           quad = statement.to_quad.compact.map do |term|
-            term.node? ? RDF::Node.intern(ns.canonical_issuer.identifier(term)[2..-1]) : term
+            term.node? ? RDF::Node.intern(ns.canonical_issuer.identifier(term)) : term
           end
           block.call RDF::Statement.from(quad)
         else
@@ -100,7 +105,7 @@ module RDF::Normalize
 
       def initialize(options)
         @options = options
-        @bnode_to_statements, @hash_to_bnodes, @canonical_issuer = {}, {}, IdentifierIssuer.new("_:c14n")
+        @bnode_to_statements, @hash_to_bnodes, @canonical_issuer = {}, {}, IdentifierIssuer.new("c14n")
       end
 
       def add_statement(node, statement)
@@ -144,13 +149,13 @@ module RDF::Normalize
       # @param [String] position one of :s, :o, or :g
       # @return [String] the SHA256 hexdigest hash
       def hash_related_node(related, statement, issuer, position)
-        log_debug("hrbn", "entry") {"related: #{related.to_nquads}, position: #{position}"}
+        log_debug("hrbn", "entry") {"related: #{related.id}, position: #{position}"}
         log_debug("hrbn", "entry") {"quad: #{statement.to_nquads.strip}"}
         input = "#{position}"
         input << statement.predicate.to_ntriples unless position == :g
         if identifier = (canonical_issuer.identifier(related) ||
                          issuer.identifier(related))
-          input << identifier.to_s
+          input << "_:#{identifier}"
         else
           input << log_depth {hash_first_degree_quads(related)}
         end
@@ -174,7 +179,9 @@ module RDF::Normalize
         bnode_to_statements[identifier].each do |statement|
           log_depth {hash_related_statement(identifier, statement, issuer, hn)}
         end
-        log_debug("hndq", "step 3") {"hn: #{hn.map {|h,l| "#{h}: #{l.map(&:to_ntriples)}"}.join('; ')}"}
+        log_debug("hndq", "step 3") do
+          "hn: #{hn.inject({}) {|memo, (k,v)| memo.merge(k => v.map(&:id))}.to_json}"
+        end
 
         data_to_hash = ""
 
@@ -192,22 +199,22 @@ module RDF::Normalize
               issuer_copy, path, recursion_list = issuer.dup, "", []
 
               permutation.each do |related|
-                log_debug("hndq", "step 5.4.4") {"related: #{related}, path: #{path}"}
+                log_debug("hndq", "step 5.4.4") {"related: #{related.id}, path: #{path}"}
                 if canonical_issuer.identifier(related)
-                  path << canonical_issuer.issue_identifier(related)
+                  path << '_:' + canonical_issuer.issue_identifier(related)
                 else
                   recursion_list << related if !issuer_copy.identifier(related)
-                  path << issuer_copy.issue_identifier(related)
+                  path << '_:' + issuer_copy.issue_identifier(related)
                 end
 
                 # Skip to the next permutation if chosen path isn't empty and the path is greater than the chosen path
                 break if !chosen_path.empty? && path.length >= chosen_path.length
               end
 
-              log_debug("hndq", "step 5.4.5") {"recursion_list: #{recursion_list.map(&:to_ntriples)}, path: #{path}"}
+              log_debug("hndq", "step 5.4.5") {"recursion_list: #{recursion_list.map(&:id)}, path: #{path}"}
               recursion_list.each do |related|
                 result = log_depth {hash_n_degree_quads(related, issuer_copy)}
-                path << issuer_copy.issue_identifier(related)
+                path << '_:' + issuer_copy.issue_identifier(related)
                 path << "<#{result.first}>"
                 issuer_copy = result.last
                 log_debug("hndq", "step 5.4.5.5") {"path: #{path}, issuer copy: #{issuer_copy.inspect}"}
@@ -261,11 +268,13 @@ module RDF::Normalize
     end
 
     class IdentifierIssuer 
-      def initialize(prefix = "_:c14n")
+      def initialize(prefix = "c14n")
         @prefix, @counter, @issued = prefix, 0, {}
       end
 
       # Return an identifier for this BNode
+      # @param [RDF::Node] node
+      # @return [String] Canonical identifier for node
       def issue_identifier(node)
         @issued[node] ||= begin
           res, @counter = @prefix + @counter.to_s, @counter + 1
@@ -277,6 +286,7 @@ module RDF::Normalize
         @issued.keys
       end
 
+      # @return [RDF::Node] Canonical identifier assigned to node
       def identifier(node)
         @issued[node]
       end
@@ -290,7 +300,7 @@ module RDF::Normalize
       end
 
       def inspect
-        "Issuer: #{@issued.map {|k,v| "#{k}: #{v}"}.join(', ')}"
+        "Issuer: #{@issued.map {|k,v| "#{k.id}: #{v}"}.join(', ')}"
       end
     end
   end
