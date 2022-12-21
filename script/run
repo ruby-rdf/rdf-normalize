@@ -31,6 +31,10 @@ rescue
   STDERR.puts $!.backtrace
 end
 
+logger = Logger.new(STDERR)
+logger.level = Logger::WARN
+logger.formatter = lambda {|severity, datetime, progname, msg| "%5s %s\n" % [severity, msg]}
+
 OPT_ARGS = [
   ["--base", GetoptLong::REQUIRED_ARGUMENT,           "Base URI of target graph, if different from graph location"],
   ["--debug", GetoptLong::NO_ARGUMENT,                "Debug shape matching"],
@@ -39,6 +43,7 @@ OPT_ARGS = [
   ["--output", "-o", GetoptLong::REQUIRED_ARGUMENT,   "Save output to file"],
   ["--progress", GetoptLong::NO_ARGUMENT,             "Display parse tree"],
   ["--verbose", GetoptLong::NO_ARGUMENT,              "Display details of processing"],
+  ["--yaml", GetoptLong::NO_ARGUMENT,                 "Debug output as YAML"],
   ["--help", "-?", GetoptLong::NO_ARGUMENT,           "This message"]
 ]
 def usage
@@ -58,10 +63,6 @@ end
 
 opts = GetoptLong.new(*OPT_ARGS.map {|o| o[0..-2]})
 
-logger = Logger.new(STDERR)
-logger.level = Logger::WARN
-logger.formatter = lambda {|severity, datetime, progname, msg| "%5s %s\n" % [severity, msg]}
-
 options = {
   input_format:  :ttl,
   logger:       logger,
@@ -76,6 +77,8 @@ opts.each do |opt, arg|
   when '--execute'      then input = arg
   when '--input-format' then options[:input_format] = arg.to_sym
   when '--progress'     then logger.level = Logger::INFO
+  when '--yaml'         then logger.formatter = lambda {|severity, datetime, progname, msg| "%s\n" % msg}
+
   when "--help"         then usage
   end
 end
