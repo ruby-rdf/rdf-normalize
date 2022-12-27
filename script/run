@@ -77,8 +77,9 @@ opts.each do |opt, arg|
   when '--execute'      then input = arg
   when '--input-format' then options[:input_format] = arg.to_sym
   when '--progress'     then logger.level = Logger::INFO
-  when '--yaml'         then logger.formatter = lambda {|severity, datetime, progname, msg| "%s\n" % msg}
-
+  when '--yaml'
+    logger.level = Logger::DEBUG
+    logger.formatter = lambda {|severity, datetime, progname, msg| "%s\n" % msg}
   when "--help"         then usage
   end
 end

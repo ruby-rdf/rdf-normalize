@@ -1,0 +1,208 @@
+ca:
+  ca2:
+    bn_to_quads:
+      e0:
+        - _:e0 <http://example.com/#p1> _:e1 .
+      e1:
+        - _:e0 <http://example.com/#p1> _:e1 .
+        - _:e1 <http://example.com/#p2> "Foo" .
+      e2:
+        - _:e2 <http://example.com/#p1> _:e3 .
+      e3:
+        - _:e2 <http://example.com/#p1> _:e3 .
+        - _:e3 <http://example.com/#p2> "Foo" .
+  ca3:
+  - identifier: e0
+    h1dq:
+      nquads:
+        - _:a <http://example.com/#p1> _:z .
+      hash: 24da9a4406b4e66dffa10ad3d4d6dddc388fbf193bb124e865158ef419893957
+  - identifier: e1
+    h1dq:
+      nquads:
+        - _:z <http://example.com/#p1> _:a .
+        - _:a <http://example.com/#p2> "Foo" .
+      hash: a994e40b576809985bc0f389308cd9d552fd7c89d028c163848a6b2d33a8583a
+  - identifier: e2
+    h1dq:
+      nquads:
+        - _:a <http://example.com/#p1> _:z .
+      hash: 24da9a4406b4e66dffa10ad3d4d6dddc388fbf193bb124e865158ef419893957
+  - identifier: e3
+    h1dq:
+      nquads:
+        - _:z <http://example.com/#p1> _:a .
+        - _:a <http://example.com/#p2> "Foo" .
+      hash: a994e40b576809985bc0f389308cd9d552fd7c89d028c163848a6b2d33a8583a
+  ca4:
+  ca5:
+  - hash: 24da9a4406b4e66dffa10ad3d4d6dddc388fbf193bb124e865158ef419893957
+    identifier_list: [ "e0", "e2"]
+    ca5.2:
+    - hdnq:
+        identifier: e0
+        issuer: {e0: b0}
+        hndq2:
+          - _:e0 <http://example.com/#p1> _:e1 .
+        hndq3:
+          quads:
+          - quad: _:e0 <http://example.com/#p1> _:e1 .
+            hndq3.1:
+            - position: o
+              related: e1
+              h1dq:
+                nquads:
+                  - _:z <http://example.com/#p1> _:a .
+                  - _:a <http://example.com/#p2> "Foo" .
+                hash: a994e40b576809985bc0f389308cd9d552fd7c89d028c163848a6b2d33a8583a
+              input: "o<http://example.com/#p1>a994e40b576809985bc0f389308cd9d552fd7c89d028c163848a6b2d33a8583a"
+              hash: 3d96946f27fc34a78e8d067135a1cb1b77083aebc4b2c6cbdc536f067242686c
+          hn: { "3d96946f27fc34a78e8d067135a1cb1b77083aebc4b2c6cbdc536f067242686c": [  "e1"]}
+        hndq5:
+        - related_hash: 3d96946f27fc34a78e8d067135a1cb1b77083aebc4b2c6cbdc536f067242686c
+          data_to_hash: ""
+          hndq5.4:
+          - perm: [ "e1"]
+            hndq5.4.4:
+            - related: e1
+              path: ""
+            hndq5.4.5:
+              recursion_list: [ "e1"]
+              path: "_:b1"
+              hndq5.4.5.1:
+              - related: e1
+                hdnq:
+                  identifier: e1
+                  issuer: {e0: b0, e1: b1}
+                  hndq2:
+                    - _:e0 <http://example.com/#p1> _:e1 .
+                    - _:e1 <http://example.com/#p2> "Foo" .
+                  hndq3:
+                    quads:
+                    - quad: _:e0 <http://example.com/#p1> _:e1 .
+                      hndq3.1:
+                      - position: s
+                        related: e0
+                        input: "s<http://example.com/#p1>_:b0"
+                        hash: 924a034861aa3fbdaf67a939abc4a2f4e233351bccb26718cb8c151b1746f677
+                    - quad: _:e1 <http://example.com/#p2> "Foo" .
+                      hndq3.1:
+                    hn: { "924a034861aa3fbdaf67a939abc4a2f4e233351bccb26718cb8c151b1746f677": [  "e0"]}
+                  hndq5:
+                  - related_hash: 924a034861aa3fbdaf67a939abc4a2f4e233351bccb26718cb8c151b1746f677
+                    data_to_hash: ""
+                    hndq5.4:
+                    - perm: [ "e0"]
+                      hndq5.4.4:
+                      - related: e0
+                        path: ""
+                      hndq5.4.5:
+                        recursion_list: []
+                        path: "_:b0"
+                    hndq5.6:
+                      chosen_path: "_:b0"
+                      data_to_hash: "924a034861aa3fbdaf67a939abc4a2f4e233351bccb26718cb8c151b1746f677_:b0"
+                  hndq6:
+                    hash: c484f98e6cbf9e21f287433c8b1caa7f1486fd61d84ab220a494bf8184751b8c
+                    issuer: {e0: b0, e1: b1}
+                path: "_:b1_:b1<c484f98e6cbf9e21f287433c8b1caa7f1486fd61d84ab220a494bf8184751b8c>"
+                issuer_copy: {e0: b0, e1: b1}
+          hndq5.6:
+            chosen_path: "_:b1_:b1<c484f98e6cbf9e21f287433c8b1caa7f1486fd61d84ab220a494bf8184751b8c>"
+            data_to_hash: "3d96946f27fc34a78e8d067135a1cb1b77083aebc4b2c6cbdc536f067242686c_:b1_:b1<c484f98e6cbf9e21f287433c8b1caa7f1486fd61d84ab220a494bf8184751b8c>"
+        hndq6:
+          hash: 39d609fcd8236b74c70744f492cd2baaf0a55765b380ff9e0811ce23e2f409d7
+          issuer: {e0: b0, e1: b1}
+    - hdnq:
+        identifier: e2
+        issuer: {e2: b0}
+        hndq2:
+          - _:e2 <http://example.com/#p1> _:e3 .
+        hndq3:
+          quads:
+          - quad: _:e2 <http://example.com/#p1> _:e3 .
+            hndq3.1:
+            - position: o
+              related: e3
+              h1dq:
+                nquads:
+                  - _:z <http://example.com/#p1> _:a .
+                  - _:a <http://example.com/#p2> "Foo" .
+                hash: a994e40b576809985bc0f389308cd9d552fd7c89d028c163848a6b2d33a8583a
+              input: "o<http://example.com/#p1>a994e40b576809985bc0f389308cd9d552fd7c89d028c163848a6b2d33a8583a"
+              hash: 3d96946f27fc34a78e8d067135a1cb1b77083aebc4b2c6cbdc536f067242686c
+          hn: { "3d96946f27fc34a78e8d067135a1cb1b77083aebc4b2c6cbdc536f067242686c": [  "e3"]}
+        hndq5:
+        - related_hash: 3d96946f27fc34a78e8d067135a1cb1b77083aebc4b2c6cbdc536f067242686c
+          data_to_hash: ""
+          hndq5.4:
+          - perm: [ "e3"]
+            hndq5.4.4:
+            - related: e3
+              path: ""
+            hndq5.4.5:
+              recursion_list: [ "e3"]
+              path: "_:b1"
+              hndq5.4.5.1:
+              - related: e3
+                hdnq:
+                  identifier: e3
+                  issuer: {e2: b0, e3: b1}
+                  hndq2:
+                    - _:e2 <http://example.com/#p1> _:e3 .
+                    - _:e3 <http://example.com/#p2> "Foo" .
+                  hndq3:
+                    quads:
+                    - quad: _:e2 <http://example.com/#p1> _:e3 .
+                      hndq3.1:
+                      - position: s
+                        related: e2
+                        input: "s<http://example.com/#p1>_:b0"
+                        hash: 924a034861aa3fbdaf67a939abc4a2f4e233351bccb26718cb8c151b1746f677
+                    - quad: _:e3 <http://example.com/#p2> "Foo" .
+                      hndq3.1:
+                    hn: { "924a034861aa3fbdaf67a939abc4a2f4e233351bccb26718cb8c151b1746f677": [  "e2"]}
+                  hndq5:
+                  - related_hash: 924a034861aa3fbdaf67a939abc4a2f4e233351bccb26718cb8c151b1746f677
+                    data_to_hash: ""
+                    hndq5.4:
+                    - perm: [ "e2"]
+                      hndq5.4.4:
+                      - related: e2
+                        path: ""
+                      hndq5.4.5:
+                        recursion_list: []
+                        path: "_:b0"
+                    hndq5.6:
+                      chosen_path: "_:b0"
+                      data_to_hash: "924a034861aa3fbdaf67a939abc4a2f4e233351bccb26718cb8c151b1746f677_:b0"
+                  hndq6:
+                    hash: c484f98e6cbf9e21f287433c8b1caa7f1486fd61d84ab220a494bf8184751b8c
+                    issuer: {e2: b0, e3: b1}
+                path: "_:b1_:b1<c484f98e6cbf9e21f287433c8b1caa7f1486fd61d84ab220a494bf8184751b8c>"
+                issuer_copy: {e2: b0, e3: b1}
+          hndq5.6:
+            chosen_path: "_:b1_:b1<c484f98e6cbf9e21f287433c8b1caa7f1486fd61d84ab220a494bf8184751b8c>"
+            data_to_hash: "3d96946f27fc34a78e8d067135a1cb1b77083aebc4b2c6cbdc536f067242686c_:b1_:b1<c484f98e6cbf9e21f287433c8b1caa7f1486fd61d84ab220a494bf8184751b8c>"
+        hndq6:
+          hash: 39d609fcd8236b74c70744f492cd2baaf0a55765b380ff9e0811ce23e2f409d7
+          issuer: {e2: b0, e3: b1}
+    ca5.3:
+    - result: 39d609fcd8236b74c70744f492cd2baaf0a55765b380ff9e0811ce23e2f409d7
+      issuer: {e0: b0, e1: b1}
+      ca5.3.1:
+      - existing_identifier: e0
+        cid: c14n0
+      - existing_identifier: e1
+        cid: c14n1
+    - result: 39d609fcd8236b74c70744f492cd2baaf0a55765b380ff9e0811ce23e2f409d7
+      issuer: {e2: b0, e3: b1}
+      ca5.3.1:
+      - existing_identifier: e2
+        cid: c14n2
+      - existing_identifier: e3
+        cid: c14n3
+  - hash: a994e40b576809985bc0f389308cd9d552fd7c89d028c163848a6b2d33a8583a
+    identifier_list: [ "e1", "e3"]
+    ca5.2:
+  ca6:: {canonical_issuer: {e0: c14n0, e1: c14n1, e2: c14n2, e3: c14n3}}

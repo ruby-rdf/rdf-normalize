@@ -89,14 +89,14 @@ module RDF::Normalize
         end
 
         # Create canonical replacements for nodes
+        log_debug("  ca5.3:") unless hash_path_list.empty?
         hash_path_list.sort_by(&:first).each do |result, issuer|
-          log_debug("  ca5.3:")
-          log_debug("    result") {result}
+          log_debug("  - result") {result}
           log_depth(depth: 4) {log_debug("issuer") {issuer.inspect}}
           log_debug("    ca5.3.1:")
           issuer.issued.each do |node|
             id = ns.canonical_issuer.issue_identifier(node)
-            log_debug("      existing_identifier") {node.id}
+            log_debug("    - existing_identifier") {node.id}
             log_debug("      cid", id)
           end
         end
@@ -203,17 +203,17 @@ module RDF::Normalize
         hn = {}
 
         log_debug("hndq2:")
-        log_debug("- quads:")
         bnode_to_statements[identifier].each do |s|
           log_debug {"  - #{s.to_nquads.strip}"}
         end
 
-        # Step 2
-        log_debug("hndq3:") unless bnode_to_statements[identifier].empty?
+        # Step 3
+        log_debug("hndq3:")
+        log_debug("  quads:") unless bnode_to_statements[identifier].empty?
         bnode_to_statements[identifier].each do |statement|
-          log_debug {"- quad: #{statement.to_nquads.strip}"}
-          log_debug("  hndq3.1:")
-          log_depth(depth: 2) {hash_related_statement(identifier, statement, issuer, hn)}
+          log_debug {"  - quad: #{statement.to_nquads.strip}"}
+          log_debug("    hndq3.1:")
+          log_depth(depth: 4) {hash_related_statement(identifier, statement, issuer, hn)}
         end
         log_debug("  hn") do
           hn.inject({}) {|memo, (k,v)| memo.merge(k => v.map(&:id))}.to_json(indent: ' ', space: ' ')
@@ -224,7 +224,7 @@ module RDF::Normalize
         # Step 5
         log_debug("hndq5:")
         hn.keys.sort.each do |hash|
-          log_debug("- hash", hash)
+          log_debug("- related_hash", hash)
           log_debug("  data_to_hash") {data_to_hash.to_json}
           list = hn[hash]
           # Iterate over related nodes
@@ -254,7 +254,7 @@ module RDF::Normalize
             log_debug("    hndq5.4.5:")
             log_debug("      recursion_list") {recursion_list.map(&:id).to_json(indent: ' ')}
             log_debug("      path") {path.to_json}
-            log_debug("      hndq5.4.5.5:") unless recursion_list.empty?
+            log_debug("      hndq5.4.5.1:") unless recursion_list.empty?
             recursion_list.each do |related|
               log_debug("      - related") {related.id}
               log_debug("        hdnq:")

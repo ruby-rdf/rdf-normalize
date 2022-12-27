@@ -93,28 +93,33 @@ options = {
   logger: logger
 }
 
-opts = GetoptLong.new(
-  ["--help", "-?", GetoptLong::NO_ARGUMENT],
-  ["--debug", GetoptLong::NO_ARGUMENT],
-  ["--earl", GetoptLong::NO_ARGUMENT],
-  ["--quiet", "-q", GetoptLong::NO_ARGUMENT],
-  ["--output", "-o", GetoptLong::REQUIRED_ARGUMENT],
-  ["--validate", GetoptLong::NO_ARGUMENT],
-  ["--verbose", "-v", GetoptLong::NO_ARGUMENT]
-)
+OPT_ARGS = [
+  ["--help", "-?", GetoptLong::NO_ARGUMENT,         "This message"],
+  ["--debug", GetoptLong::NO_ARGUMENT,              "Display detailed debug output"],
+  ["--earl", GetoptLong::NO_ARGUMENT,               "Generate EARL report"],
+  ["--quiet", "-q", GetoptLong::NO_ARGUMENT,        "Minimal output"],
+  ["--output", "-o", GetoptLong::REQUIRED_ARGUMENT, "Output to specified file"],
+  ["--validate", GetoptLong::NO_ARGUMENT,           "Validate input"],
+  ["--verbose", "-v", GetoptLong::NO_ARGUMENT,      "Verbose processing"],
+  ["--yaml", GetoptLong::NO_ARGUMENT,               "Debug output as YAML"],
+]
 
 def help(options)
-  puts "Usage: #{$0} [options] [test-number ...]"
-  puts "Options:"
-  puts "      --debug:              Display detailed debug output"
-  puts "      --earl:               Generate EARL report"
-  puts "      --quiet:              Minimal output"
-  puts "      --output:             Output to specified file"
-  puts "      --validate:           Validate input"
-  puts "      --verbose:            Verbose processing"
-  puts "      --help,-?:            This message"
+  STDERR.puts %{Usage: #{$0} [options] file ...}
+  width = OPT_ARGS.map do |o|
+    l = o.first.length
+    l += o[1].length + 2 if o[1].is_a?(String)
+    l
+  end.max
+  OPT_ARGS.each do |o|
+    s = "  %-*s  " % [width, (o[1].is_a?(String) ? "#{o[0,2].join(', ')}" : o[0])]
+    s += o.last
+    STDERR.puts s
+  end
   exit(0)
 end
+
+opts = GetoptLong.new(*OPT_ARGS.map {|o| o[0..-2]})
 
 opts.each do |opt, arg|
   case opt
@@ -129,6 +134,9 @@ opts.each do |opt, arg|
     logger.level = Logger::FATAL
   when '--validate'         then options[:validate] = true
   when '--verbose'          then options[:verbose] = true
+  when '--yaml'
+    logger.level = Logger::DEBUG
+    logger.formatter = lambda {|severity, datetime, progname, msg| "%s\n" % msg}
   end
 end
 

@@ -1,0 +1,30 @@
+ca:
+  ca2:
+    bn_to_quads:
+      e0:
+        - <http://example.com/#p> <http://example.com/#q> _:e0 .
+        - _:e0 <http://example.com/#s> <http://example.com/#u> .
+      e1:
+        - <http://example.com/#p> <http://example.com/#r> _:e1 .
+        - _:e1 <http://example.com/#t> <http://example.com/#u> .
+  ca3:
+  - identifier: e0
+    h1dq:
+      nquads:
+        - <http://example.com/#p> <http://example.com/#q> _:a .
+        - _:a <http://example.com/#s> <http://example.com/#u> .
+      hash: 21d1dd5ba21f3dee9d76c0c00c260fa6f5d5d65315099e553026f4828d0dc77a
+  - identifier: e1
+    h1dq:
+      nquads:
+        - <http://example.com/#p> <http://example.com/#r> _:a .
+        - _:a <http://example.com/#t> <http://example.com/#u> .
+      hash: 6fa0b9bdb376852b5743ff39ca4cbf7ea14d34966b2828478fbf222e7c764473
+  ca4:
+  - identifier: e0
+    hash: 21d1dd5ba21f3dee9d76c0c00c260fa6f5d5d65315099e553026f4828d0dc77a
+    cid: c14n0
+  - identifier: e1
+    hash: 6fa0b9bdb376852b5743ff39ca4cbf7ea14d34966b2828478fbf222e7c764473
+    cid: c14n1
+  ca6:: {canonical_issuer: {e0: c14n0, e1: c14n1}}
