@@ -1,0 +1,5 @@
+script/run:93:in `initialize': No such file or directory @ rb_sysopen - examples/unique-paths.ttl (Errno::ENOENT)
+	from script/run:93:in `open'
+	from script/run:93:in `block in <main>'
+	from script/run:92:in `each'
+	from script/run:92:in `<main>'

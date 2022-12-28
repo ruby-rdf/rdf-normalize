@@ -27,4 +27,4 @@ ca:
   - identifier: e1
     hash: 6fa0b9bdb376852b5743ff39ca4cbf7ea14d34966b2828478fbf222e7c764473
     cid: c14n1
-  ca6:: {canonical_issuer: {e0: c14n0, e1: c14n1}}
+  ca6: {canonical_issuer: {e0: c14n0, e1: c14n1}}

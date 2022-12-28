@@ -1,4 +1,4 @@
-run manifest-urdna2015#test022ca:
+ca:
   ca2:
     bn_to_quads:
       e0:
@@ -476,4 +476,4 @@ run manifest-urdna2015#test022ca:
         cid: c14n1
       - existing_identifier: e0
         cid: c14n0
-  ca6:: {canonical_issuer: {e0: c14n0, e1: c14n1}}
+  ca6: {canonical_issuer: {e0: c14n0, e1: c14n1}}

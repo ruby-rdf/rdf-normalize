@@ -114,7 +114,7 @@ module RDF::Normalize
         end
       end
 
-      log_debug("ca6:") { "{canonical_issuer: #{ns.canonical_issuer.inspect}}"}
+      log_debug("ca6") { "{canonical_issuer: #{ns.canonical_issuer.inspect}}"}
       dataset
     end
 
