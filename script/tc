@@ -46,7 +46,7 @@ def run_tc(tc, **options)
     options = {base_uri:  tc.base}.merge(options)
 
     dataset = RDF::Repository.load(tc.action, format: :nquads)
-    output = dataset.dump(:normalize, **tc.writer_options.merge(logger: options[:logger]))
+    output = dataset.dump(:normalize, logger: options[:logger], **tc.writer_options)
 
     result = output == tc.expected ? "passed" : "failed"
     options[:results][result] ||= 0
