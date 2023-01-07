@@ -1,6 +1,8 @@
 ca:
-  ca2:
-    bn_to_quads:
+  log point: Entering the canonicalization function (4.5.3).
+  ca.2:
+    log point: Extract quads for each bnode (4.5.3 (2)).
+    Bnode to quads:
       e0:
         - <http://example.com/#p> <http://example.com/#q> _:e0 .
         - _:e0 <http://example.com/#p> _:e2 .
@@ -13,119 +15,170 @@ ca:
       e3:
         - _:e1 <http://example.com/#p> _:e3 .
         - _:e2 <http://example.com/#r> _:e3 .
-  ca3:
-  - identifier: e0
-    h1dq:
-      nquads:
-        - <http://example.com/#p> <http://example.com/#q> _:a .
-        - _:a <http://example.com/#p> _:z .
-      hash: 3b26142829b8887d011d779079a243bd61ab53c3990d550320a17b59ade6ba36
-  - identifier: e1
-    h1dq:
-      nquads:
-        - <http://example.com/#p> <http://example.com/#q> _:a .
-        - _:a <http://example.com/#p> _:z .
-      hash: 3b26142829b8887d011d779079a243bd61ab53c3990d550320a17b59ade6ba36
-  - identifier: e2
-    h1dq:
-      nquads:
-        - _:z <http://example.com/#p> _:a .
-        - _:a <http://example.com/#r> _:z .
-      hash: 15973d39de079913dac841ac4fa8c4781c0febfba5e83e5c6e250869587f8659
-  - identifier: e3
-    h1dq:
-      nquads:
-        - _:z <http://example.com/#p> _:a .
-        - _:z <http://example.com/#r> _:a .
-      hash: 7e790a99273eed1dc57e43205d37ce232252c85b26ca4a6ff74ff3b5aea7bccd
-  ca4:
-  - identifier: e2
-    hash: 15973d39de079913dac841ac4fa8c4781c0febfba5e83e5c6e250869587f8659
-    cid: c14n0
-  - identifier: e3
-    hash: 7e790a99273eed1dc57e43205d37ce232252c85b26ca4a6ff74ff3b5aea7bccd
-    cid: c14n1
-  ca5:
-  - hash: 3b26142829b8887d011d779079a243bd61ab53c3990d550320a17b59ade6ba36
-    identifier_list: [ "e0", "e1"]
-    ca5.2:
-    - hdnq:
-        identifier: e0
-        issuer: {e0: b0}
-        hndq2:
-          - <http://example.com/#p> <http://example.com/#q> _:e0 .
-          - _:e0 <http://example.com/#p> _:e2 .
-        hndq3:
-          quads:
-          - quad: <http://example.com/#p> <http://example.com/#q> _:e0 .
-            hndq3.1:
-          - quad: _:e0 <http://example.com/#p> _:e2 .
-            hndq3.1:
-            - position: o
-              related: e2
-              input: "o<http://example.com/#p>_:c14n0"
-              hash: 29cf7e22790bc2ed395b81b3933e5329fc7b25390486085cac31ce7252ca60fa
-          hn: { "29cf7e22790bc2ed395b81b3933e5329fc7b25390486085cac31ce7252ca60fa": [  "e2"]}
-        hndq5:
-        - related_hash: 29cf7e22790bc2ed395b81b3933e5329fc7b25390486085cac31ce7252ca60fa
-          data_to_hash: ""
-          hndq5.4:
-          - perm: [ "e2"]
-            hndq5.4.4:
-            - related: e2
-              path: ""
-            hndq5.4.5:
-              recursion_list: []
-              path: "_:c14n0"
-          hndq5.6:
-            chosen_path: "_:c14n0"
-            data_to_hash: "29cf7e22790bc2ed395b81b3933e5329fc7b25390486085cac31ce7252ca60fa_:c14n0"
-        hndq6:
-          hash: fbc300de5afafd97a4b9ee1e72b57754dcdcb7ebb724789ac6a94a5b82a48d30
-          issuer: {e0: b0}
-    - hdnq:
-        identifier: e1
-        issuer: {e1: b0}
-        hndq2:
-          - <http://example.com/#p> <http://example.com/#q> _:e1 .
-          - _:e1 <http://example.com/#p> _:e3 .
-        hndq3:
-          quads:
-          - quad: <http://example.com/#p> <http://example.com/#q> _:e1 .
-            hndq3.1:
-          - quad: _:e1 <http://example.com/#p> _:e3 .
-            hndq3.1:
-            - position: o
-              related: e3
-              input: "o<http://example.com/#p>_:c14n1"
-              hash: b7956ea1d654d5824496eb439a1f2b79478bd7d02d4a115f4c97cbff6b098216
-          hn: { "b7956ea1d654d5824496eb439a1f2b79478bd7d02d4a115f4c97cbff6b098216": [  "e3"]}
-        hndq5:
-        - related_hash: b7956ea1d654d5824496eb439a1f2b79478bd7d02d4a115f4c97cbff6b098216
-          data_to_hash: ""
-          hndq5.4:
-          - perm: [ "e3"]
-            hndq5.4.4:
-            - related: e3
-              path: ""
-            hndq5.4.5:
-              recursion_list: []
-              path: "_:c14n1"
-          hndq5.6:
-            chosen_path: "_:c14n1"
-            data_to_hash: "b7956ea1d654d5824496eb439a1f2b79478bd7d02d4a115f4c97cbff6b098216_:c14n1"
-        hndq6:
-          hash: 2c0b377baf86f6c18fed4b0df6741290066e73c932861749b172d1e5560f5045
-          issuer: {e1: b0}
+  ca.3:
+    log point: Calculated first degree hashes (4.5.3 (3)).
+    with:
+      - identifier: e0
+        h1dq:
+          log point: Hash First Degree Quads function (4.7.3).
+          nquads:
+            - <http://example.com/#p> <http://example.com/#q> _:a .
+            - _:a <http://example.com/#p> _:z .
+          hash: 3b26142829b8887d011d779079a243bd61ab53c3990d550320a17b59ade6ba36
+      - identifier: e1
+        h1dq:
+          log point: Hash First Degree Quads function (4.7.3).
+          nquads:
+            - <http://example.com/#p> <http://example.com/#q> _:a .
+            - _:a <http://example.com/#p> _:z .
+          hash: 3b26142829b8887d011d779079a243bd61ab53c3990d550320a17b59ade6ba36
+      - identifier: e2
+        h1dq:
+          log point: Hash First Degree Quads function (4.7.3).
+          nquads:
+            - _:z <http://example.com/#p> _:a .
+            - _:a <http://example.com/#r> _:z .
+          hash: 15973d39de079913dac841ac4fa8c4781c0febfba5e83e5c6e250869587f8659
+      - identifier: e3
+        h1dq:
+          log point: Hash First Degree Quads function (4.7.3).
+          nquads:
+            - _:z <http://example.com/#p> _:a .
+            - _:z <http://example.com/#r> _:a .
+          hash: 7e790a99273eed1dc57e43205d37ce232252c85b26ca4a6ff74ff3b5aea7bccd
+  ca.4:
+    log point: Create canonical replacements for hashes mapping to a single node (4.5.3 (4)).
+    with:
+      - identifier: e2
+        hash: 15973d39de079913dac841ac4fa8c4781c0febfba5e83e5c6e250869587f8659
+        canonical label: c14n0
+      - identifier: e3
+        hash: 7e790a99273eed1dc57e43205d37ce232252c85b26ca4a6ff74ff3b5aea7bccd
+        canonical label: c14n1
+  ca.5:
+    log point: Calculate hashes for identifiers with shared hashes (4.5.3 (5)).
+    with:
+      - hash: 3b26142829b8887d011d779079a243bd61ab53c3990d550320a17b59ade6ba36
+        identifier list: [ "e0", "e1"]
+        ca.5.2:
+          log point: Calculate hashes for identifiers with shared hashes (4.5.3 (5)).
+          with:
+            - identifier: e0
+              log point: Hash N-Degree Quads function (4.9.3).
+              issuer: {e0: b0}
+              hndq.2:
+                log point: Quads for identifier (4.9.3 (2)).
+                quads:
+                  - <http://example.com/#p> <http://example.com/#q> _:e0 .
+                  - _:e0 <http://example.com/#p> _:e2 .
+              hndq.3:
+                log point: Hash N-Degree Quads function (4.9.3 (3)).
+                with:
+                  - quad: <http://example.com/#p> <http://example.com/#q> _:e0 .
+                    hndq3.1:
+                      log point: Hash related bnode component (4.9.3 (3.1))
+                      with:
+                  - quad: _:e0 <http://example.com/#p> _:e2 .
+                    hndq3.1:
+                      log point: Hash related bnode component (4.9.3 (3.1))
+                      with:
+                        - position: o
+                          related: e2
+                          input: "o<http://example.com/#p>_:c14n0"
+                          hash: 29cf7e22790bc2ed395b81b3933e5329fc7b25390486085cac31ce7252ca60fa
+                Hash to bnodes:
+                  29cf7e22790bc2ed395b81b3933e5329fc7b25390486085cac31ce7252ca60fa:
+                    - e2:
+              hndq.5:
+                log point: Hash N-Degree Quads function (4.9.3 (5)), entering loop.
+                with:
+                  - related hash: 29cf7e22790bc2ed395b81b3933e5329fc7b25390486085cac31ce7252ca60fa
+                    data to hash: ""
+                    hndq.5.4:
+                      log point: Hash N-Degree Quads function (4.9.3 (5.4)), entering loop.
+                      with:
+                      - perm: [ "e2"]
+                        hndq.5.4.4:
+                          log point: Hash N-Degree Quads function (4.9.3 (5.4.4)), entering loop.
+                          with:
+                            - related: e2
+                              path: ""
+                        hndq.5.4.5:
+                          log point: Hash N-Degree Quads function (4.9.3 (5.4.5)), before possible recursion.
+                          recursion list: []
+                          path: "_:c14n0"
+                    hndq.5.5:
+                      log point: Hash N-Degree Quads function (4.9.3 (5.5). End of current loop with Hn hashes.
+                      chosen path: "_:c14n0"
+                      data to hash: "29cf7e22790bc2ed395b81b3933e5329fc7b25390486085cac31ce7252ca60fa_:c14n0"
+              hndq.6:
+                log point: Leaving Hash N-Degree Quads function (4.9.3).
+                hash: fbc300de5afafd97a4b9ee1e72b57754dcdcb7ebb724789ac6a94a5b82a48d30
+                issuer: {e0: b0}
+          with:
+            - identifier: e1
+              log point: Hash N-Degree Quads function (4.9.3).
+              issuer: {e1: b0}
+              hndq.2:
+                log point: Quads for identifier (4.9.3 (2)).
+                quads:
+                  - <http://example.com/#p> <http://example.com/#q> _:e1 .
+                  - _:e1 <http://example.com/#p> _:e3 .
+              hndq.3:
+                log point: Hash N-Degree Quads function (4.9.3 (3)).
+                with:
+                  - quad: <http://example.com/#p> <http://example.com/#q> _:e1 .
+                    hndq3.1:
+                      log point: Hash related bnode component (4.9.3 (3.1))
+                      with:
+                  - quad: _:e1 <http://example.com/#p> _:e3 .
+                    hndq3.1:
+                      log point: Hash related bnode component (4.9.3 (3.1))
+                      with:
+                        - position: o
+                          related: e3
+                          input: "o<http://example.com/#p>_:c14n1"
+                          hash: b7956ea1d654d5824496eb439a1f2b79478bd7d02d4a115f4c97cbff6b098216
+                Hash to bnodes:
+                  b7956ea1d654d5824496eb439a1f2b79478bd7d02d4a115f4c97cbff6b098216:
+                    - e3:
+              hndq.5:
+                log point: Hash N-Degree Quads function (4.9.3 (5)), entering loop.
+                with:
+                  - related hash: b7956ea1d654d5824496eb439a1f2b79478bd7d02d4a115f4c97cbff6b098216
+                    data to hash: ""
+                    hndq.5.4:
+                      log point: Hash N-Degree Quads function (4.9.3 (5.4)), entering loop.
+                      with:
+                      - perm: [ "e3"]
+                        hndq.5.4.4:
+                          log point: Hash N-Degree Quads function (4.9.3 (5.4.4)), entering loop.
+                          with:
+                            - related: e3
+                              path: ""
+                        hndq.5.4.5:
+                          log point: Hash N-Degree Quads function (4.9.3 (5.4.5)), before possible recursion.
+                          recursion list: []
+                          path: "_:c14n1"
+                    hndq.5.5:
+                      log point: Hash N-Degree Quads function (4.9.3 (5.5). End of current loop with Hn hashes.
+                      chosen path: "_:c14n1"
+                      data to hash: "b7956ea1d654d5824496eb439a1f2b79478bd7d02d4a115f4c97cbff6b098216_:c14n1"
+              hndq.6:
+                log point: Leaving Hash N-Degree Quads function (4.9.3).
+                hash: 2c0b377baf86f6c18fed4b0df6741290066e73c932861749b172d1e5560f5045
+                issuer: {e1: b0}
     ca5.3:
     - result: 2c0b377baf86f6c18fed4b0df6741290066e73c932861749b172d1e5560f5045
       issuer: {e1: b0}
       ca5.3.1:
-      - existing_identifier: e1
+      - existing identifier: e1
         cid: c14n2
     - result: fbc300de5afafd97a4b9ee1e72b57754dcdcb7ebb724789ac6a94a5b82a48d30
       issuer: {e0: b0}
       ca5.3.1:
-      - existing_identifier: e0
+      - existing identifier: e0
         cid: c14n3
-  ca6:: {canonical_issuer: {e2: c14n0, e3: c14n1, e1: c14n2, e0: c14n3}}
+  ca.6:
+    log point: Replace original with canonical labels (4.5.3 (6)).
+    canonical issuer: {e2: c14n0, e3: c14n1, e1: c14n2, e0: c14n3}
