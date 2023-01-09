@@ -66,7 +66,7 @@ ca:
                   log point: Hash N-Degree Quads function (4.9.3 (3)).
                   with:
                     - quad: _:e0 <http://example.com/#p1> _:e1 .
-                      hndq3.1:
+                      hndq.3.1:
                         log point: Hash related bnode component (4.9.3 (3.1))
                         with:
                           - position: o
@@ -115,7 +115,7 @@ ca:
                                     log point: Hash N-Degree Quads function (4.9.3 (3)).
                                     with:
                                       - quad: _:e0 <http://example.com/#p1> _:e1 .
-                                        hndq3.1:
+                                        hndq.3.1:
                                           log point: Hash related bnode component (4.9.3 (3.1))
                                           with:
                                             - position: s
@@ -123,7 +123,7 @@ ca:
                                               input: "s<http://example.com/#p1>_:b0"
                                               hash: 924a034861aa3fbdaf67a939abc4a2f4e233351bccb26718cb8c151b1746f677
                                       - quad: _:e1 <http://example.com/#p2> "Foo" .
-                                        hndq3.1:
+                                        hndq.3.1:
                                           log point: Hash related bnode component (4.9.3 (3.1))
                                           with:
                                     Hash to bnodes:
@@ -181,7 +181,7 @@ ca:
                   log point: Hash N-Degree Quads function (4.9.3 (3)).
                   with:
                     - quad: _:e2 <http://example.com/#p1> _:e3 .
-                      hndq3.1:
+                      hndq.3.1:
                         log point: Hash related bnode component (4.9.3 (3.1))
                         with:
                           - position: o
@@ -230,7 +230,7 @@ ca:
                                     log point: Hash N-Degree Quads function (4.9.3 (3)).
                                     with:
                                       - quad: _:e2 <http://example.com/#p1> _:e3 .
-                                        hndq3.1:
+                                        hndq.3.1:
                                           log point: Hash related bnode component (4.9.3 (3.1))
                                           with:
                                             - position: s
@@ -238,7 +238,7 @@ ca:
                                               input: "s<http://example.com/#p1>_:b0"
                                               hash: 924a034861aa3fbdaf67a939abc4a2f4e233351bccb26718cb8c151b1746f677
                                       - quad: _:e3 <http://example.com/#p2> "Foo" .
-                                        hndq3.1:
+                                        hndq.3.1:
                                           log point: Hash related bnode component (4.9.3 (3.1))
                                           with:
                                     Hash to bnodes:
@@ -282,17 +282,17 @@ ca:
                   log point: Leaving Hash N-Degree Quads function (4.9.3).
                   hash: 39d609fcd8236b74c70744f492cd2baaf0a55765b380ff9e0811ce23e2f409d7
                   issuer: {e2: b0, e3: b1}
-    ca5.3:
+    ca.5.3:
     - result: 39d609fcd8236b74c70744f492cd2baaf0a55765b380ff9e0811ce23e2f409d7
       issuer: {e0: b0, e1: b1}
-      ca5.3.1:
+      ca.5.3.1:
       - existing identifier: e0
         cid: c14n0
       - existing identifier: e1
         cid: c14n1
     - result: 39d609fcd8236b74c70744f492cd2baaf0a55765b380ff9e0811ce23e2f409d7
       issuer: {e2: b0, e3: b1}
-      ca5.3.1:
+      ca.5.3.1:
       - existing identifier: e2
         cid: c14n2
       - existing identifier: e3

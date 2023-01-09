@@ -99,11 +99,11 @@ module RDF::Normalize
         end
 
         # Create canonical replacements for nodes
-        log_debug("  ca5.3:") unless hash_path_list.empty?
+        log_debug("  ca.5.3:") unless hash_path_list.empty?
         hash_path_list.sort_by(&:first).each do |result, issuer|
           log_debug("  - result") {result}
           log_depth(depth: 4) {log_debug("issuer") {issuer.inspect}}
-          log_debug("    ca5.3.1:")
+          log_debug("    ca.5.3.1:")
           issuer.issued.each do |node|
             id = ns.canonical_issuer.issue_identifier(node)
             log_debug("    - existing identifier") {node.id}
@@ -230,7 +230,7 @@ module RDF::Normalize
         log_debug("    with:") unless bnode_to_statements[identifier].empty?
         bnode_to_statements[identifier].each do |statement|
           log_debug {"      - quad: #{statement.to_nquads.strip}"}
-          log_debug("        hndq3.1:")
+          log_debug("        hndq.3.1:")
           log_debug("          log point", "Hash related bnode component (4.9.3 (3.1))")
           log_depth(depth: 10) {hash_related_statement(identifier, statement, issuer, hn)}
         end

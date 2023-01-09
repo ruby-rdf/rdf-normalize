@@ -61,7 +61,7 @@ run manifest-urdna2015#test022ca:
                   log point: Hash N-Degree Quads function (4.9.3 (3)).
                   with:
                     - quad: _:e0 <http://example.org/vocab#next> _:e1 .
-                      hndq3.1:
+                      hndq.3.1:
                         log point: Hash related bnode component (4.9.3 (3.1))
                         with:
                           - position: o
@@ -77,7 +77,7 @@ run manifest-urdna2015#test022ca:
                             input: "o<http://example.org/vocab#next>60dc8fc7b5481014b6ea38efb05455676d1e93e19b99119ab294941dacc16b3b"
                             hash: 20bb08971220a5382a9a06ba2977c5fb859e63192e0b2015a378af89e453f25e
                     - quad: _:e0 <http://example.org/vocab#prev> _:e1 .
-                      hndq3.1:
+                      hndq.3.1:
                         log point: Hash related bnode component (4.9.3 (3.1))
                         with:
                           - position: o
@@ -93,7 +93,7 @@ run manifest-urdna2015#test022ca:
                             input: "o<http://example.org/vocab#prev>60dc8fc7b5481014b6ea38efb05455676d1e93e19b99119ab294941dacc16b3b"
                             hash: 1e4e55ba02b8b0b527c32e2343fbcfee2e2bd9c1972c67cc01f85fabde7bc42d
                     - quad: _:e1 <http://example.org/vocab#next> _:e0 .
-                      hndq3.1:
+                      hndq.3.1:
                         log point: Hash related bnode component (4.9.3 (3.1))
                         with:
                           - position: s
@@ -109,7 +109,7 @@ run manifest-urdna2015#test022ca:
                             input: "s<http://example.org/vocab#next>60dc8fc7b5481014b6ea38efb05455676d1e93e19b99119ab294941dacc16b3b"
                             hash: 56d0774755aaf8d9cf4da8af3728e5589f94e5cd7d9aee86f0c5a7bc1d71c7ca
                     - quad: _:e1 <http://example.org/vocab#prev> _:e0 .
-                      hndq3.1:
+                      hndq.3.1:
                         log point: Hash related bnode component (4.9.3 (3.1))
                         with:
                           - position: s
@@ -168,7 +168,7 @@ run manifest-urdna2015#test022ca:
                                     log point: Hash N-Degree Quads function (4.9.3 (3)).
                                     with:
                                       - quad: _:e0 <http://example.org/vocab#next> _:e1 .
-                                        hndq3.1:
+                                        hndq.3.1:
                                           log point: Hash related bnode component (4.9.3 (3.1))
                                           with:
                                             - position: s
@@ -176,7 +176,7 @@ run manifest-urdna2015#test022ca:
                                               input: "s<http://example.org/vocab#next>_:b0"
                                               hash: fedd7e23f27219a0bfe4c5dd88920ff3c0bb0b2df2d15b956e5a4754cbcc8587
                                       - quad: _:e0 <http://example.org/vocab#prev> _:e1 .
-                                        hndq3.1:
+                                        hndq.3.1:
                                           log point: Hash related bnode component (4.9.3 (3.1))
                                           with:
                                             - position: s
@@ -184,7 +184,7 @@ run manifest-urdna2015#test022ca:
                                               input: "s<http://example.org/vocab#prev>_:b0"
                                               hash: 2271d4a38ab18871a59367113128e490261466f10fec31d3e9654531f7c08fef
                                       - quad: _:e1 <http://example.org/vocab#next> _:e0 .
-                                        hndq3.1:
+                                        hndq.3.1:
                                           log point: Hash related bnode component (4.9.3 (3.1))
                                           with:
                                             - position: o
@@ -192,7 +192,7 @@ run manifest-urdna2015#test022ca:
                                               input: "o<http://example.org/vocab#next>_:b0"
                                               hash: 9e8ddf2abce731d9bb3b56caa83f1d2c4d76f7c649b8c286b1b372830d5d706f
                                       - quad: _:e1 <http://example.org/vocab#prev> _:e0 .
-                                        hndq3.1:
+                                        hndq.3.1:
                                           log point: Hash related bnode component (4.9.3 (3.1))
                                           with:
                                             - position: o
@@ -377,7 +377,7 @@ run manifest-urdna2015#test022ca:
                   log point: Hash N-Degree Quads function (4.9.3 (3)).
                   with:
                     - quad: _:e0 <http://example.org/vocab#next> _:e1 .
-                      hndq3.1:
+                      hndq.3.1:
                         log point: Hash related bnode component (4.9.3 (3.1))
                         with:
                           - position: s
@@ -393,7 +393,7 @@ run manifest-urdna2015#test022ca:
                             input: "s<http://example.org/vocab#next>60dc8fc7b5481014b6ea38efb05455676d1e93e19b99119ab294941dacc16b3b"
                             hash: 56d0774755aaf8d9cf4da8af3728e5589f94e5cd7d9aee86f0c5a7bc1d71c7ca
                     - quad: _:e0 <http://example.org/vocab#prev> _:e1 .
-                      hndq3.1:
+                      hndq.3.1:
                         log point: Hash related bnode component (4.9.3 (3.1))
                         with:
                           - position: s
@@ -409,7 +409,7 @@ run manifest-urdna2015#test022ca:
                             input: "s<http://example.org/vocab#prev>60dc8fc7b5481014b6ea38efb05455676d1e93e19b99119ab294941dacc16b3b"
                             hash: 2a5dd448b9467a08479008a5350829441868b7f913343cd500fe8619e047cff4
                     - quad: _:e1 <http://example.org/vocab#next> _:e0 .
-                      hndq3.1:
+                      hndq.3.1:
                         log point: Hash related bnode component (4.9.3 (3.1))
                         with:
                           - position: o
@@ -425,7 +425,7 @@ run manifest-urdna2015#test022ca:
                             input: "o<http://example.org/vocab#next>60dc8fc7b5481014b6ea38efb05455676d1e93e19b99119ab294941dacc16b3b"
                             hash: 20bb08971220a5382a9a06ba2977c5fb859e63192e0b2015a378af89e453f25e
                     - quad: _:e1 <http://example.org/vocab#prev> _:e0 .
-                      hndq3.1:
+                      hndq.3.1:
                         log point: Hash related bnode component (4.9.3 (3.1))
                         with:
                           - position: o
@@ -484,7 +484,7 @@ run manifest-urdna2015#test022ca:
                                     log point: Hash N-Degree Quads function (4.9.3 (3)).
                                     with:
                                       - quad: _:e0 <http://example.org/vocab#next> _:e1 .
-                                        hndq3.1:
+                                        hndq.3.1:
                                           log point: Hash related bnode component (4.9.3 (3.1))
                                           with:
                                             - position: o
@@ -492,7 +492,7 @@ run manifest-urdna2015#test022ca:
                                               input: "o<http://example.org/vocab#next>_:b0"
                                               hash: 9e8ddf2abce731d9bb3b56caa83f1d2c4d76f7c649b8c286b1b372830d5d706f
                                       - quad: _:e0 <http://example.org/vocab#prev> _:e1 .
-                                        hndq3.1:
+                                        hndq.3.1:
                                           log point: Hash related bnode component (4.9.3 (3.1))
                                           with:
                                             - position: o
@@ -500,7 +500,7 @@ run manifest-urdna2015#test022ca:
                                               input: "o<http://example.org/vocab#prev>_:b0"
                                               hash: ee5c2a18a94cc31daa5c15313e5c824083ff5a9215ab296634dd849b787a8177
                                       - quad: _:e1 <http://example.org/vocab#next> _:e0 .
-                                        hndq3.1:
+                                        hndq.3.1:
                                           log point: Hash related bnode component (4.9.3 (3.1))
                                           with:
                                             - position: s
@@ -508,7 +508,7 @@ run manifest-urdna2015#test022ca:
                                               input: "s<http://example.org/vocab#next>_:b0"
                                               hash: fedd7e23f27219a0bfe4c5dd88920ff3c0bb0b2df2d15b956e5a4754cbcc8587
                                       - quad: _:e1 <http://example.org/vocab#prev> _:e0 .
-                                        hndq3.1:
+                                        hndq.3.1:
                                           log point: Hash related bnode component (4.9.3 (3.1))
                                           with:
                                             - position: s
@@ -676,17 +676,17 @@ run manifest-urdna2015#test022ca:
                   log point: Leaving Hash N-Degree Quads function (4.9.3).
                   hash: e332b4b59e1c4794ee72a4df0f63723326ffb6d6a5c0d0cb4d2dd8d8d5ebf5a4
                   issuer: {e1: b0, e0: b1}
-    ca5.3:
+    ca.5.3:
     - result: e332b4b59e1c4794ee72a4df0f63723326ffb6d6a5c0d0cb4d2dd8d8d5ebf5a4
       issuer: {e0: b0, e1: b1}
-      ca5.3.1:
+      ca.5.3.1:
       - existing identifier: e0
         cid: c14n0
       - existing identifier: e1
         cid: c14n1
     - result: e332b4b59e1c4794ee72a4df0f63723326ffb6d6a5c0d0cb4d2dd8d8d5ebf5a4
       issuer: {e1: b0, e0: b1}
-      ca5.3.1:
+      ca.5.3.1:
       - existing identifier: e1
         cid: c14n1
       - existing identifier: e0
