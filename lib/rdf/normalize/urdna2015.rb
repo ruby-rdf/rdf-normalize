@@ -63,7 +63,7 @@ module RDF::Normalize
       # Step 4: Create canonical replacements for hashes mapping to a single node
       log_debug("ca.4:")
       log_debug("  log point", "Create canonical replacements for hashes mapping to a single node (4.5.3 (4)).")
-      log_debug("  with:")
+      log_debug("  with:") unless ns.hash_to_bnodes.empty?
       ns.hash_to_bnodes.keys.sort.each do |hash|
         identifier_list = ns.hash_to_bnodes[hash]
         next if identifier_list.length > 1
@@ -209,64 +209,66 @@ module RDF::Normalize
       # @param [IdentifierIssuer] issuer
       # @return [Array<String,IdentifierIssuer>] the Hash and issuer
       def hash_n_degree_quads(identifier, issuer)
-        log_debug("log point", "Hash N-Degree Quads function (4.9.3).")
-        log_debug("issuer") {issuer.inspect}
+        log_debug("hndq:")
+        log_debug("  log point", "Hash N-Degree Quads function (4.9.3).")
+        log_debug("  identifier") {identifier.id}
+        log_debug("  issuer") {issuer.inspect}
 
         # hash to related blank nodes map
         hn = {}
 
-        log_debug("hndq.2:")
-        log_debug("  log point", "Quads for identifier (4.9.3 (2)).")
-        log_debug("  quads:")
+        log_debug("  hndq.2:")
+        log_debug("    log point", "Quads for identifier (4.9.3 (2)).")
+        log_debug("    quads:")
         bnode_to_statements[identifier].each do |s|
           log_debug {"    - #{s.to_nquads.strip}"}
         end
 
         # Step 3
-        log_debug("hndq.3:")
-        log_debug("  log point", "Hash N-Degree Quads function (4.9.3 (3)).")
-        log_debug("  with:") unless bnode_to_statements[identifier].empty?
+        log_debug("  hndq.3:")
+        log_debug("    log point", "Hash N-Degree Quads function (4.9.3 (3)).")
+        log_debug("    with:") unless bnode_to_statements[identifier].empty?
         bnode_to_statements[identifier].each do |statement|
-          log_debug {"    - quad: #{statement.to_nquads.strip}"}
-          log_debug("      hndq3.1:")
-          log_debug("        log point", "Hash related bnode component (4.9.3 (3.1))")
-          log_depth(depth: 8) {hash_related_statement(identifier, statement, issuer, hn)}
+          log_debug {"      - quad: #{statement.to_nquads.strip}"}
+          log_debug("        hndq3.1:")
+          log_debug("          log point", "Hash related bnode component (4.9.3 (3.1))")
+          log_depth(depth: 10) {hash_related_statement(identifier, statement, issuer, hn)}
         end
-        log_debug("  Hash to bnodes:")
+        log_debug("    Hash to bnodes:")
         hn.each do |k,v|
-          log_debug("    #{k}:")
+          log_debug("        #{k}:")
           v.each do |vv|
-            log_debug("      - #{vv.id}:")
+            log_debug("          - #{vv.id}:")
           end
         end
 
         data_to_hash = ""
 
         # Step 5
-        log_debug("hndq.5:")
-        log_debug("  log point", "Hash N-Degree Quads function (4.9.3 (5)), entering loop.")
-        log_debug("  with:")
+        log_debug("  hndq.5:")
+        log_debug("    log point", "Hash N-Degree Quads function (4.9.3 (5)), entering loop.")
+        log_debug("    with:")
         hn.keys.sort.each do |hash|
-          log_debug("    - related hash", hash)
-          log_debug("      data to hash") {data_to_hash.to_json}
+          log_debug("      - related hash", hash)
+          log_debug("        data to hash") {data_to_hash.to_json}
           list = hn[hash]
           # Iterate over related nodes
           chosen_path, chosen_issuer = "", nil
           data_to_hash += hash
 
-          log_debug("      hndq.5.4:")
-          log_debug("        log point", "Hash N-Degree Quads function (4.9.3 (5.4)), entering loop.")
-          log_debug("        with:") unless list.empty?
+          log_debug("        hndq.5.4:")
+          log_debug("          log point", "Hash N-Degree Quads function (4.9.3 (5.4)), entering loop.")
+          log_debug("          with:") unless list.empty?
           list.permutation do |permutation|
-            log_debug("        - perm") {permutation.map(&:id).to_json(indent: ' ', space: ' ')}
+            log_debug("          - perm") {permutation.map(&:id).to_json(indent: ' ', space: ' ')}
             issuer_copy, path, recursion_list = issuer.dup, "", []
 
-            log_debug("          hndq.5.4.4:")
-            log_debug("            log point", "Hash N-Degree Quads function (4.9.3 (5.4.4)), entering loop.")
-            log_debug("            with:")
+            log_debug("            hndq.5.4.4:")
+            log_debug("              log point", "Hash N-Degree Quads function (4.9.3 (5.4.4)), entering loop.")
+            log_debug("              with:")
             permutation.each do |related|
-              log_debug("              - related") {related.id}
-              log_debug("                path") {path.to_json}
+              log_debug("                - related") {related.id}
+              log_debug("                  path") {path.to_json}
               if canonical_issuer.identifier(related)
                 path << '_:' + canonical_issuer.issue_identifier(related)
               else
@@ -278,24 +280,21 @@ module RDF::Normalize
               break if !chosen_path.empty? && path.length >= chosen_path.length
             end
 
-            log_debug("          hndq.5.4.5:")
-            log_debug("            log point", "Hash N-Degree Quads function (4.9.3 (5.4.5)), before possible recursion.")
-            log_debug("            recursion list") {recursion_list.map(&:id).to_json(indent: ' ')}
-            log_debug("            path") {path.to_json}
-            log_debug("            with:") unless recursion_list.empty?
+            log_debug("            hndq.5.4.5:")
+            log_debug("              log point", "Hash N-Degree Quads function (4.9.3 (5.4.5)), before possible recursion.")
+            log_debug("              recursion list") {recursion_list.map(&:id).to_json(indent: ' ')}
+            log_debug("              path") {path.to_json}
+            log_debug("              with:") unless recursion_list.empty?
             recursion_list.each do |related|
-              log_debug("              hndq.5.4.5.1:") 
-              log_debug("                log point", "Hash N-Degree Quads function (4.9.3 (5.4.5.1)), before possible recursion.")
-              log_debug("                with:")
-              log_debug("                  - related") {related.id}
-              result = log_depth(depth: 20) {hash_n_degree_quads(related, issuer_copy)}
+              log_debug("                - related") {related.id}
+              result = log_depth(depth: 18) {hash_n_degree_quads(related, issuer_copy)}
               path << '_:' + issuer_copy.issue_identifier(related)
               path << "<#{result.first}>"
               issuer_copy = result.last
-              log_debug("              hndq.5.4.5.4:") 
-              log_debug("                log point", "Hash N-Degree Quads function (4.9.3 (5.4.5.4)), combine result of recursion.")
-              log_debug("                path") {path.to_json}
-              log_debug("                issuer copy") {issuer_copy.inspect}
+              log_debug("                  hndq.5.4.5.4:") 
+              log_debug("                    log point", "Hash N-Degree Quads function (4.9.3 (5.4.5.4)), combine result of recursion.")
+              log_debug("                    path") {path.to_json}
+              log_debug("                    issuer copy") {issuer_copy.inspect}
               break if !chosen_path.empty? && path.length >= chosen_path.length && path > chosen_path
             end
 
@@ -305,17 +304,17 @@ module RDF::Normalize
           end
 
           data_to_hash += chosen_path
-          log_debug("      hndq.5.5:")
-          log_debug("        log point", "Hash N-Degree Quads function (4.9.3 (5.5). End of current loop with Hn hashes.")
-          log_debug("        chosen path") {chosen_path.to_json}
-          log_debug("        data to hash") {data_to_hash.to_json}
+          log_debug("        hndq.5.5:")
+          log_debug("          log point", "Hash N-Degree Quads function (4.9.3 (5.5). End of current loop with Hn hashes.")
+          log_debug("          chosen path") {chosen_path.to_json}
+          log_debug("          data to hash") {data_to_hash.to_json}
           issuer = chosen_issuer
         end
 
-        log_debug("hndq.6:")
-        log_debug("  log point", "Leaving Hash N-Degree Quads function (4.9.3).")
-        log_debug("  hash") {hexdigest(data_to_hash)}
-        log_depth(depth: 2) {log_debug("issuer") {issuer.inspect}}
+        log_debug("  hndq.6:")
+        log_debug("    log point", "Leaving Hash N-Degree Quads function (4.9.3).")
+        log_debug("    hash") {hexdigest(data_to_hash)}
+        log_depth(depth: 4) {log_debug("issuer") {issuer.inspect}}
         return [hexdigest(data_to_hash), issuer]
       end
 
