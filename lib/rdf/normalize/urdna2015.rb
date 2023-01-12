@@ -78,7 +78,7 @@ module RDF::Normalize
       # Step 5: Iterate over hashs having more than one node
       log_debug("ca.5:") unless ns.hash_to_bnodes.empty?
       log_debug("  log point", "Calculate hashes for identifiers with shared hashes (4.5.3 (5)).")
-      log_debug("  with:")
+      log_debug("  with:") unless ns.hash_to_bnodes.empty?
       ns.hash_to_bnodes.keys.sort.each do |hash|
         identifier_list = ns.hash_to_bnodes[hash]
 
@@ -88,26 +88,25 @@ module RDF::Normalize
 
         # Create a hash_path_list for all bnodes using a temporary identifier used to create canonical replacements
         log_debug("      ca.5.2:")
-        log_debug("        log point", "Calculate hashes for identifiers with shared hashes (4.5.3 (5)).")
+        log_debug("        log point", "Calculate hashes for identifiers with shared hashes (4.5.3 (5.2)).")
+        log_debug("        with:") unless identifier_list.empty?
         identifier_list.each do |identifier|
           next if ns.canonical_issuer.issued.include?(identifier)
           temporary_issuer = IdentifierIssuer.new("b")
           temporary_issuer.issue_identifier(identifier)
-          log_debug("        with:")
           log_debug("          - identifier") {identifier.id}
           hash_path_list << log_depth(depth: 12) {ns.hash_n_degree_quads(identifier, temporary_issuer)}
         end
 
         # Create canonical replacements for nodes
-        log_debug("  ca.5.3:") unless hash_path_list.empty?
+        log_debug("      ca.5.3:") unless hash_path_list.empty?
+        log_debug("        log point", "Canonical identifiers for temporary identifiers (4.5.3 (5.3)).")
+        log_debug("        issuer:") unless hash_path_list.empty?
         hash_path_list.sort_by(&:first).each do |result, issuer|
-          log_debug("  - result") {result}
-          log_depth(depth: 4) {log_debug("issuer") {issuer.inspect}}
-          log_debug("    ca.5.3.1:")
           issuer.issued.each do |node|
             id = ns.canonical_issuer.issue_identifier(node)
-            log_debug("    - existing identifier") {node.id}
-            log_debug("      cid", id)
+            log_debug("            - blank node") {node.id}
+            log_debug("              canonical identifier", id)
           end
         end
       end
@@ -238,7 +237,7 @@ module RDF::Normalize
         hn.each do |k,v|
           log_debug("        #{k}:")
           v.each do |vv|
-            log_debug("          - #{vv.id}:")
+            log_debug("          - #{vv.id}")
           end
         end
 

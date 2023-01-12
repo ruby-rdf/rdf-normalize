@@ -43,7 +43,7 @@ run manifest-urdna2015#test022ca:
       - hash: 60dc8fc7b5481014b6ea38efb05455676d1e93e19b99119ab294941dacc16b3b
         identifier list: [ "e0", "e1"]
         ca.5.2:
-          log point: Calculate hashes for identifiers with shared hashes (4.5.3 (5)).
+          log point: Calculate hashes for identifiers with shared hashes (4.5.3 (5.2)).
           with:
             - identifier: e0
               hndq:
@@ -126,13 +126,13 @@ run manifest-urdna2015#test022ca:
                             hash: 2a5dd448b9467a08479008a5350829441868b7f913343cd500fe8619e047cff4
                   Hash to bnodes:
                       20bb08971220a5382a9a06ba2977c5fb859e63192e0b2015a378af89e453f25e:
-                        - e1:
+                        - e1
                       1e4e55ba02b8b0b527c32e2343fbcfee2e2bd9c1972c67cc01f85fabde7bc42d:
-                        - e1:
+                        - e1
                       56d0774755aaf8d9cf4da8af3728e5589f94e5cd7d9aee86f0c5a7bc1d71c7ca:
-                        - e1:
+                        - e1
                       2a5dd448b9467a08479008a5350829441868b7f913343cd500fe8619e047cff4:
-                        - e1:
+                        - e1
                 hndq.5:
                   log point: Hash N-Degree Quads function (4.9.3 (5)), entering loop.
                   with:
@@ -201,13 +201,13 @@ run manifest-urdna2015#test022ca:
                                               hash: ee5c2a18a94cc31daa5c15313e5c824083ff5a9215ab296634dd849b787a8177
                                     Hash to bnodes:
                                         fedd7e23f27219a0bfe4c5dd88920ff3c0bb0b2df2d15b956e5a4754cbcc8587:
-                                          - e0:
+                                          - e0
                                         2271d4a38ab18871a59367113128e490261466f10fec31d3e9654531f7c08fef:
-                                          - e0:
+                                          - e0
                                         9e8ddf2abce731d9bb3b56caa83f1d2c4d76f7c649b8c286b1b372830d5d706f:
-                                          - e0:
+                                          - e0
                                         ee5c2a18a94cc31daa5c15313e5c824083ff5a9215ab296634dd849b787a8177:
-                                          - e0:
+                                          - e0
                                   hndq.5:
                                     log point: Hash N-Degree Quads function (4.9.3 (5)), entering loop.
                                     with:
@@ -360,7 +360,6 @@ run manifest-urdna2015#test022ca:
                   log point: Leaving Hash N-Degree Quads function (4.9.3).
                   hash: e332b4b59e1c4794ee72a4df0f63723326ffb6d6a5c0d0cb4d2dd8d8d5ebf5a4
                   issuer: {e0: b0, e1: b1}
-          with:
             - identifier: e1
               hndq:
                 log point: Hash N-Degree Quads function (4.9.3).
@@ -442,13 +441,13 @@ run manifest-urdna2015#test022ca:
                             hash: 1e4e55ba02b8b0b527c32e2343fbcfee2e2bd9c1972c67cc01f85fabde7bc42d
                   Hash to bnodes:
                       56d0774755aaf8d9cf4da8af3728e5589f94e5cd7d9aee86f0c5a7bc1d71c7ca:
-                        - e0:
+                        - e0
                       2a5dd448b9467a08479008a5350829441868b7f913343cd500fe8619e047cff4:
-                        - e0:
+                        - e0
                       20bb08971220a5382a9a06ba2977c5fb859e63192e0b2015a378af89e453f25e:
-                        - e0:
+                        - e0
                       1e4e55ba02b8b0b527c32e2343fbcfee2e2bd9c1972c67cc01f85fabde7bc42d:
-                        - e0:
+                        - e0
                 hndq.5:
                   log point: Hash N-Degree Quads function (4.9.3 (5)), entering loop.
                   with:
@@ -517,13 +516,13 @@ run manifest-urdna2015#test022ca:
                                               hash: 2271d4a38ab18871a59367113128e490261466f10fec31d3e9654531f7c08fef
                                     Hash to bnodes:
                                         9e8ddf2abce731d9bb3b56caa83f1d2c4d76f7c649b8c286b1b372830d5d706f:
-                                          - e1:
+                                          - e1
                                         ee5c2a18a94cc31daa5c15313e5c824083ff5a9215ab296634dd849b787a8177:
-                                          - e1:
+                                          - e1
                                         fedd7e23f27219a0bfe4c5dd88920ff3c0bb0b2df2d15b956e5a4754cbcc8587:
-                                          - e1:
+                                          - e1
                                         2271d4a38ab18871a59367113128e490261466f10fec31d3e9654531f7c08fef:
-                                          - e1:
+                                          - e1
                                   hndq.5:
                                     log point: Hash N-Degree Quads function (4.9.3 (5)), entering loop.
                                     with:
@@ -676,21 +675,17 @@ run manifest-urdna2015#test022ca:
                   log point: Leaving Hash N-Degree Quads function (4.9.3).
                   hash: e332b4b59e1c4794ee72a4df0f63723326ffb6d6a5c0d0cb4d2dd8d8d5ebf5a4
                   issuer: {e1: b0, e0: b1}
-    ca.5.3:
-    - result: e332b4b59e1c4794ee72a4df0f63723326ffb6d6a5c0d0cb4d2dd8d8d5ebf5a4
-      issuer: {e0: b0, e1: b1}
-      ca.5.3.1:
-      - existing identifier: e0
-        cid: c14n0
-      - existing identifier: e1
-        cid: c14n1
-    - result: e332b4b59e1c4794ee72a4df0f63723326ffb6d6a5c0d0cb4d2dd8d8d5ebf5a4
-      issuer: {e1: b0, e0: b1}
-      ca.5.3.1:
-      - existing identifier: e1
-        cid: c14n1
-      - existing identifier: e0
-        cid: c14n0
+        ca.5.3:
+          log point: Canonical identifiers for temporary identifiers (4.5.3 (5.3)).
+          issuer:
+              - blank node: e0
+                canonical identifier: c14n0
+              - blank node: e1
+                canonical identifier: c14n1
+              - blank node: e1
+                canonical identifier: c14n1
+              - blank node: e0
+                canonical identifier: c14n0
   ca.6:
     log point: Replace original with canonical labels (4.5.3 (6)).
     canonical issuer: {e0: c14n0, e1: c14n1}

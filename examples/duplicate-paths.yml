@@ -51,7 +51,7 @@ ca:
       - hash: 24da9a4406b4e66dffa10ad3d4d6dddc388fbf193bb124e865158ef419893957
         identifier list: [ "e0", "e2"]
         ca.5.2:
-          log point: Calculate hashes for identifiers with shared hashes (4.5.3 (5)).
+          log point: Calculate hashes for identifiers with shared hashes (4.5.3 (5.2)).
           with:
             - identifier: e0
               hndq:
@@ -81,7 +81,7 @@ ca:
                             hash: 3d96946f27fc34a78e8d067135a1cb1b77083aebc4b2c6cbdc536f067242686c
                   Hash to bnodes:
                       3d96946f27fc34a78e8d067135a1cb1b77083aebc4b2c6cbdc536f067242686c:
-                        - e1:
+                        - e1
                 hndq.5:
                   log point: Hash N-Degree Quads function (4.9.3 (5)), entering loop.
                   with:
@@ -128,7 +128,7 @@ ca:
                                           with:
                                     Hash to bnodes:
                                         924a034861aa3fbdaf67a939abc4a2f4e233351bccb26718cb8c151b1746f677:
-                                          - e0:
+                                          - e0
                                   hndq.5:
                                     log point: Hash N-Degree Quads function (4.9.3 (5)), entering loop.
                                     with:
@@ -167,7 +167,6 @@ ca:
                   log point: Leaving Hash N-Degree Quads function (4.9.3).
                   hash: 39d609fcd8236b74c70744f492cd2baaf0a55765b380ff9e0811ce23e2f409d7
                   issuer: {e0: b0, e1: b1}
-          with:
             - identifier: e2
               hndq:
                 log point: Hash N-Degree Quads function (4.9.3).
@@ -196,7 +195,7 @@ ca:
                             hash: 3d96946f27fc34a78e8d067135a1cb1b77083aebc4b2c6cbdc536f067242686c
                   Hash to bnodes:
                       3d96946f27fc34a78e8d067135a1cb1b77083aebc4b2c6cbdc536f067242686c:
-                        - e3:
+                        - e3
                 hndq.5:
                   log point: Hash N-Degree Quads function (4.9.3 (5)), entering loop.
                   with:
@@ -243,7 +242,7 @@ ca:
                                           with:
                                     Hash to bnodes:
                                         924a034861aa3fbdaf67a939abc4a2f4e233351bccb26718cb8c151b1746f677:
-                                          - e2:
+                                          - e2
                                   hndq.5:
                                     log point: Hash N-Degree Quads function (4.9.3 (5)), entering loop.
                                     with:
@@ -282,25 +281,23 @@ ca:
                   log point: Leaving Hash N-Degree Quads function (4.9.3).
                   hash: 39d609fcd8236b74c70744f492cd2baaf0a55765b380ff9e0811ce23e2f409d7
                   issuer: {e2: b0, e3: b1}
-    ca.5.3:
-    - result: 39d609fcd8236b74c70744f492cd2baaf0a55765b380ff9e0811ce23e2f409d7
-      issuer: {e0: b0, e1: b1}
-      ca.5.3.1:
-      - existing identifier: e0
-        cid: c14n0
-      - existing identifier: e1
-        cid: c14n1
-    - result: 39d609fcd8236b74c70744f492cd2baaf0a55765b380ff9e0811ce23e2f409d7
-      issuer: {e2: b0, e3: b1}
-      ca.5.3.1:
-      - existing identifier: e2
-        cid: c14n2
-      - existing identifier: e3
-        cid: c14n3
+        ca.5.3:
+          log point: Canonical identifiers for temporary identifiers (4.5.3 (5.3)).
+          issuer:
+              - blank node: e0
+                canonical identifier: c14n0
+              - blank node: e1
+                canonical identifier: c14n1
+              - blank node: e2
+                canonical identifier: c14n2
+              - blank node: e3
+                canonical identifier: c14n3
       - hash: a994e40b576809985bc0f389308cd9d552fd7c89d028c163848a6b2d33a8583a
         identifier list: [ "e1", "e3"]
         ca.5.2:
-          log point: Calculate hashes for identifiers with shared hashes (4.5.3 (5)).
+          log point: Calculate hashes for identifiers with shared hashes (4.5.3 (5.2)).
+          with:
+          log point: Canonical identifiers for temporary identifiers (4.5.3 (5.3)).
   ca.6:
     log point: Replace original with canonical labels (4.5.3 (6)).
     canonical issuer: {e0: c14n0, e1: c14n1, e2: c14n2, e3: c14n3}

@@ -36,7 +36,6 @@ ca:
         hash: 6fa0b9bdb376852b5743ff39ca4cbf7ea14d34966b2828478fbf222e7c764473
         canonical label: c14n1
     log point: Calculate hashes for identifiers with shared hashes (4.5.3 (5)).
-    with:
   ca.6:
     log point: Replace original with canonical labels (4.5.3 (6)).
     canonical issuer: {e0: c14n0, e1: c14n1}
