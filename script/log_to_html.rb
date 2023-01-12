@@ -17,7 +17,7 @@ HAML_ARRAY = %(
 )
 
 HAML_TEMPLATES = {
-  bn_to_quads: %(
+  "Bnode to quads": %(
     %table.bn_to_quads
       %thead
         %tr
