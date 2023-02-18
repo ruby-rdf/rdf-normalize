@@ -71,7 +71,7 @@ def run_tc(tc, **options)
 [ a earl:Assertion;
   earl:assertedBy <#{ASSERTOR}>;
   earl:subject <https://rubygems.org/gems/rdf-normalize>;
-  earl:test <#{tc.id}>;
+  earl:test <#{Fixtures::SuiteTest::BASE + tc.id}>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:#{result};

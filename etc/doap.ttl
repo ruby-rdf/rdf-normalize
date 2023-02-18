@@ -3,11 +3,12 @@
 @prefix dc:   <http://purl.org/dc/terms/> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix earl: <http://www.w3.org/ns/earl#> .
 @prefix ex:   <http://example.org/> .
 @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
 
 <https://rubygems.org/gems/rdf-normalize> a doap:Project ;
-  doap:name          "RDF::Normalize" ;
+  doap:name          "Ruby RDF::Normalize" ;
   doap:homepage      <https://github.com/ruby-rdf/rdf-normalize> ;
   doap:license       <https://unlicense.org/1.0/> ;
   doap:shortdesc     "RDF Dataset Normalization for RDF.rb."@en ;

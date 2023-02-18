@@ -79,7 +79,6 @@ ca:
                     - quad: <http://example.com/#p> <http://example.com/#q> _:e0 .
                       hndq.3.1:
                         log point: Hash related bnode component (4.9.3 (3.1))
-                        with:
                     - quad: _:e0 <http://example.com/#p> _:e2 .
                       hndq.3.1:
                         log point: Hash related bnode component (4.9.3 (3.1))
@@ -89,8 +88,8 @@ ca:
                             input: "o<http://example.com/#p>_:c14n0"
                             hash: 29cf7e22790bc2ed395b81b3933e5329fc7b25390486085cac31ce7252ca60fa
                   Hash to bnodes:
-                      29cf7e22790bc2ed395b81b3933e5329fc7b25390486085cac31ce7252ca60fa:
-                        - e2
+                    29cf7e22790bc2ed395b81b3933e5329fc7b25390486085cac31ce7252ca60fa:
+                      - e2
                 hndq.5:
                   log point: Hash N-Degree Quads function (4.9.3 (5)), entering loop.
                   with:
@@ -133,7 +132,6 @@ ca:
                     - quad: <http://example.com/#p> <http://example.com/#q> _:e1 .
                       hndq.3.1:
                         log point: Hash related bnode component (4.9.3 (3.1))
-                        with:
                     - quad: _:e1 <http://example.com/#p> _:e3 .
                       hndq.3.1:
                         log point: Hash related bnode component (4.9.3 (3.1))
@@ -143,8 +141,8 @@ ca:
                             input: "o<http://example.com/#p>_:c14n1"
                             hash: b7956ea1d654d5824496eb439a1f2b79478bd7d02d4a115f4c97cbff6b098216
                   Hash to bnodes:
-                      b7956ea1d654d5824496eb439a1f2b79478bd7d02d4a115f4c97cbff6b098216:
-                        - e3
+                    b7956ea1d654d5824496eb439a1f2b79478bd7d02d4a115f4c97cbff6b098216:
+                      - e3
                 hndq.5:
                   log point: Hash N-Degree Quads function (4.9.3 (5)), entering loop.
                   with:

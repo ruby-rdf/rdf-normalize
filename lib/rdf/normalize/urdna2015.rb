@@ -235,9 +235,9 @@ module RDF::Normalize
         end
         log_debug("    Hash to bnodes:")
         hn.each do |k,v|
-          log_debug("        #{k}:")
+          log_debug("      #{k}:")
           v.each do |vv|
-            log_debug("          - #{vv.id}")
+            log_debug("        - #{vv.id}")
           end
         end
 
@@ -338,7 +338,7 @@ module RDF::Normalize
 
       # Group adjacent bnodes by hash
       def hash_related_statement(identifier, statement, issuer, map)
-        log_debug("with:")
+        log_debug("with:") if statement.to_h.values.any? {|t| t.is_a?(RDF::Node)}
         statement.to_h(:s, :p, :o, :g).each do |pos, term|
           next if !term.is_a?(RDF::Node) || term == identifier
 
