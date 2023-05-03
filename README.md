@@ -1,7 +1,7 @@
 # RDF::Normalize
 RDF Graph normalizer for [RDF.rb][RDF.rb].
 
-[![Gem Version](https://badge.fury.io/rb/rdf-normalize.png)](https://badge.fury.io/rb/rdf-normalize)
+[![Gem Version](https://badge.fury.io/rb/rdf-normalize.svg)](https://badge.fury.io/rb/rdf-normalize)
 [![Build Status](https://github.com/ruby-rdf/rdf-normalize/workflows/CI/badge.svg?branch=develop)](https://github.com/ruby-rdf/rdf-normalize/actions?query=workflow%3ACI)
 [![Coverage Status](https://coveralls.io/repos/ruby-rdf/rdf-normalize/badge.svg?branch=develop)](https://coveralls.io/github/ruby-rdf/rdf-normalize?branch=develop)
 [![Gitter chat](https://badges.gitter.im/ruby-rdf/rdf.png)](https://gitter.im/ruby-rdf/rdf)
