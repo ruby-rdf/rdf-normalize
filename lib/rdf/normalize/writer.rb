@@ -53,7 +53,7 @@ module RDF::Normalize
     #
     # @return [void]
     def write_epilogue
-      statements = RDF::Normalize.new(@repo, **@options).
+      RDF::Normalize.new(@repo, **@options).
         statements.
         reject(&:variable?).
         map {|s| format_statement(s)}.
