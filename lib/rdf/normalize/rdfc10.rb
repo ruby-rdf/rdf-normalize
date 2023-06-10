@@ -6,7 +6,7 @@ rescue LoadError
 end
 
 module RDF::Normalize
-  class URDNA2015
+  class RDFC10
     include RDF::Enumerable
     include RDF::Util::Logger
     include Base

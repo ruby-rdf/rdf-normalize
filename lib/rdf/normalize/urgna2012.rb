@@ -1,12 +1,12 @@
 module RDF::Normalize
-  class URGNA2012 < URDNA2015
+  class URGNA2012 < RDFC10
 
     def each(&block)
       ns = NormalizationState.new(@options)
       normalize_statements(ns, &block)
     end
 
-    class NormalizationState < URDNA2015::NormalizationState
+    class NormalizationState < RDFC10::NormalizationState
       protected
 
       # 2012 version uses SHA-1

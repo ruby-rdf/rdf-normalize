@@ -17,7 +17,7 @@ to serialize normalized statements.
 Algorithms implemented:
 
 * [URGNA2012](https://www.w3.org/TR/rdf-canon/#dfn-urgna2012)
-* [URDNA2015](https://www.w3.org/TR/rdf-canon/#dfn-urdna2015)
+* [RDFC-1.0](https://www.w3.org/TR/rdf-canon/#dfn-rdfc-1-0)
 
 Install with `gem install rdf-normalize`
 
@@ -45,7 +45,7 @@ Full documentation available on [GitHub][Normalize doc]
   * {RDF::Normalize::Format}
   * {RDF::Normalize::Writer}
   * {RDF::Normalize::URGNA2012}
-  * {RDF::Normalize::URDNA2015}
+  * {RDF::Normalize::RDFC10}
 
 ## Dependencies
 

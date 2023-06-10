@@ -142,7 +142,7 @@ end
 
 earl_preamble(options) if options[:earl]
 
-%w(urdna2015).each do |variant|
+%w(rdfc10).each do |variant|
   manifest = Fixtures::SuiteTest::BASE + "manifest-#{variant}.jsonld"
   
   Fixtures::SuiteTest::Manifest.open(manifest, manifest[0..-8]) do |m|
