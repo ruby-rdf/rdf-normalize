@@ -27,6 +27,7 @@ begin
 rescue LoadError => e
   STDERR.puts "Coverage Skipped: #{e.message}"
 end
+$VERBOSE = true
 require 'rdf/normalize'
 
 ::RSpec.configure do |c|
