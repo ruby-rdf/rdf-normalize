@@ -15,13 +15,15 @@ module RDF::Normalize
     # Create an enumerable with grounded nodes
     #
     # @param [RDF::Enumerable] enumerable
+    # @options options [Integer] :max_depth (5) Maximum recursion depth
     # @return [RDF::Enumerable]
+    # raise [RuntimeError] if the maximum number of levels of recursion is exceeded.
     def initialize(enumerable, **options)
       @dataset, @options = enumerable, options
     end
 
     def each(&block)
-      ns = NormalizationState.new(@options)
+      ns = NormalizationState.new(**@options)
       log_debug("ca:")
       log_debug("  log point", "Entering the canonicalization function (4.5.3).")
       log_depth(depth: 2) {normalize_statements(ns, &block)}
@@ -138,9 +140,10 @@ module RDF::Normalize
       attr_accessor :hash_to_bnodes
       attr_accessor :canonical_issuer
 
-      def initialize(options)
+      def initialize(max_depth: 5, **options)
         @options = options
         @bnode_to_statements, @hash_to_bnodes, @canonical_issuer = {}, {}, IdentifierIssuer.new("c14n")
+        @max_recursion_depth = max_depth
       end
 
       def add_statement(node, statement)
@@ -204,14 +207,15 @@ module RDF::Normalize
         hexdigest(input)
       end
 
-      # @param [RDF::Node] identifier
+      # @param [RDF::Node] node
       # @param [IdentifierIssuer] issuer
       # @param [Integer] depth (0) Recursion depth for sanity checks
       # @return [Array<String,IdentifierIssuer>] the Hash and issuer
-      def hash_n_degree_quads(identifier, issuer, depth: 0)
+      # @raise [RuntimeError] If totak recursion depth exceeds :max_depth, or any given node is recursed more than once.
+      def hash_n_degree_quads(node, issuer, depth: 0, node_depths: {})
         log_debug("hndq:")
         log_debug("  log point", "Hash N-Degree Quads function (4.9.3).")
-        log_debug("  identifier") {identifier.id}
+        log_debug("  identifier") {node.id}
         log_debug("  issuer") {issuer.inspect}
 
         # hash to related blank nodes map
@@ -220,19 +224,19 @@ module RDF::Normalize
         log_debug("  hndq.2:")
         log_debug("    log point", "Quads for identifier (4.9.3 (2)).")
         log_debug("    quads:")
-        bnode_to_statements[identifier].each do |s|
+        bnode_to_statements[node].each do |s|
           log_debug {"    - #{s.to_nquads.strip}"}
         end
 
         # Step 3
         log_debug("  hndq.3:")
         log_debug("    log point", "Hash N-Degree Quads function (4.9.3 (3)).")
-        log_debug("    with:") unless bnode_to_statements[identifier].empty?
-        bnode_to_statements[identifier].each do |statement|
+        log_debug("    with:") unless bnode_to_statements[node].empty?
+        bnode_to_statements[node].each do |statement|
           log_debug {"      - quad: #{statement.to_nquads.strip}"}
           log_debug("        hndq.3.1:")
           log_debug("          log point", "Hash related bnode component (4.9.3 (3.1))")
-          log_depth(depth: 10) {hash_related_statement(identifier, statement, issuer, hn)}
+          log_depth(depth: 10) {hash_related_statement(node, statement, issuer, hn)}
         end
         log_debug("    Hash to bnodes:")
         hn.each do |k,v|
@@ -287,8 +291,14 @@ module RDF::Normalize
             log_debug("              with:") unless recursion_list.empty?
             recursion_list.each do |related|
               log_debug("                - related") {related.id}
-              raise "Recusion error" if depth > 4
-              result = log_depth(depth: 18) {hash_n_degree_quads(related, issuer_copy, depth: depth + 1)}
+              raise "Maximum recursion depth" if depth > @max_recursion_depth
+              related_node_depth = node_depths.fetch(related, 0)
+              raise "Maximum node recursion depth" if related_node_depth > 1
+              result = log_depth(depth: 18) do
+                hash_n_degree_quads(related, issuer_copy,
+                                    node_depths: node_depths.merge(related: related_node_depth + 1),
+                                    depth: depth + 1)
+              end
               path << '_:' + issuer_copy.issue_identifier(related)
               path << "<#{result.first}>"
               issuer_copy = result.last
@@ -339,10 +349,10 @@ module RDF::Normalize
       end
 
       # Group adjacent bnodes by hash
-      def hash_related_statement(identifier, statement, issuer, map)
+      def hash_related_statement(node, statement, issuer, map)
         log_debug("with:") if statement.to_h.values.any? {|t| t.is_a?(RDF::Node)}
         statement.to_h(:s, :p, :o, :g).each do |pos, term|
-          next if !term.is_a?(RDF::Node) || term == identifier
+          next if !term.is_a?(RDF::Node) || term == node
 
           log_debug("  - position", pos)
           hash = log_depth(depth: 4) {hash_related_node(term, statement, issuer, pos)}

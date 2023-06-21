@@ -40,6 +40,7 @@ OPT_ARGS = [
   ["--debug", GetoptLong::NO_ARGUMENT,                "Debug shape matching"],
   ["--execute", "-e", GetoptLong::REQUIRED_ARGUMENT,  "Use option argument as the patch input"],
   ["--input-format", GetoptLong::REQUIRED_ARGUMENT,   "Format of the input file, defaults to ttl"],
+  ["--max-depth", GetoptLong::REQUIRED_ARGUMENT,      "Maximum recursion depth"],
   ["--output", "-o", GetoptLong::REQUIRED_ARGUMENT,   "Save output to file"],
   ["--progress", GetoptLong::NO_ARGUMENT,             "Display parse tree"],
   ["--verbose", GetoptLong::NO_ARGUMENT,              "Display details of processing"],
@@ -76,6 +77,7 @@ opts.each do |opt, arg|
   when '--debug'        then logger.level = Logger::DEBUG
   when '--execute'      then input = arg
   when '--input-format' then options[:input_format] = arg.to_sym
+  when '--max-depth'    then options[:max_depth] = arg.to_i
   when '--output'       then options[:output] = File.open(arg, "w")
   when '--progress'     then logger.level = Logger::INFO
   when '--yaml'
