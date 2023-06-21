@@ -105,8 +105,8 @@ module RDF::Normalize
         hash_path_list.sort_by(&:first).each do |result, issuer|
           issuer.issued.each do |node|
             id = ns.canonical_issuer.issue_identifier(node)
-            log_debug("            - blank node") {node.id}
-            log_debug("              canonical identifier", id)
+            log_debug("          - blank node") {node.id}
+            log_debug("            canonical identifier", id)
           end
         end
       end
@@ -124,8 +124,8 @@ module RDF::Normalize
       end
 
       log_debug("ca.6:")
-      log_debug("  log point", "Replace original with canonical labels (4.5.3 (6)).")
-      log_debug("  canonical issuer: #{ns.canonical_issuer.inspect}")
+      log_debug("  log point", "Issued identifiers map (4.4.3 (6)).")
+      log_debug("  issued identifiers map: #{ns.canonical_issuer.inspect}")
       dataset
     end
 
@@ -206,8 +206,9 @@ module RDF::Normalize
 
       # @param [RDF::Node] identifier
       # @param [IdentifierIssuer] issuer
+      # @param [Integer] depth (0) Recursion depth for sanity checks
       # @return [Array<String,IdentifierIssuer>] the Hash and issuer
-      def hash_n_degree_quads(identifier, issuer)
+      def hash_n_degree_quads(identifier, issuer, depth: 0)
         log_debug("hndq:")
         log_debug("  log point", "Hash N-Degree Quads function (4.9.3).")
         log_debug("  identifier") {identifier.id}
@@ -286,7 +287,8 @@ module RDF::Normalize
             log_debug("              with:") unless recursion_list.empty?
             recursion_list.each do |related|
               log_debug("                - related") {related.id}
-              result = log_depth(depth: 18) {hash_n_degree_quads(related, issuer_copy)}
+              raise "Recusion error" if depth > 4
+              result = log_depth(depth: 18) {hash_n_degree_quads(related, issuer_copy, depth: depth + 1)}
               path << '_:' + issuer_copy.issue_identifier(related)
               path << "<#{result.first}>"
               issuer_copy = result.last
