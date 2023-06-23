@@ -4,7 +4,7 @@ require_relative 'spec_helper'
 describe RDF::Normalize::Writer do
   require_relative 'suite_helper'
 
-  %w(rdfc10).each do |variant|
+  %w(rdfc10 rdfc10map).each do |variant|
     describe "w3c Normalization #{variant.upcase} tests" do
       manifest = Fixtures::SuiteTest::BASE + "manifest-#{variant}.jsonld"
 
@@ -14,8 +14,14 @@ describe RDF::Normalize::Writer do
             specify "#{t.id.split("/").last}: #{t.name} - #{t.comment}" do
               t.logger = RDF::Spec.logger
               dataset = RDF::Repository.load(t.action, format: :nquads)
-              result = dataset.dump(:normalize, logger: t.logger, **t.writer_options)
-              expect(result).to produce(t.expected, t)
+              if t.type == 'rdfc:RDFC10MapTest'
+                input_map = RDF::Normalize::RDFC10.new(dataset).to_hash
+                result_map = JSON.load(t.expected)
+                expect(input_map).to produce(result_map, t)
+              else
+                result = dataset.dump(:normalize, logger: t.logger, **t.writer_options)
+                expect(result).to produce(t.expected, t)
+              end
             end
           end
         end

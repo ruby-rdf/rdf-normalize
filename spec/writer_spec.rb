@@ -22,7 +22,6 @@ describe RDF::Normalize::Writer do
           next unless File.exist?(input.sub("-in", "-#{algorithm}"))
           it "produces expected output for #{input.split('/').last}" do
             expected = File.read(input.sub("-in", "-#{algorithm}"))
-            input_data = File.read(input)
             repo = RDF::Repository.load(input)
             result = repo.dump(:normalize, algorithm: (algorithm == :urdna2015 ? :rdfc10 : algorithm), logger: logger)
             expect(result).to produce(expected, id: input, result: repo.dump(:nquads, validate: false), logger: logger)

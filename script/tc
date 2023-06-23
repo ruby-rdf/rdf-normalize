@@ -46,9 +46,16 @@ def run_tc(tc, **options)
     options = {base_uri:  tc.base}.merge(options)
 
     dataset = RDF::Repository.load(tc.action, format: :nquads)
-    output = dataset.dump(:normalize, logger: options[:logger], **tc.writer_options)
+    result = if tc.type == 'rdfc:RDFC10MapTest'
+      input_map = RDF::Normalize::RDFC10.new(dataset).to_hash
+      result_map = JSON.load(tc.expected)
+      output = input_map.to_json(JSON::LD::JSON_STATE)
+      input_map == result_map ? "passed" : "failed"
+    else
+      output = dataset.dump(:normalize, logger: options[:logger], **tc.writer_options)
+      output == tc.expected ? "passed" : "failed"
+    end
 
-    result = output == tc.expected ? "passed" : "failed"
     options[:results][result] ||= 0
     options[:results][result] += 1
   rescue Interrupt
@@ -142,7 +149,7 @@ end
 
 earl_preamble(options) if options[:earl]
 
-%w(rdfc10).each do |variant|
+%w(rdfc10 rdfc10map).each do |variant|
   manifest = Fixtures::SuiteTest::BASE + "manifest-#{variant}.jsonld"
   
   Fixtures::SuiteTest::Manifest.open(manifest, manifest[0..-8]) do |m|
