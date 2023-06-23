@@ -53,6 +53,7 @@ module RDF
     # @option options [Base] :algorithm (:rdfc10)
     #   One of `:carroll2001`, `:urgna2012`, or `:rdfc10`
     # @option options [Integer] :max_depth Maximum recursion depth
+    # @option options [Boolean] :identifier_map
     # @return [RDF::Normalize::Base]
     # @raise [ArgumentError] selected algorithm not defined
     def new(enumerable, **options)
