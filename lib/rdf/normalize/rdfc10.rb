@@ -14,7 +14,9 @@ module RDF::Normalize
     # Create an enumerable with grounded nodes
     #
     # @param [RDF::Enumerable] enumerable
-    # @options options [Integer] :max_depth (5) Maximum recursion depth
+    # @option options [Integer] :max_calls (40)
+    #   Maximum number of calls allowed for recursive blank node labeling,
+    #   as a multiple of the total number of blank nodes in the dataset.
     # @return [RDF::Enumerable]
     # raise [RuntimeError] if the maximum number of levels of recursion is exceeded.
     def initialize(enumerable, **options)
@@ -93,6 +95,11 @@ module RDF::Normalize
       log_debug("ca.5:") unless ns.hash_to_bnodes.empty?
       log_debug("  log point", "Calculate hashes for identifiers with shared hashes (4.5.3 (5)).")
       log_debug("  with:") unless ns.hash_to_bnodes.empty?
+
+      # Initialize the number of calls allowed to hash_n_degree_quads
+      # as a multiple of the total number of blank nodes in the dataset.
+      ns.max_calls = ns.bnode_to_statements.keys.length * @options.fetch(:max_calls, 40)
+
       ns.hash_to_bnodes.keys.sort.each do |hash|
         identifier_list = ns.hash_to_bnodes[hash]
 
@@ -153,11 +160,13 @@ module RDF::Normalize
       attr_accessor :bnode_to_statements
       attr_accessor :hash_to_bnodes
       attr_accessor :canonical_issuer
+      attr_accessor :max_calls
+      attr_accessor :total_calls
 
-      def initialize(max_depth: 5, **options)
+      def initialize(**options)
         @options = options
         @bnode_to_statements, @hash_to_bnodes, @canonical_issuer = {}, {}, IdentifierIssuer.new("c14n")
-        @max_recursion_depth = max_depth
+        @max_calls, @total_calls = nil, 0
       end
 
       def add_statement(node, statement)
@@ -223,14 +232,18 @@ module RDF::Normalize
 
       # @param [RDF::Node] node
       # @param [IdentifierIssuer] issuer
-      # @param [Integer] depth (0) Recursion depth for sanity checks
       # @return [Array<String,IdentifierIssuer>] the Hash and issuer
-      # @raise [RuntimeError] If totak recursion depth exceeds :max_depth, or any given node is recursed more than once.
-      def hash_n_degree_quads(node, issuer, depth: 0, node_depths: {})
+      # @raise [RuntimeError] If total number of calls has exceeded `max_calls` times the number of blank nodes in the dataset.
+      def hash_n_degree_quads(node, issuer)
         log_debug("hndq:")
         log_debug("  log point", "Hash N-Degree Quads function (4.9.3).")
         log_debug("  identifier") {node.id}
         log_debug("  issuer") {issuer.inspect}
+
+        if max_calls && total_calls >= max_calls
+          raise "Exceeded maximum number of calls (#{total_calls}) allowed to hash_n_degree_quads"
+        end
+        @total_calls += 1
 
         # hash to related blank nodes map
         hn = {}
@@ -305,13 +318,8 @@ module RDF::Normalize
             log_debug("              with:") unless recursion_list.empty?
             recursion_list.each do |related|
               log_debug("                - related") {related.id}
-              raise "Maximum recursion depth" if depth > @max_recursion_depth
-              related_node_depth = node_depths.fetch(related, 0)
-              raise "Maximum node recursion depth" if related_node_depth > 1
               result = log_depth(depth: 18) do
-                hash_n_degree_quads(related, issuer_copy,
-                                    node_depths: node_depths.merge(related: related_node_depth + 1),
-                                    depth: depth + 1)
+                hash_n_degree_quads(related, issuer_copy)
               end
               path << '_:' + issuer_copy.issue_identifier(related)
               path << "<#{result.first}>"

@@ -47,22 +47,29 @@ def run_tc(tc, **options)
 
     dataset = RDF::Repository.load(tc.action, format: :nquads)
     result = if tc.type == 'rdfc:RDFC10MapTest'
-      input_map = RDF::Normalize::RDFC10.new(dataset).to_hash
+      input_map = RDF::Normalize::RDFC10.new(dataset, **options).to_hash
       result_map = JSON.load(tc.expected)
       output = input_map.to_json(JSON::LD::JSON_STATE)
       input_map == result_map ? "passed" : "failed"
+    elsif tc.type == 'rdfc:RDFC10NegativeEvalTest'
+      begin
+        RDF::Normalize::RDFC10.new(dataset, **options).to_hash
+        "failed" # Should raise exception
+      rescue RuntimeError
+        "passed"
+      end
     else
-      output = dataset.dump(:normalize, logger: options[:logger], **tc.writer_options)
+      output = dataset.dump(:normalize, **tc.writer_options.merge(options))
       output == tc.expected ? "passed" : "failed"
     end
 
     options[:results][result] ||= 0
     options[:results][result] += 1
   rescue Interrupt
-    $stderr.puts "(interrupt)"
+    $stderr.puts " (interrupt)"
     exit 1
   rescue StandardError => e
-    $stderr.puts "#{"exception:" unless options[:quiet]}: #{e}"
+    $stderr.puts " #{"exception:" unless options[:quiet]}: #{e}"
     if options[:quiet]
       options[:results]['failed'] ||= 0
       options[:results]['failed'] += 1
@@ -78,7 +85,7 @@ def run_tc(tc, **options)
 [ a earl:Assertion;
   earl:assertedBy <#{ASSERTOR}>;
   earl:subject <https://rubygems.org/gems/rdf-normalize>;
-  earl:test <#{Fixtures::SuiteTest::BASE + tc.id}>;
+  earl:test <#{Fixtures::SuiteTest::BASE + "manifest" + tc.id}>;
   earl:result [
     a earl:TestResult;
     earl:outcome earl:#{result};
@@ -104,8 +111,9 @@ OPT_ARGS = [
   ["--help", "-?", GetoptLong::NO_ARGUMENT,         "This message"],
   ["--debug", GetoptLong::NO_ARGUMENT,              "Display detailed debug output"],
   ["--earl", GetoptLong::NO_ARGUMENT,               "Generate EARL report"],
-  ["--quiet", "-q", GetoptLong::NO_ARGUMENT,        "Minimal output"],
+  ["--max-calls", GetoptLong::REQUIRED_ARGUMENT,    "Factor for maximum allowed calls to Hash N-Degree Quads"],
   ["--output", "-o", GetoptLong::REQUIRED_ARGUMENT, "Output to specified file"],
+  ["--quiet", "-q", GetoptLong::NO_ARGUMENT,        "Minimal output"],
   ["--validate", GetoptLong::NO_ARGUMENT,           "Validate input"],
   ["--verbose", "-v", GetoptLong::NO_ARGUMENT,      "Verbose processing"],
   ["--yaml", GetoptLong::NO_ARGUMENT,               "Debug output as YAML"],
@@ -135,6 +143,7 @@ opts.each do |opt, arg|
   when '--earl'
     options[:quiet] = options[:earl] = true
     logger.level = Logger::FATAL
+  when '--max-calls'        then options[:max_calls] = arg.to_i
   when '--output'           then options[:output] = File.open(arg, "w")
   when '--quiet'
     options[:quiet] = true
@@ -149,14 +158,12 @@ end
 
 earl_preamble(options) if options[:earl]
 
-%w(rdfc10 rdfc10map).each do |variant|
-  manifest = Fixtures::SuiteTest::BASE + "manifest-#{variant}.jsonld"
-  
-  Fixtures::SuiteTest::Manifest.open(manifest, manifest[0..-8]) do |m|
-    m.entries.each do |tc|
-      next unless ARGV.empty? || ARGV.any? {|n| tc.id.match(/#{n}/)}
-      run_tc(tc, **options)
-    end
+manifest = Fixtures::SuiteTest::BASE + "manifest.jsonld"
+
+Fixtures::SuiteTest::Manifest.open(manifest, manifest[0..-8]) do |m|
+  m.entries.each do |tc|
+    next unless ARGV.empty? || ARGV.any? {|n| tc.id.match(/#{n}/)}
+    run_tc(tc, **options)
   end
 end
 
