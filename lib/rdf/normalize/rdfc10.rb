@@ -6,27 +6,43 @@ rescue LoadError
 end
 
 module RDF::Normalize
-  class RDFC10
+  class RDFC10 < Base
     include RDF::Enumerable
     include RDF::Util::Logger
-    include Base
 
     ##
     # Create an enumerable with grounded nodes
     #
     # @param [RDF::Enumerable] enumerable
+    # @option options [Integer] :max_calls (40)
+    #   Maximum number of calls allowed for recursive blank node labeling,
+    #   as a multiple of the total number of blank nodes in the dataset.
     # @return [RDF::Enumerable]
+    # raise [RuntimeError] if the maximum number of levels of recursion is exceeded.
     def initialize(enumerable, **options)
       @dataset, @options = enumerable, options
     end
 
+    # Yields each normalized statement
     def each(&block)
-      ns = NormalizationState.new(@options)
+      ns = NormalizationState.new(**@options)
       log_debug("ca:")
       log_debug("  log point", "Entering the canonicalization function (4.5.3).")
       log_depth(depth: 2) {normalize_statements(ns, &block)}
     end
 
+    # Returns a map from input blank node identifiers to canonical blank node identifiers.
+    #
+    # @return [Hash{String => String}]
+    def to_hash
+      ns = NormalizationState.new(**@options)
+      log_debug("ca:")
+      log_debug("  log point", "Entering the canonicalization function (4.5.3).")
+      log_depth(depth: 2) {normalize_statements(ns)}
+      ns.canonical_issuer.to_hash
+    end
+
+    #
     protected
     def normalize_statements(ns, &block)
       # Step 2: Map BNodes to the statements they are used by
@@ -79,6 +95,11 @@ module RDF::Normalize
       log_debug("ca.5:") unless ns.hash_to_bnodes.empty?
       log_debug("  log point", "Calculate hashes for identifiers with shared hashes (4.5.3 (5)).")
       log_debug("  with:") unless ns.hash_to_bnodes.empty?
+
+      # Initialize the number of calls allowed to hash_n_degree_quads
+      # as a multiple of the total number of blank nodes in the dataset.
+      ns.max_calls = ns.bnode_to_statements.keys.length * @options.fetch(:max_calls, 40)
+
       ns.hash_to_bnodes.keys.sort.each do |hash|
         identifier_list = ns.hash_to_bnodes[hash]
 
@@ -105,27 +126,29 @@ module RDF::Normalize
         hash_path_list.sort_by(&:first).each do |result, issuer|
           issuer.issued.each do |node|
             id = ns.canonical_issuer.issue_identifier(node)
-            log_debug("            - blank node") {node.id}
-            log_debug("              canonical identifier", id)
+            log_debug("          - blank node") {node.id}
+            log_debug("            canonical identifier", id)
           end
         end
       end
 
       # Step 6: Yield statements using BNodes from canonical replacements
-      dataset.each_statement do |statement|
-        if statement.has_blank_nodes?
-          quad = statement.to_quad.compact.map do |term|
-            term.node? ? RDF::Node.intern(ns.canonical_issuer.identifier(term)) : term
+      if block_given?
+        dataset.each_statement do |statement|
+          if statement.has_blank_nodes?
+            quad = statement.to_quad.compact.map do |term|
+              term.node? ? RDF::Node.intern(ns.canonical_issuer.identifier(term)) : term
+            end
+            block.call RDF::Statement.from(quad)
+          else
+            block.call statement
           end
-          block.call RDF::Statement.from(quad)
-        else
-          block.call statement
         end
       end
 
       log_debug("ca.6:")
-      log_debug("  log point", "Replace original with canonical labels (4.5.3 (6)).")
-      log_debug("  canonical issuer: #{ns.canonical_issuer.inspect}")
+      log_debug("  log point", "Issued identifiers map (4.4.3 (6)).")
+      log_debug("  issued identifiers map: #{ns.canonical_issuer.inspect}")
       dataset
     end
 
@@ -137,10 +160,13 @@ module RDF::Normalize
       attr_accessor :bnode_to_statements
       attr_accessor :hash_to_bnodes
       attr_accessor :canonical_issuer
+      attr_accessor :max_calls
+      attr_accessor :total_calls
 
-      def initialize(options)
+      def initialize(**options)
         @options = options
         @bnode_to_statements, @hash_to_bnodes, @canonical_issuer = {}, {}, IdentifierIssuer.new("c14n")
+        @max_calls, @total_calls = nil, 0
       end
 
       def add_statement(node, statement)
@@ -204,14 +230,20 @@ module RDF::Normalize
         hexdigest(input)
       end
 
-      # @param [RDF::Node] identifier
+      # @param [RDF::Node] node
       # @param [IdentifierIssuer] issuer
       # @return [Array<String,IdentifierIssuer>] the Hash and issuer
-      def hash_n_degree_quads(identifier, issuer)
+      # @raise [RuntimeError] If total number of calls has exceeded `max_calls` times the number of blank nodes in the dataset.
+      def hash_n_degree_quads(node, issuer)
         log_debug("hndq:")
         log_debug("  log point", "Hash N-Degree Quads function (4.9.3).")
-        log_debug("  identifier") {identifier.id}
+        log_debug("  identifier") {node.id}
         log_debug("  issuer") {issuer.inspect}
+
+        if max_calls && total_calls >= max_calls
+          raise "Exceeded maximum number of calls (#{total_calls}) allowed to hash_n_degree_quads"
+        end
+        @total_calls += 1
 
         # hash to related blank nodes map
         hn = {}
@@ -219,19 +251,19 @@ module RDF::Normalize
         log_debug("  hndq.2:")
         log_debug("    log point", "Quads for identifier (4.9.3 (2)).")
         log_debug("    quads:")
-        bnode_to_statements[identifier].each do |s|
+        bnode_to_statements[node].each do |s|
           log_debug {"    - #{s.to_nquads.strip}"}
         end
 
         # Step 3
         log_debug("  hndq.3:")
         log_debug("    log point", "Hash N-Degree Quads function (4.9.3 (3)).")
-        log_debug("    with:") unless bnode_to_statements[identifier].empty?
-        bnode_to_statements[identifier].each do |statement|
+        log_debug("    with:") unless bnode_to_statements[node].empty?
+        bnode_to_statements[node].each do |statement|
           log_debug {"      - quad: #{statement.to_nquads.strip}"}
           log_debug("        hndq.3.1:")
           log_debug("          log point", "Hash related bnode component (4.9.3 (3.1))")
-          log_depth(depth: 10) {hash_related_statement(identifier, statement, issuer, hn)}
+          log_depth(depth: 10) {hash_related_statement(node, statement, issuer, hn)}
         end
         log_debug("    Hash to bnodes:")
         hn.each do |k,v|
@@ -286,7 +318,9 @@ module RDF::Normalize
             log_debug("              with:") unless recursion_list.empty?
             recursion_list.each do |related|
               log_debug("                - related") {related.id}
-              result = log_depth(depth: 18) {hash_n_degree_quads(related, issuer_copy)}
+              result = log_depth(depth: 18) do
+                hash_n_degree_quads(related, issuer_copy)
+              end
               path << '_:' + issuer_copy.issue_identifier(related)
               path << "<#{result.first}>"
               issuer_copy = result.last
@@ -337,10 +371,10 @@ module RDF::Normalize
       end
 
       # Group adjacent bnodes by hash
-      def hash_related_statement(identifier, statement, issuer, map)
+      def hash_related_statement(node, statement, issuer, map)
         log_debug("with:") if statement.to_h.values.any? {|t| t.is_a?(RDF::Node)}
         statement.to_h(:s, :p, :o, :g).each do |pos, term|
-          next if !term.is_a?(RDF::Node) || term == identifier
+          next if !term.is_a?(RDF::Node) || term == node
 
           log_debug("  - position", pos)
           hash = log_depth(depth: 4) {hash_related_node(term, statement, issuer, pos)}
@@ -372,6 +406,11 @@ module RDF::Normalize
       # @return [RDF::Node] Canonical identifier assigned to node
       def identifier(node)
         @issued[node]
+      end
+
+      # @return [Hash{Symbol => Symbol}] the issued identifiers map
+      def to_hash
+        @issued.inject({}) {|memo, (node, canon)| memo.merge(node.id => canon)}
       end
 
       # Duplicate this issuer, ensuring that the issued identifiers remain distinct

@@ -2,8 +2,14 @@ module RDF::Normalize
   class URGNA2012 < RDFC10
 
     def each(&block)
-      ns = NormalizationState.new(@options)
+      ns = NormalizationState.new(**@options)
       normalize_statements(ns, &block)
+    end
+
+    def to_hash
+      ns = NormalizationState.new(**@options)
+      normalize_statements(ns)
+      ns.canonical_issuer.to_h
     end
 
     class NormalizationState < RDFC10::NormalizationState

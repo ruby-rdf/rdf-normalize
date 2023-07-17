@@ -1,0 +1,11 @@
+BASE <http://example.com/>
+PREFIX : <#>
+
+_:e0 :p1 _:e1 .
+_:e1 :p2 "Foo" .
+_:e1 :p3 _:g0 .
+_:g0 {
+  _:e0 :p1 _:e1 .
+  _:e1 :p2 "Bar" .
+}
+
