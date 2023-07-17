@@ -74,6 +74,8 @@
         <ul class="fullTree">
           <li>Object</li>
           
+            <li class="next"><span class='object_link'><a href="Base.html" title="RDF::Normalize::Base (class)">Base</a></span></li>
+          
             <li class="next"><span class='object_link'><a href="RDFC10.html" title="RDF::Normalize::RDFC10 (class)">RDFC10</a></span></li>
           
             <li class="next">RDF::Normalize::URGNA2012</li>
@@ -119,7 +121,7 @@
 
   <h2>Instance Attribute Summary</h2>
   
-  <h3 class="inherited">Attributes included from <span class='object_link'><a href="Base.html" title="RDF::Normalize::Base (module)">Base</a></span></h3>
+  <h3 class="inherited">Attributes inherited from <span class='object_link'><a href="Base.html" title="RDF::Normalize::Base (class)">Base</a></span></h3>
   <p class="inherited"><span class='object_link'><a href="Base.html#dataset-instance_method" title="RDF::Normalize::Base#dataset (method)">#dataset</a></span></p>
 
 
@@ -135,6 +137,28 @@
   <span class="summary_signature">
     
       <a href="#each-instance_method" title="#each (instance method)">#<strong>each</strong>(&amp;block)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#to_hash-instance_method" title="#to_hash (instance method)">#<strong>to_hash</strong>  &#x21d2; Object </a>
     
 
     
@@ -211,8 +235,42 @@
       <pre class="code"><span class="info file"># File 'lib/rdf/normalize/urgna2012.rb', line 4</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each'>each</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_ns'>ns</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="URGNA2012/NormalizationState.html" title="RDF::Normalize::URGNA2012::NormalizationState (class)">NormalizationState</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="RDFC10/NormalizationState.html#initialize-instance_method" title="RDF::Normalize::RDFC10::NormalizationState#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='ivar'>@options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_ns'>ns</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="URGNA2012/NormalizationState.html" title="RDF::Normalize::URGNA2012::NormalizationState (class)">NormalizationState</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="RDFC10/NormalizationState.html#initialize-instance_method" title="RDF::Normalize::RDFC10::NormalizationState#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='op'>**</span><span class='ivar'>@options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_normalize_statements'>normalize_statements</span><span class='lparen'>(</span><span class='id identifier rubyid_ns'>ns</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="to_hash-instance_method">
+  
+    #<strong>to_hash</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+9
+10
+11
+12
+13</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rdf/normalize/urgna2012.rb', line 9</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_to_hash'>to_hash</span>
+  <span class='id identifier rubyid_ns'>ns</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="URGNA2012/NormalizationState.html" title="RDF::Normalize::URGNA2012::NormalizationState (class)">NormalizationState</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="RDFC10/NormalizationState.html#initialize-instance_method" title="RDF::Normalize::RDFC10::NormalizationState#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='op'>**</span><span class='ivar'>@options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_normalize_statements'>normalize_statements</span><span class='lparen'>(</span><span class='id identifier rubyid_ns'>ns</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_ns'>ns</span><span class='period'>.</span><span class='id identifier rubyid_canonical_issuer'>canonical_issuer</span><span class='period'>.</span><span class='id identifier rubyid_to_h'>to_h</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -224,7 +282,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Jun 10 21:50:23 2023 by
+  Generated on Mon Jul 17 20:30:58 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.34 (ruby-3.1.4).
 </div>

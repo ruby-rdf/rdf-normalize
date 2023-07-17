@@ -69,10 +69,12 @@
   <dl>
     <dt>Inherits:</dt>
     <dd>
-      <span class="inheritName">Object</span>
+      <span class="inheritName"><span class='object_link'><a href="Base.html" title="RDF::Normalize::Base (class)">Base</a></span></span>
       
         <ul class="fullTree">
           <li>Object</li>
+          
+            <li class="next"><span class='object_link'><a href="Base.html" title="RDF::Normalize::Base (class)">Base</a></span></li>
           
             <li class="next">RDF::Normalize::Carroll2001</li>
           
@@ -89,7 +91,7 @@
   
   <dl>
       <dt>Includes:</dt>
-      <dd>Enumerable, <span class='object_link'><a href="Base.html" title="RDF::Normalize::Base (module)">Base</a></span>, Utils</dd>
+      <dd>Enumerable</dd>
   </dl>
   
   
@@ -112,7 +114,7 @@
 
   <h2>Instance Attribute Summary</h2>
   
-  <h3 class="inherited">Attributes included from <span class='object_link'><a href="Base.html" title="RDF::Normalize::Base (module)">Base</a></span></h3>
+  <h3 class="inherited">Attributes inherited from <span class='object_link'><a href="Base.html" title="RDF::Normalize::Base (class)">Base</a></span></h3>
   <p class="inherited"><span class='object_link'><a href="Base.html#dataset-instance_method" title="RDF::Normalize::Base#dataset (method)">#dataset</a></span></p>
 
 
@@ -183,7 +185,11 @@
   
   
   
-  <div id="constructor_details" class="method_details_list">
+  
+  
+  <h3 class="inherited">Methods inherited from <span class='object_link'><a href="Base.html" title="RDF::Normalize::Base (class)">Base</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Base.html#to_hash-instance_method" title="RDF::Normalize::Base#to_hash (method)">#to_hash</a></span></p>
+<div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
   
     <div class="method_details first">
@@ -227,12 +233,12 @@
       <pre class="lines">
 
 
-12
-13
-14</pre>
+10
+11
+12</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rdf/normalize/carroll2001.rb', line 12</span>
+      <pre class="code"><span class="info file"># File 'lib/rdf/normalize/carroll2001.rb', line 10</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_enumerable'>enumerable</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='ivar'>@dataset</span> <span class='op'>=</span> <span class='id identifier rubyid_enumerable'>enumerable</span>
@@ -264,6 +270,8 @@
       <pre class="lines">
 
 
+14
+15
 16
 17
 18
@@ -291,12 +299,10 @@
 40
 41
 42
-43
-44
-45</pre>
+43</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rdf/normalize/carroll2001.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'lib/rdf/normalize/carroll2001.rb', line 14</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each'>each</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_ground_statements'>ground_statements</span><span class='comma'>,</span> <span class='id identifier rubyid_anon_statements'>anon_statements</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -338,7 +344,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Jun 10 21:50:23 2023 by
+  Generated on Mon Jul 17 20:30:58 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.34 (ruby-3.1.4).
 </div>

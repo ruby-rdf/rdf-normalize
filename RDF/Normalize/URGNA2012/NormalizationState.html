@@ -110,7 +110,7 @@
   <h2>Instance Attribute Summary</h2>
   
   <h3 class="inherited">Attributes inherited from <span class='object_link'><a href="../RDFC10/NormalizationState.html" title="RDF::Normalize::RDFC10::NormalizationState (class)">RDFC10::NormalizationState</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../RDFC10/NormalizationState.html#bnode_to_statements-instance_method" title="RDF::Normalize::RDFC10::NormalizationState#bnode_to_statements (method)">#bnode_to_statements</a></span>, <span class='object_link'><a href="../RDFC10/NormalizationState.html#canonical_issuer-instance_method" title="RDF::Normalize::RDFC10::NormalizationState#canonical_issuer (method)">#canonical_issuer</a></span>, <span class='object_link'><a href="../RDFC10/NormalizationState.html#hash_to_bnodes-instance_method" title="RDF::Normalize::RDFC10::NormalizationState#hash_to_bnodes (method)">#hash_to_bnodes</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="../RDFC10/NormalizationState.html#bnode_to_statements-instance_method" title="RDF::Normalize::RDFC10::NormalizationState#bnode_to_statements (method)">#bnode_to_statements</a></span>, <span class='object_link'><a href="../RDFC10/NormalizationState.html#canonical_issuer-instance_method" title="RDF::Normalize::RDFC10::NormalizationState#canonical_issuer (method)">#canonical_issuer</a></span>, <span class='object_link'><a href="../RDFC10/NormalizationState.html#hash_to_bnodes-instance_method" title="RDF::Normalize::RDFC10::NormalizationState#hash_to_bnodes (method)">#hash_to_bnodes</a></span>, <span class='object_link'><a href="../RDFC10/NormalizationState.html#max_calls-instance_method" title="RDF::Normalize::RDFC10::NormalizationState#max_calls (method)">#max_calls</a></span>, <span class='object_link'><a href="../RDFC10/NormalizationState.html#total_calls-instance_method" title="RDF::Normalize::RDFC10::NormalizationState#total_calls (method)">#total_calls</a></span></p>
 
 
   
@@ -317,17 +317,17 @@
       <pre class="lines">
 
 
-22
-23
-24
-25
-26
-27
 28
-29</pre>
+29
+30
+31
+32
+33
+34
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rdf/normalize/urgna2012.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'lib/rdf/normalize/urgna2012.rb', line 28</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_hash_related_node'>hash_related_node</span><span class='lparen'>(</span><span class='id identifier rubyid_related'>related</span><span class='comma'>,</span> <span class='id identifier rubyid_statement'>statement</span><span class='comma'>,</span> <span class='id identifier rubyid_issuer'>issuer</span><span class='comma'>,</span> <span class='id identifier rubyid_position'>position</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_identifier'>identifier</span> <span class='op'>=</span> <span class='id identifier rubyid_canonical_issuer'>canonical_issuer</span><span class='period'>.</span><span class='id identifier rubyid_identifier'>identifier</span><span class='lparen'>(</span><span class='id identifier rubyid_related'>related</span><span class='rparen'>)</span> <span class='op'>||</span>
@@ -368,20 +368,20 @@
       <pre class="lines">
 
 
-32
-33
-34
-35
-36
-37
 38
 39
 40
 41
-42</pre>
+42
+43
+44
+45
+46
+47
+48</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rdf/normalize/urgna2012.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'lib/rdf/normalize/urgna2012.rb', line 38</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_hash_related_statement'>hash_related_statement</span><span class='lparen'>(</span><span class='id identifier rubyid_identifier'>identifier</span><span class='comma'>,</span> <span class='id identifier rubyid_statement'>statement</span><span class='comma'>,</span> <span class='id identifier rubyid_issuer'>issuer</span><span class='comma'>,</span> <span class='id identifier rubyid_map'>map</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_statement'>statement</span><span class='period'>.</span><span class='id identifier rubyid_subject'>subject</span><span class='period'>.</span><span class='id identifier rubyid_node?'>node?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_statement'>statement</span><span class='period'>.</span><span class='id identifier rubyid_subject'>subject</span> <span class='op'>!=</span> <span class='id identifier rubyid_identifier'>identifier</span>
@@ -425,12 +425,12 @@
       <pre class="lines">
 
 
-13
-14
-15</pre>
+19
+20
+21</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rdf/normalize/urgna2012.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'lib/rdf/normalize/urgna2012.rb', line 19</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_hexdigest'>hexdigest</span><span class='lparen'>(</span><span class='id identifier rubyid_val'>val</span><span class='rparen'>)</span>
   <span class='const'>Digest</span><span class='op'>::</span><span class='const'>SHA1</span><span class='period'>.</span><span class='id identifier rubyid_hexdigest'>hexdigest</span><span class='lparen'>(</span><span class='id identifier rubyid_val'>val</span><span class='rparen'>)</span>
@@ -445,7 +445,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Jun 10 21:50:23 2023 by
+  Generated on Mon Jul 17 20:30:58 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.34 (ruby-3.1.4).
 </div>

@@ -158,11 +158,11 @@ end</code></pre>
 <p class="children">
   
     
-      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Normalize/Base.html" title="RDF::Normalize::Base (module)">Base</a></span>, <span class='object_link'><a href="Normalize/VERSION.html" title="RDF::Normalize::VERSION (module)">VERSION</a></span>
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Normalize/VERSION.html" title="RDF::Normalize::VERSION (module)">VERSION</a></span>
     
   
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Normalize/Carroll2001.html" title="RDF::Normalize::Carroll2001 (class)">Carroll2001</a></span>, <span class='object_link'><a href="Normalize/Format.html" title="RDF::Normalize::Format (class)">Format</a></span>, <span class='object_link'><a href="Normalize/RDFC10.html" title="RDF::Normalize::RDFC10 (class)">RDFC10</a></span>, <span class='object_link'><a href="Normalize/URGNA2012.html" title="RDF::Normalize::URGNA2012 (class)">URGNA2012</a></span>, <span class='object_link'><a href="Normalize/Writer.html" title="RDF::Normalize::Writer (class)">Writer</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Normalize/Base.html" title="RDF::Normalize::Base (class)">Base</a></span>, <span class='object_link'><a href="Normalize/Carroll2001.html" title="RDF::Normalize::Carroll2001 (class)">Carroll2001</a></span>, <span class='object_link'><a href="Normalize/Format.html" title="RDF::Normalize::Format (class)">Format</a></span>, <span class='object_link'><a href="Normalize/RDFC10.html" title="RDF::Normalize::RDFC10 (class)">RDFC10</a></span>, <span class='object_link'><a href="Normalize/URGNA2012.html" title="RDF::Normalize::URGNA2012 (class)">URGNA2012</a></span>, <span class='object_link'><a href="Normalize/Writer.html" title="RDF::Normalize::Writer (class)">Writer</a></span>
     
   
 </p>
@@ -330,7 +330,7 @@ end</code></pre>
       <div class="method_details first">
   <h3 class="signature first" id="new-class_method">
   
-    .<strong>new</strong>(enumerable, **options)  &#x21d2; <tt><span class='object_link'><a href="Normalize/Base.html" title="RDF::Normalize::Base (module)">RDF::Normalize::Base</a></span></tt> 
+    .<strong>new</strong>(enumerable, **options)  &#x21d2; <tt><span class='object_link'><a href="Normalize/Base.html" title="RDF::Normalize::Base (class)">RDF::Normalize::Base</a></span></tt> 
   
 
   
@@ -382,7 +382,7 @@ end</code></pre>
       
         <li>
           <span class="name">:algorithm</span>
-          <span class="type">(<tt><span class='object_link'><a href="Normalize/Base.html" title="RDF::Normalize::Base (module)">Base</a></span></tt>)</span>
+          <span class="type">(<tt><span class='object_link'><a href="Normalize/Base.html" title="RDF::Normalize::Base (class)">Base</a></span></tt>)</span>
           <span class="default">
             
               &mdash; default:
@@ -396,6 +396,28 @@ end</code></pre>
           
         </li>
       
+        <li>
+          <span class="name">:max_calls</span>
+          <span class="type">(<tt>Integer</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>Maximum number of calls allowed for recursive blank node labeling, as a multiple of the total number of blank nodes in the dataset.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:identifier_map</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+        </li>
+      
     </ul>
   
 
@@ -405,7 +427,7 @@ end</code></pre>
     <li>
       
       
-        <span class='type'>(<tt><span class='object_link'><a href="Normalize/Base.html" title="RDF::Normalize::Base (module)">RDF::Normalize::Base</a></span></tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="Normalize/Base.html" title="RDF::Normalize::Base (class)">RDF::Normalize::Base</a></span></tt>)</span>
       
       
       
@@ -437,15 +459,15 @@ end</code></pre>
       <pre class="lines">
 
 
-57
-58
-59
-60
 61
-62</pre>
+62
+63
+64
+65
+66</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rdf/normalize.rb', line 57</span>
+      <pre class="code"><span class="info file"># File 'lib/rdf/normalize.rb', line 61</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_enumerable'>enumerable</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_algorithm'>algorithm</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='symbol'>:algorithm</span><span class='comma'>,</span> <span class='symbol'>:rdfc10</span><span class='rparen'>)</span>
@@ -463,7 +485,7 @@ end</code></pre>
 </div>
 
       <div id="footer">
-  Generated on Sat Jun 10 21:50:22 2023 by
+  Generated on Mon Jul 17 20:30:57 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.34 (ruby-3.1.4).
 </div>
