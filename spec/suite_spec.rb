@@ -17,6 +17,8 @@ describe RDF::Normalize::Writer do
               input_map = RDF::Normalize::RDFC10.new(dataset).to_hash
               result_map = JSON.load(t.expected)
               expect(input_map).to produce(result_map, t)
+            elsif t.type == 'rdfc:RDFC10NegativeEvalTest'
+              expect {RDF::Normalize::RDFC10.new(dataset).to_hash}.to raise_error(RuntimeError)
             else
               result = dataset.dump(:normalize, logger: t.logger, **t.writer_options)
               expect(result).to produce(t.expected, t)
