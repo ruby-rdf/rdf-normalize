@@ -67,8 +67,10 @@ module RDF
     module_function :new
   end
 
-  # RDF::Canonicalize is a synonym for RDF::Normalize
-  Canonicalize = Normalize
+  module Canonicalize
+    # RDF::Canonicalize extends RDF::Normalize.
+    include Normalize
+  end
 
   # Change RDF::Enumerable#canonicalize
   module Enumerable

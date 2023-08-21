@@ -53,6 +53,8 @@ Full documentation available on [GitHub][Normalize doc]
   * {RDF::Normalize::Writer}
   * {RDF::Normalize::URGNA2012}
   * {RDF::Normalize::RDFC10}
+* {RDF::Canonicalize} – extends {RDF::Normalize}
+  * {RDF::Canonicalize::Format}
 
 ## Dependencies
 
