@@ -37,7 +37,7 @@ Full documentation available on [GitHub][Normalize doc]
     require 'rdf/normalize'
     require 'rdf/turtle'
     g = RDF::Graph.load("etc/doap.ttl")
-    puts g.dump(:normalize)
+    puts g.dump(:normalize) # Can also use :canonicalize
 
 ### Normalizing an abstract Graph/Dataset
     require 'rdf/normalize'
