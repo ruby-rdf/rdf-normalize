@@ -3,7 +3,7 @@ require 'digest'
 
 module RDF
   ##
-  # **`RDF::Normalize`** is an RDF Graph normalization plugin for RDF.rb.
+  # **`RDF::Normalize`** is an RDF Graph canonicalization plugin for RDF.rb.
   #
   # @example Requiring the `RDF::Normalize` module
   #   require 'rdf/normalize'
@@ -18,7 +18,7 @@ module RDF
   # @example Returning normalized N-Quads
   #
   #   g = RDF::Graph.load("etc/doap.ttl")
-  #   g.dump(:normalize)
+  #   g.dump(:normalize) # or :canonicalize
   #
   # @example Writing a repository as normalized N-Quads
   #
@@ -65,6 +65,23 @@ module RDF
       algorithm_class.new(enumerable, **options)
     end
     module_function :new
+  end
 
+  # Change RDF::Enumerable#canonicalize
+  module Enumerable
+    ##
+    # Returns the resulting Enumerable result from RDF::Normalize.
+    # This also canonicalizes URIs and Literals.
+    #
+    # @return [RDF::Enumerable]
+    remove_method :canonicalize if method_defined? :canonicalize
+    def canonicalize
+      # Ensure that statements are queryable, countable and enumerable
+      this = self
+      enum = Enumerator.new do |yielder|
+        this.send(:each_statement) {|y| yielder << y.canonicalize}
+      end
+      RDF::Normalize.new(enum)
+    end
   end
 end

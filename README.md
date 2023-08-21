@@ -39,6 +39,13 @@ Full documentation available on [GitHub][Normalize doc]
     g = RDF::Graph.load("etc/doap.ttl")
     puts g.dump(:normalize)
 
+### Normalizing an abstract Graph/Dataset
+    require 'rdf/normalize'
+    require 'rdf/turtle'
+    g = RDF::Graph.load("etc/doap.ttl")
+    g_canon = g.canonicalize # graph with URIs, literals, and blank nodes canonicalized.
+    puts g_canon.dump(:nquads) # Normalized, but not sorted
+
 ### Principle Classes
 * {RDF::Normalize}
   * {RDF::Normalize::Base}
