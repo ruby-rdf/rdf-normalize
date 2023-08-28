@@ -27,10 +27,10 @@ Gem::Specification.new do |gem|
 
   gem.required_ruby_version = '>= 3.0'
   gem.add_dependency             'rdf',             '~> 3.3'
-  gem.add_development_dependency 'rdf-spec',        '~> 3.2'
-  gem.add_development_dependency 'rspec',           '~> 3.10'
-  gem.add_development_dependency 'json-ld',         '~> 3.2'
-  gem.add_development_dependency 'rdf-trig',        '~> 3.2'
+  gem.add_development_dependency 'rdf-spec',        '~> 3.3'
+  gem.add_development_dependency 'rspec',           '~> 3.12'
+  gem.add_development_dependency 'json-ld',         '~> 3.3'
+  gem.add_development_dependency 'rdf-trig',        '~> 3.3'
   gem.add_development_dependency 'yard' ,           '~> 0.9'
   gem.post_install_message  = nil
 end
