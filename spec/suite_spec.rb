@@ -14,7 +14,7 @@ describe RDF::Normalize::Writer do
             t.logger = RDF::Spec.logger
             dataset = RDF::Repository.load(t.action, format: :nquads)
             if t.type == 'rdfc:RDFC10MapTest'
-              input_map = RDF::Normalize::RDFC10.new(dataset).to_hash
+              input_map = RDF::Normalize::RDFC10.new(dataset, **t.writer_options).to_hash
               result_map = JSON.load(t.expected)
               expect(input_map).to produce(result_map, t)
             elsif t.type == 'rdfc:RDFC10NegativeEvalTest'

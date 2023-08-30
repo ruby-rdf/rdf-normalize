@@ -123,6 +123,7 @@ module Fixtures
       def writer_options
         res = {}
         res[:algorithm] = type.sub('rdfc:', '').sub('EvalTest', '').downcase.to_sym
+        res[:hash_algorithm] = hashAlgorithm.to_sym if hashAlgorithm
         res
       end
     end
