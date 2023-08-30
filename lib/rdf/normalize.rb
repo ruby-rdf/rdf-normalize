@@ -65,6 +65,9 @@ module RDF
       algorithm_class.new(enumerable, **options)
     end
     module_function :new
+
+    class MaxCallsExceeded < RuntimeError; end
+    class UnknownHashAlgorithm < RuntimeError; end
   end
 
   module Canonicalize

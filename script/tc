@@ -44,6 +44,7 @@ def run_tc(tc, **options)
   begin
     puts "open #{tc.action}" if options[:verbose]
     options = {base_uri:  tc.base}.merge(options)
+    options[:hash_algorithm] = options.delete(:algorithm).to_sym if options[:algorithm]
 
     dataset = RDF::Repository.load(tc.action, format: :nquads)
     result = if tc.type == 'rdfc:RDFC10MapTest'
@@ -55,7 +56,7 @@ def run_tc(tc, **options)
       begin
         RDF::Normalize::RDFC10.new(dataset, **options).to_hash
         "failed" # Should raise exception
-      rescue RuntimeError
+      rescue ::RDF::Normalize::MaxCallsExceeded
         "passed"
       end
     else
