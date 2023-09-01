@@ -47,15 +47,15 @@ def run_tc(tc, **options)
 
     dataset = RDF::Repository.load(tc.action, format: :nquads)
     result = if tc.type == 'rdfc:RDFC10MapTest'
-      input_map = RDF::Normalize::RDFC10.new(dataset, **options).to_hash
+      input_map = RDF::Normalize::RDFC10.new(dataset, **tc.writer_options.merge(options)).to_hash
       result_map = JSON.load(tc.expected)
       output = input_map.to_json(JSON::LD::JSON_STATE)
       input_map == result_map ? "passed" : "failed"
     elsif tc.type == 'rdfc:RDFC10NegativeEvalTest'
       begin
-        RDF::Normalize::RDFC10.new(dataset, **options).to_hash
+        RDF::Normalize::RDFC10.new(dataset, **tc.writer_options.merge(options)).to_hash
         "failed" # Should raise exception
-      rescue RuntimeError
+      rescue ::RDF::Normalize::MaxCallsExceeded
         "passed"
       end
     else

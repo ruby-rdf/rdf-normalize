@@ -17,10 +17,16 @@ module RDF::Normalize
     # @option options [Integer] :max_calls (40)
     #   Maximum number of calls allowed for recursive blank node labeling,
     #   as a multiple of the total number of blank nodes in the dataset.
+    # @options options [:MD5, :SHA1, :SHA2, :SHA256, :SHA384, :SHA512] :hash_algorithm (:SHA256)
+    #   See [Digest Algorithms](https://github.com/ruby/digest#digest-algorithms)
     # @return [RDF::Enumerable]
     # raise [RuntimeError] if the maximum number of levels of recursion is exceeded.
     def initialize(enumerable, **options)
       @dataset, @options = enumerable, options
+      @options[:hash_algorithm] ||= :SHA256
+      unless %i{MD5 SHA1 SHA2 SHA256 SHA384 SHA512}.include?(@options[:hash_algorithm])
+        raise UnknownHashAlgorithm, "UnknownHashAlgorithm: #{@options[:hash_algorithm].inspect}. Use one of MD5, SHA1, SHA2, SHA256, SHA384, or SHA512"
+      end
     end
 
     # Yields each normalized statement
@@ -158,6 +164,7 @@ module RDF::Normalize
       include RDF::Util::Logger
 
       attr_accessor :bnode_to_statements
+      attr_accessor :hash_algorithm
       attr_accessor :hash_to_bnodes
       attr_accessor :canonical_issuer
       attr_accessor :max_calls
@@ -165,6 +172,7 @@ module RDF::Normalize
 
       def initialize(**options)
         @options = options
+        @hash_algorithm = Digest.const_get(options.fetch(:hash_algorithm, :SHA256))
         @bnode_to_statements, @hash_to_bnodes, @canonical_issuer = {}, {}, IdentifierIssuer.new("c14n")
         @max_calls, @total_calls = nil, 0
       end
@@ -233,7 +241,7 @@ module RDF::Normalize
       # @param [RDF::Node] node
       # @param [IdentifierIssuer] issuer
       # @return [Array<String,IdentifierIssuer>] the Hash and issuer
-      # @raise [RuntimeError] If total number of calls has exceeded `max_calls` times the number of blank nodes in the dataset.
+      # @raise [MaxCallsExceeded] If total number of calls has exceeded `max_calls` times the number of blank nodes in the dataset.
       def hash_n_degree_quads(node, issuer)
         log_debug("hndq:")
         log_debug("  log point", "Hash N-Degree Quads function (4.9.3).")
@@ -241,7 +249,7 @@ module RDF::Normalize
         log_debug("  issuer") {issuer.inspect}
 
         if max_calls && total_calls >= max_calls
-          raise "Exceeded maximum number of calls (#{total_calls}) allowed to hash_n_degree_quads"
+          raise MaxCallsExceeded, "Exceeded maximum number of calls (#{total_calls}) allowed to hash_n_degree_quads"
         end
         @total_calls += 1
 
@@ -367,7 +375,7 @@ module RDF::Normalize
       protected
 
       def hexdigest(val)
-        Digest::SHA256.hexdigest(val)
+        hash_algorithm.hexdigest(val)
       end
 
       # Group adjacent bnodes by hash

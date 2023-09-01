@@ -22,7 +22,7 @@ Algorithms implemented:
 Install with `gem install rdf-normalize`
 
 * 100% free and unencumbered [public domain](https://unlicense.org/) software.
-* Compatible with  Ruby >= 2.6.
+* Compatible with  Ruby >= 3.0.
 
 ## Usage
 
@@ -37,7 +37,14 @@ Full documentation available on [GitHub][Normalize doc]
     require 'rdf/normalize'
     require 'rdf/turtle'
     g = RDF::Graph.load("etc/doap.ttl")
-    puts g.dump(:normalize)
+    puts g.dump(:normalize) # Can also use :canonicalize
+
+### Normalizing an abstract Graph/Dataset
+    require 'rdf/normalize'
+    require 'rdf/turtle'
+    g = RDF::Graph.load("etc/doap.ttl")
+    g_canon = g.canonicalize # graph with URIs, literals, and blank nodes canonicalized.
+    puts g_canon.dump(:nquads) # Normalized, but not sorted
 
 ### Principle Classes
 * {RDF::Normalize}
@@ -46,11 +53,13 @@ Full documentation available on [GitHub][Normalize doc]
   * {RDF::Normalize::Writer}
   * {RDF::Normalize::URGNA2012}
   * {RDF::Normalize::RDFC10}
+* {RDF::Canonicalize} – extends {RDF::Normalize}
+  * {RDF::Canonicalize::Format}
 
 ## Dependencies
 
-* [Ruby](https://ruby-lang.org/) (>= 2.6)
-* [RDF.rb](https://rubygems.org/gems/rdf) (~> 3.2)
+* [Ruby](https://ruby-lang.org/) (>= 3.0)
+* [RDF.rb](https://rubygems.org/gems/rdf) (~> 3.3)
 
 ## Installation
 
