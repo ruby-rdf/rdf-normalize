@@ -91,7 +91,7 @@
   
   <dl>
       <dt>Includes:</dt>
-      <dd>Enumerable, Util::Logger</dd>
+      <dd><span class='object_link'><a href="../Enumerable.html" title="RDF::Enumerable (module)">Enumerable</a></span>, Util::Logger</dd>
   </dl>
   
   
@@ -247,13 +247,23 @@
   
   
   
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../Enumerable.html" title="RDF::Enumerable (module)">Enumerable</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Enumerable.html#canonicalize-instance_method" title="RDF::Enumerable#canonicalize (method)">#canonicalize</a></span></p>
+
+  
+  
+  
+  
+  
   <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
   
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
   
-    #<strong>initialize</strong>(enumerable, **options)  &#x21d2; <tt>RDF::Enumerable</tt> 
+    #<strong>initialize</strong>(enumerable, **options)  &#x21d2; <tt><span class='object_link'><a href="../Enumerable.html" title="RDF::Enumerable (module)">RDF::Enumerable</a></span></tt> 
   
 
   
@@ -278,7 +288,7 @@
         <span class='name'>enumerable</span>
       
       
-        <span class='type'>(<tt>RDF::Enumerable</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="../Enumerable.html" title="RDF::Enumerable (module)">RDF::Enumerable</a></span></tt>)</span>
       
       
       
@@ -336,15 +346,23 @@
       <pre class="lines">
 
 
-22
-23
-24</pre>
+24
+25
+26
+27
+28
+29
+30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rdf/normalize/rdfc10.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'lib/rdf/normalize/rdfc10.rb', line 24</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_enumerable'>enumerable</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='ivar'>@dataset</span><span class='comma'>,</span> <span class='ivar'>@options</span> <span class='op'>=</span> <span class='id identifier rubyid_enumerable'>enumerable</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+  <span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:hash_algorithm</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='symbol'>:SHA256</span>
+  <span class='kw'>unless</span> <span class='qsymbols_beg'>%i{</span><span class='tstring_content'>MD5</span><span class='words_sep'> </span><span class='tstring_content'>SHA1</span><span class='words_sep'> </span><span class='tstring_content'>SHA2</span><span class='words_sep'> </span><span class='tstring_content'>SHA256</span><span class='words_sep'> </span><span class='tstring_content'>SHA384</span><span class='words_sep'> </span><span class='tstring_content'>SHA512</span><span class='tstring_end'>}</span></span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:hash_algorithm</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="UnknownHashAlgorithm.html" title="RDF::Normalize::UnknownHashAlgorithm (class)">UnknownHashAlgorithm</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>UnknownHashAlgorithm: </span><span class='embexpr_beg'>#{</span><span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:hash_algorithm</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='embexpr_end'>}</span><span class='tstring_content'>. Use one of MD5, SHA1, SHA2, SHA256, SHA384, or SHA512</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -384,15 +402,15 @@
       <pre class="lines">
 
 
-27
-28
-29
-30
-31
-32</pre>
+33
+34
+35
+36
+37
+38</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rdf/normalize/rdfc10.rb', line 27</span>
+      <pre class="code"><span class="info file"># File 'lib/rdf/normalize/rdfc10.rb', line 33</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each'>each</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_ns'>ns</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="RDFC10/NormalizationState.html" title="RDF::Normalize::RDFC10::NormalizationState (class)">NormalizationState</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="RDFC10/NormalizationState.html#initialize-instance_method" title="RDF::Normalize::RDFC10::NormalizationState#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='op'>**</span><span class='ivar'>@options</span><span class='rparen'>)</span>
@@ -420,12 +438,6 @@
       <pre class="lines">
 
 
-47
-48
-49
-50
-51
-52
 53
 54
 55
@@ -526,10 +538,16 @@
 150
 151
 152
-153</pre>
+153
+154
+155
+156
+157
+158
+159</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rdf/normalize/rdfc10.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'lib/rdf/normalize/rdfc10.rb', line 53</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_normalize_statements'>normalize_statements</span><span class='lparen'>(</span><span class='id identifier rubyid_ns'>ns</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='comment'># Step 2: Map BNodes to the statements they are used by
@@ -682,16 +700,16 @@
       <pre class="lines">
 
 
-37
-38
-39
-40
-41
-42
-43</pre>
+43
+44
+45
+46
+47
+48
+49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rdf/normalize/rdfc10.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'lib/rdf/normalize/rdfc10.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_hash'>to_hash</span>
   <span class='id identifier rubyid_ns'>ns</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="RDFC10/NormalizationState.html" title="RDF::Normalize::RDFC10::NormalizationState (class)">NormalizationState</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="RDFC10/NormalizationState.html#initialize-instance_method" title="RDF::Normalize::RDFC10::NormalizationState#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='op'>**</span><span class='ivar'>@options</span><span class='rparen'>)</span>
@@ -710,7 +728,7 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Jul 17 20:30:57 2023 by
+  Generated on Fri Sep  1 20:26:36 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.34 (ruby-3.1.4).
 </div>

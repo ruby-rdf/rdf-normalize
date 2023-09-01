@@ -312,12 +312,12 @@
       <pre class="lines">
 
 
-388
-389
-390</pre>
+396
+397
+398</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rdf/normalize/rdfc10.rb', line 388</span>
+      <pre class="code"><span class="info file"># File 'lib/rdf/normalize/rdfc10.rb', line 396</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_prefix'>prefix</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>c14n</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='ivar'>@prefix</span><span class='comma'>,</span> <span class='ivar'>@counter</span><span class='comma'>,</span> <span class='ivar'>@issued</span> <span class='op'>=</span> <span class='id identifier rubyid_prefix'>prefix</span><span class='comma'>,</span> <span class='int'>0</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -373,14 +373,14 @@
       <pre class="lines">
 
 
-418
-419
-420
-421
-422</pre>
+426
+427
+428
+429
+430</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rdf/normalize/rdfc10.rb', line 418</span>
+      <pre class="code"><span class="info file"># File 'lib/rdf/normalize/rdfc10.rb', line 426</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_dup'>dup</span>
   <span class='id identifier rubyid_other'>other</span> <span class='op'>=</span> <span class='kw'>super</span>
@@ -436,12 +436,12 @@
       <pre class="lines">
 
 
-407
-408
-409</pre>
+415
+416
+417</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rdf/normalize/rdfc10.rb', line 407</span>
+      <pre class="code"><span class="info file"># File 'lib/rdf/normalize/rdfc10.rb', line 415</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_identifier'>identifier</span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='rparen'>)</span>
   <span class='ivar'>@issued</span><span class='lbracket'>[</span><span class='id identifier rubyid_node'>node</span><span class='rbracket'>]</span>
@@ -466,12 +466,12 @@
       <pre class="lines">
 
 
-424
-425
-426</pre>
+432
+433
+434</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rdf/normalize/rdfc10.rb', line 424</span>
+      <pre class="code"><span class="info file"># File 'lib/rdf/normalize/rdfc10.rb', line 432</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_inspect'>inspect</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>{</span><span class='embexpr_beg'>#{</span><span class='ivar'>@issued</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_k'>k</span><span class='comma'>,</span><span class='id identifier rubyid_v'>v</span><span class='op'>|</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_k'>k</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_content'>: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_v'>v</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>, </span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>}</span><span class='tstring_end'>&quot;</span></span>
@@ -540,15 +540,15 @@
       <pre class="lines">
 
 
-395
-396
-397
-398
-399
-400</pre>
+403
+404
+405
+406
+407
+408</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rdf/normalize/rdfc10.rb', line 395</span>
+      <pre class="code"><span class="info file"># File 'lib/rdf/normalize/rdfc10.rb', line 403</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_issue_identifier'>issue_identifier</span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='rparen'>)</span>
   <span class='ivar'>@issued</span><span class='lbracket'>[</span><span class='id identifier rubyid_node'>node</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='kw'>begin</span>
@@ -576,12 +576,12 @@
       <pre class="lines">
 
 
-402
-403
-404</pre>
+410
+411
+412</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rdf/normalize/rdfc10.rb', line 402</span>
+      <pre class="code"><span class="info file"># File 'lib/rdf/normalize/rdfc10.rb', line 410</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_issued'>issued</span>
   <span class='ivar'>@issued</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span>
@@ -635,12 +635,12 @@
       <pre class="lines">
 
 
-412
-413
-414</pre>
+420
+421
+422</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rdf/normalize/rdfc10.rb', line 412</span>
+      <pre class="code"><span class="info file"># File 'lib/rdf/normalize/rdfc10.rb', line 420</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_hash'>to_hash</span>
   <span class='ivar'>@issued</span><span class='period'>.</span><span class='id identifier rubyid_inject'>inject</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_memo'>memo</span><span class='comma'>,</span> <span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='comma'>,</span> <span class='id identifier rubyid_canon'>canon</span><span class='rparen'>)</span><span class='op'>|</span> <span class='id identifier rubyid_memo'>memo</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_canon'>canon</span><span class='rparen'>)</span><span class='rbrace'>}</span>
@@ -655,7 +655,7 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Jul 17 20:30:58 2023 by
+  Generated on Fri Sep  1 20:26:36 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.34 (ruby-3.1.4).
 </div>

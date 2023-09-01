@@ -83,7 +83,7 @@
 <ul><li>
 <p>100% free and unencumbered <a href="https://unlicense.org/">public domain</a> software.</p>
 </li><li>
-<p>Compatible with Ruby &gt;= 2.6.</p>
+<p>Compatible with Ruby &gt;= 3.0.</p>
 </li></ul>
 
 <h2 id="label-Usage">Usage</h2>
@@ -99,8 +99,17 @@
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>rdf/normalize</span><span class='tstring_end'>&#39;</span></span>
 <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>rdf/turtle</span><span class='tstring_end'>&#39;</span></span>
 <span class='id identifier rubyid_g'>g</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="RDF.html" title="RDF (module)">RDF</a></span></span><span class='op'>::</span><span class='const'>Graph</span><span class='period'>.</span><span class='id identifier rubyid_load'>load</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>etc/doap.ttl</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-<span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_g'>g</span><span class='period'>.</span><span class='id identifier rubyid_dump'>dump</span><span class='lparen'>(</span><span class='symbol'>:normalize</span><span class='rparen'>)</span>
-</code></pre>
+<span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_g'>g</span><span class='period'>.</span><span class='id identifier rubyid_dump'>dump</span><span class='lparen'>(</span><span class='symbol'>:normalize</span><span class='rparen'>)</span> <span class='comment'># Can also use :canonicalize
+</span></code></pre>
+
+<h3 id="label-Normalizing+an+abstract+Graph-2FDataset">Normalizing an abstract Graph/Dataset</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>rdf/normalize</span><span class='tstring_end'>&#39;</span></span>
+<span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>rdf/turtle</span><span class='tstring_end'>&#39;</span></span>
+<span class='id identifier rubyid_g'>g</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="RDF.html" title="RDF (module)">RDF</a></span></span><span class='op'>::</span><span class='const'>Graph</span><span class='period'>.</span><span class='id identifier rubyid_load'>load</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>etc/doap.ttl</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_g_canon'>g_canon</span> <span class='op'>=</span> <span class='id identifier rubyid_g'>g</span><span class='period'>.</span><span class='id identifier rubyid_canonicalize'>canonicalize</span> <span class='comment'># graph with URIs, literals, and blank nodes canonicalized.
+</span><span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_g_canon'>g_canon</span><span class='period'>.</span><span class='id identifier rubyid_dump'>dump</span><span class='lparen'>(</span><span class='symbol'>:nquads</span><span class='rparen'>)</span> <span class='comment'># Normalized, but not sorted
+</span></code></pre>
 
 <h3 id="label-Principle+Classes">Principle Classes</h3>
 <ul><li>
@@ -115,13 +124,17 @@
 <p><span class='object_link'><a href="RDF/Normalize/URGNA2012.html" title="RDF::Normalize::URGNA2012 (class)">RDF::Normalize::URGNA2012</a></span></p>
 </li><li>
 <p><span class='object_link'><a href="RDF/Normalize/RDFC10.html" title="RDF::Normalize::RDFC10 (class)">RDF::Normalize::RDFC10</a></span></p>
+</li><li>
+<p><span class='object_link'><a href="RDF/Canonicalize.html" title="RDF::Canonicalize (module)">RDF::Canonicalize</a></span> – extends <span class='object_link'><a href="RDF/Normalize.html" title="RDF::Normalize (module)">RDF::Normalize</a></span></p>
+</li><li>
+<p><span class='object_link'><a href="RDF/Canonicalize/Format.html" title="RDF::Canonicalize::Format (class)">RDF::Canonicalize::Format</a></span></p>
 </li></ul>
 
 <h2 id="label-Dependencies">Dependencies</h2>
 <ul><li>
-<p><a href="https://ruby-lang.org/">Ruby</a> (&gt;= 2.6)</p>
+<p><a href="https://ruby-lang.org/">Ruby</a> (&gt;= 3.0)</p>
 </li><li>
-<p><a href="https://rubygems.org/gems/rdf">RDF.rb</a> (~&gt; 3.2)</p>
+<p><a href="https://rubygems.org/gems/rdf">RDF.rb</a> (~&gt; 3.3)</p>
 </li></ul>
 
 <h2 id="label-Installation">Installation</h2>
@@ -162,7 +175,7 @@
 </div></div>
 
       <div id="footer">
-  Generated on Mon Jul 17 20:30:57 2023 by
+  Generated on Fri Sep  1 20:26:35 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.34 (ruby-3.1.4).
 </div>
