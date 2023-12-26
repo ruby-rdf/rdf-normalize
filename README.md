@@ -68,6 +68,10 @@ To install the latest official release of the `RDF::Normalize` gem, do:
 
     % [sudo] gem install rdf-normalize
 
+## Change Log
+
+See [Release Notes on GitHub](https://github.com/ruby-rdf/rdf-normalize/releases)
+
 ## Mailing List
 * <https://lists.w3.org/Archives/Public/public-rdf-ruby/>
 
